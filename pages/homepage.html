@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Greenhouse Fitness - Tu Tienda de Fitness Natural</title>
+    <link rel="stylesheet" href="../css/styles.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="main-header">
+      <div class="container header-content">
+        <div class="logo">
+          <h1><a href="/pages/homepage.html">🌿 Greenhouse Fitness</a></h1>
+          <p class="tagline">Fitness Natural & Bienestar</p>
+        </div>
+
+        <nav class="main-nav">
+          <ul>
+            <li>
+              <a href="/pages/homepage.html" class="nav-link active">Inicio</a>
+            </li>
+            <li><a href="#productos" class="nav-link">Productos</a></li>
+            <li><a href="#suplementos" class="nav-link">Suplementos</a></li>
+            <li><a href="#equipos" class="nav-link">Equipos</a></li>
+            <li><a href="#about" class="nav-link">Nosotros</a></li>
+          </ul>
+        </nav>
+
+        <div class="header-actions">
+          <div class="auth-buttons">
+            <!-- Se llenará dinámicamente -->
+          </div>
+          <button class="cart-btn" onclick="goToCart()">
+            🛒 Carrito
+            <span class="cart-count">0</span>
+          </button>
+        </div>
+
+        <button class="menu-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Hero Section -->
+      <section class="hero">
+        <div class="container">
+          <div class="hero-content">
+            <h2>Transforma Tu Vida con Productos Naturales</h2>
+            <p>
+              Descubre nuestra selección premium de equipos fitness y
+              suplementos 100% naturales para alcanzar tus objetivos de
+              bienestar.
+            </p>
+
+            <div class="hero-features">
+              <div class="feature-item">
+                <span class="feature-icon">✓</span>
+                <span>Productos Orgánicos</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">✓</span>
+                <span>Envío Gratis</span>
+              </div>
+              <div class="feature-item">
+                <span class="feature-icon">✓</span>
+                <span>Garantía 30 días</span>
+              </div>
+            </div>
+
+            <div class="hero-actions">
+              <a href="#productos" class="btn btn-primary">Ver Productos</a>
+              <a href="#suplementos" class="btn btn-secondary"
+                >Suplementos Naturales</a
+              >
+            </div>
+          </div>
+
+          <div class="hero-image">
+            <div class="placeholder-image hero-img">💪</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Categorías -->
+      <section class="categories-section">
+        <div class="container">
+          <div class="section-header">
+            <h2>Categorías</h2>
+            <p>Explora nuestras categorías de productos</p>
+          </div>
+          <div id="categories-grid" class="categories-grid">
+            <!-- Se llenará dinámicamente -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Productos Destacados -->
+      <section id="productos" class="featured-products">
+        <div class="container">
+          <div class="section-header">
+            <h2>Productos Destacados</h2>
+            <p>Los favoritos de nuestra comunidad fitness</p>
+          </div>
+
+          <div class="filters">
+            <button class="filter-btn active" data-filter="all">Todos</button>
+            <button class="filter-btn" data-filter="destacado">
+              Destacados
+            </button>
+            <button class="filter-btn" data-filter="nuevo">Nuevos</button>
+            <button class="filter-btn" data-filter="oferta">En Oferta</button>
+          </div>
+
+          <div id="products-grid" class="products-grid">
+            <!-- Se llenará dinámicamente -->
+          </div>
+
+          <div class="loading" id="loading-products" style="display: none">
+            <div class="spinner"></div>
+            <p>Cargando productos...</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Suplementos -->
+      <section id="suplementos" class="supplements">
+        <div class="container">
+          <div class="section-header">
+            <h2>Suplementos Naturales</h2>
+            <p>
+              Potencia tu rendimiento con nuestros suplementos 100% orgánicos
+            </p>
+          </div>
+
+          <div id="supplements-grid" class="supplements-grid">
+            <!-- Se llenará dinámicamente -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Equipos por Categoría -->
+      <section id="equipos" class="equipment">
+        <div class="container">
+          <div class="section-header">
+            <h2>Equipos de Entrenamiento</h2>
+            <p>Todo lo que necesitas para tu gimnasio en casa</p>
+          </div>
+
+          <div class="category-tabs">
+            <button class="tab-btn active" data-category="1">
+              🏋️ Gimnasio
+            </button>
+            <button class="tab-btn" data-category="2">🧘 Pilates</button>
+            <button class="tab-btn" data-category="3">🏃 Cardio</button>
+            <button class="tab-btn" data-category="5">🎯 Accesorios</button>
+          </div>
+
+          <div id="equipment-grid" class="equipment-grid">
+            <!-- Se llenará dinámicamente -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Newsletter -->
+      <section class="newsletter">
+        <div class="container">
+          <h2>Únete a Nuestra Comunidad</h2>
+          <p>
+            Recibe ofertas exclusivas y tips de fitness directamente en tu
+            correo
+          </p>
+          <form class="newsletter-form" id="newsletterForm">
+            <input type="email" placeholder="Tu email" required />
+            <button type="submit" class="btn btn-primary">Suscribirse</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>🌿 Greenhouse Fitness</h3>
+            <p>
+              Tu destino para fitness natural y bienestar. Productos orgánicos
+              certificados para tu mejor versión.
+            </p>
+            <div class="social-links">
+              <a href="#" title="Facebook">📘</a>
+              <a href="#" title="Instagram">📷</a>
+              <a href="#" title="Twitter">🐦</a>
+              <a href="#" title="YouTube">📺</a>
+            </div>
+          </div>
+
+          <div class="footer-section">
+            <h4>Comprar</h4>
+            <ul>
+              <li><a href="#productos">Productos</a></li>
+              <li><a href="#suplementos">Suplementos</a></li>
+              <li><a href="#equipos">Equipos</a></li>
+              <li><a href="#">Ofertas</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h4>Ayuda</h4>
+            <ul>
+              <li><a href="#">Preguntas Frecuentes</a></li>
+              <li><a href="#">Envíos</a></li>
+              <li><a href="#">Devoluciones</a></li>
+              <li><a href="#">Contacto</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h4>Legal</h4>
+            <ul>
+              <li><a href="#">Términos y Condiciones</a></li>
+              <li><a href="#">Política de Privacidad</a></li>
+              <li><a href="#">Política de Cookies</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2025 Greenhouse Fitness. Todos los derechos reservados.</p>
+          <p>Hecho con 💚 para una vida más saludable</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/api.js"></script>
+    <script src="../js/homepage.js"></script>
+  </body>
+</html>

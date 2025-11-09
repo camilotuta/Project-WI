@@ -1,589 +1,68 @@
 <!DOCTYPE html>
-<html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Greenhouse - Tienda online de productos de gimnasio, pilates y suplementos naturales. Encuentra todo lo que necesitas para tu bienestar físico y mental.">
-    <meta name="keywords"
-        content="gimnasio, pilates, suplementos naturales, cortisol, fitness, wellness, accesorios deportivos, nutrición deportiva">
-    <meta name="author" content="Greenhouse Store">
-    <title>Greenhouse - Tu Tienda de Fitness y Bienestar Natural</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-    <script src="js/script.js" defer></script>
-</head>
-
-<body>
-    <!-- Cabecera principal -->
-    <header class="main-header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <h1><a href="#inicio">🌿 Greenhouse</a></h1>
-                    <p class="tagline">Fitness & Bienestar Natural</p>
-                </div>
-
-                <!-- Botón menú móvil -->
-                <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú de navegación">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-
-                <!-- Navegación principal -->
-                <nav class="main-nav" id="mainNav" role="navigation" aria-label="Navegación principal">
-                    <ul>
-                        <li><a href="#inicio" class="nav-link active">Inicio</a></li>
-                        <li><a href="#productos" class="nav-link">Productos</a></li>
-                        <li><a href="/html/mostrar_tabla.html" class="nav-link">Usuarios</a></li>
-                        <li><a href="#suplementos" class="nav-link">Suplementos</a></li>
-                        <li><a href="#equipos" class="nav-link">Equipos</a></li>
-                        <li><a href="#nosotros" class="nav-link">Nosotros</a></li>
-                    </ul>
-                </nav>
-
-                <!-- Carrito de compras -->
-                <div class="header-actions">
-                    <button class="cart-btn" aria-label="Carrito de compras">
-                        🛒 <span class="cart-count">0</span>
-                    </button>
-                </div>
-            </div>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Greenhouse Fitness</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <script>
+      // Redirect to homepage after a brief moment
+      window.onload = function () {
+        setTimeout(function () {
+          window.location.href = "pages/homepage.html";
+        }, 100);
+      };
+    </script>
+    <script
+      type="module"
+      async
+      src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fgreenhouse3056back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.9"
+    ></script>
+    <script
+      type="module"
+      defer
+      src="https://static.rocket.new/rocket-shot.js?v=0.0.1"
+    ></script>
+  </head>
+  <body>
+    <div
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        font-family: Arial, sans-serif;
+      "
+    >
+      <div style="text-align: center">
+        <h1>Welcome to Greenhouse Fitness</h1>
+        <p>Redirecting to homepage...</p>
+        <div style="margin-top: 20px">
+          <div
+            style="
+              border: 4px solid #f3f3f3;
+              border-top: 4px solid #3498db;
+              border-radius: 50%;
+              width: 40px;
+              height: 40px;
+              animation: spin 2s linear infinite;
+              margin: 0 auto;
+            "
+          ></div>
         </div>
-    </header>
+      </div>
+    </div>
 
-    <!-- Contenido principal -->
-    <main class="main-content">
-        <!-- Sección Hero -->
-        <section id="inicio" class="hero">
-            <div class="container">
-                <div class="hero-content">
-                    <h2>Transforma Tu Cuerpo de Forma Natural</h2>
-                    <p>Descubre nuestra selección premium de equipos de gimnasio, accesorios de pilates y suplementos
-                        naturales diseñados para potenciar tu rendimiento y bienestar.</p>
-                    <div class="hero-features">
-                        <div class="feature-item">
-                            <span class="feature-icon">🌱</span>
-                            <span>100% Natural</span>
-                        </div>
-                        <div class="feature-item">
-                            <span class="feature-icon">🚚</span>
-                            <span>Envío Gratis</span>
-                        </div>
-                        <div class="feature-item">
-                            <span class="feature-icon">✅</span>
-                            <span>Calidad Premium</span>
-                        </div>
-                    </div>
-                    <div class="hero-actions">
-                        <a href="#productos" class="btn btn-primary">Explorar Productos</a>
-                        <a href="#suplementos" class="btn btn-secondary">Ver Suplementos</a>
-                    </div>
-                </div>
-                <div class="hero-image">
-                    <div class="placeholder-image hero-img">
-                        <span>💪</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Sección Productos Destacados -->
-        <section id="productos" class="featured-products">
-            <div class="container">
-                <header class="section-header">
-                    <h2>Productos Destacados</h2>
-                    <p>Los favoritos de nuestros clientes para alcanzar sus objetivos fitness</p>
-                </header>
-
-                <div class="products-grid">
-                    <article class="product-card">
-                        <div class="product-image">
-                            <div class="placeholder-image">🏋️</div>
-                            <div class="product-badge">Bestseller</div>
-                        </div>
-                        <div class="product-content">
-                            <h3>Set de Mancuernas Ajustables</h3>
-                            <p>Kit completo de mancuernas con pesos intercambiables de 5kg a 25kg. Perfecto para
-                                entrenamientos en casa.</p>
-                            <div class="product-price">
-                                <span class="current-price">$299.99</span>
-                                <span class="original-price">$349.99</span>
-                            </div>
-                            <button class="btn btn-primary add-to-cart">Agregar al Carrito</button>
-                        </div>
-                    </article>
-
-                    <article class="product-card">
-                        <div class="product-image">
-                            <div class="placeholder-image">🧘</div>
-                            <div class="product-badge">Nuevo</div>
-                        </div>
-                        <div class="product-content">
-                            <h3>Mat de Pilates Premium</h3>
-                            <p>Colchoneta antideslizante de 6mm de grosor, fabricada con materiales eco-friendly para
-                                máximo confort.</p>
-                            <div class="product-price">
-                                <span class="current-price">$89.99</span>
-                            </div>
-                            <button class="btn btn-primary add-to-cart">Agregar al Carrito</button>
-                        </div>
-                    </article>
-
-                    <article class="product-card">
-                        <div class="product-image">
-                            <div class="placeholder-image">🏃</div>
-                        </div>
-                        <div class="product-content">
-                            <h3>Banda Elástica Set Pro</h3>
-                            <p>Kit de 5 bandas de resistencia con diferentes niveles de tensión. Incluye anclajes y
-                                manual de ejercicios.</p>
-                            <div class="product-price">
-                                <span class="current-price">$45.99</span>
-                                <span class="original-price">$59.99</span>
-                            </div>
-                            <button class="btn btn-primary add-to-cart">Agregar al Carrito</button>
-                        </div>
-                    </article>
-
-                    <article class="product-card">
-                        <div class="product-image">
-                            <div class="placeholder-image">⚖️</div>
-                            <div class="product-badge">Oferta</div>
-                        </div>
-                        <div class="product-content">
-                            <h3>Balanza Inteligente Fitness</h3>
-                            <p>Báscula digital con análisis corporal completo: peso, grasa, músculo, agua. Conectividad
-                                Bluetooth.</p>
-                            <div class="product-price">
-                                <span class="current-price">$129.99</span>
-                                <span class="original-price">$179.99</span>
-                            </div>
-                            <button class="btn btn-primary add-to-cart">Agregar al Carrito</button>
-                        </div>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <!-- Sección Suplementos -->
-        <section id="suplementos" class="supplements">
-            <div class="container">
-                <header class="section-header">
-                    <h2>Suplementos Naturales</h2>
-                    <p>Fórmulas científicamente respaldadas para optimizar tu rendimiento y recuperación</p>
-                </header>
-
-                <div class="supplements-showcase">
-                    <article class="supplement-feature">
-                        <div class="supplement-image">
-                            <div class="placeholder-image">🌿</div>
-                        </div>
-                        <div class="supplement-content">
-                            <div class="supplement-category">Manejo del Estrés</div>
-                            <h3>Reductor de Cortisol Natural</h3>
-                            <p>Complejo natural con ashwagandha, rhodiola y magnesio para reducir los niveles de
-                                cortisol y mejorar la recuperación muscular después del entrenamiento.</p>
-                            <ul class="supplement-benefits">
-                                <li>✓ Reduce el estrés y la ansiedad</li>
-                                <li>✓ Mejora la calidad del sueño</li>
-                                <li>✓ Acelera la recuperación muscular</li>
-                                <li>✓ 100% ingredientes naturales</li>
-                            </ul>
-                            <div class="supplement-price">
-                                <span class="current-price">$49.99</span>
-                                <span class="price-unit">/mes</span>
-                            </div>
-                            <button class="btn btn-primary add-to-cart">Agregar al Carrito</button>
-                        </div>
-                    </article>
-
-                    <div class="supplements-grid">
-                        <article class="supplement-card">
-                            <div class="supplement-image-small">
-                                <div class="placeholder-image">💊</div>
-                            </div>
-                            <div class="supplement-info">
-                                <h4>Proteína Vegetal Orgánica</h4>
-                                <p>Blend de proteínas de guisante, hemp y arroz integral</p>
-                                <div class="price">$39.99</div>
-                                <button class="btn btn-outline add-to-cart">Agregar</button>
-                            </div>
-                        </article>
-
-                        <article class="supplement-card">
-                            <div class="supplement-image-small">
-                                <div class="placeholder-image">🍃</div>
-                            </div>
-                            <div class="supplement-info">
-                                <h4>BCAA + Electrolitos</h4>
-                                <p>Aminoácidos esenciales con sales minerales naturales</p>
-                                <div class="price">$29.99</div>
-                                <button class="btn btn-outline add-to-cart">Agregar</button>
-                            </div>
-                        </article>
-
-                        <article class="supplement-card">
-                            <div class="supplement-image-small">
-                                <div class="placeholder-image">🌱</div>
-                            </div>
-                            <div class="supplement-info">
-                                <h4>Pre-Workout Natural</h4>
-                                <p>Energía sostenida con cafeína de té verde y ginseng</p>
-                                <div class="price">$34.99</div>
-                                <button class="btn btn-outline add-to-cart">Agregar</button>
-                            </div>
-                        </article>
-
-                        <article class="supplement-card">
-                            <div class="supplement-image-small">
-                                <div class="placeholder-image">💤</div>
-                            </div>
-                            <div class="supplement-info">
-                                <h4>Recuperación Nocturna</h4>
-                                <p>Melatonina, magnesio y valeriana para mejor descanso</p>
-                                <div class="price">$24.99</div>
-                                <button class="btn btn-outline add-to-cart">Agregar</button>
-                            </div>
-                        </article>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Sección Equipos -->
-        <section id="equipos" class="equipment">
-            <div class="container">
-                <header class="section-header">
-                    <h2>Equipos de Gimnasio y Pilates</h2>
-                    <p>Todo lo que necesitas para crear tu gimnasio en casa</p>
-                </header>
-
-                <div class="equipment-categories">
-                    <div class="category-tabs">
-                        <button class="tab-btn active" data-category="gym">Gimnasio</button>
-                        <button class="tab-btn" data-category="pilates">Pilates</button>
-                        <button class="tab-btn" data-category="cardio">Cardio</button>
-                        <button class="tab-btn" data-category="accessories">Accesorios</button>
-                    </div>
-
-                    <div class="category-content">
-                        <div class="equipment-grid active" data-category="gym">
-                            <article class="equipment-card">
-                                <div class="equipment-image">
-                                    <div class="placeholder-image">🏋️‍♀️</div>
-                                </div>
-                                <h4>Rack Multiestación</h4>
-                                <p>Estación completa para entrenamientos de fuerza</p>
-                                <div class="price">$899.99</div>
-                            </article>
-
-                            <article class="equipment-card">
-                                <div class="equipment-image">
-                                    <div class="placeholder-image">🔩</div>
-                                </div>
-                                <h4>Banco Ajustable Pro</h4>
-                                <p>Banco multifuncional con 7 posiciones</p>
-                                <div class="price">$299.99</div>
-                            </article>
-
-                            <article class="equipment-card">
-                                <div class="equipment-image">
-                                    <div class="placeholder-image">⚡</div>
-                                </div>
-                                <h4>Set de Kettlebells</h4>
-                                <p>Kit de 3 kettlebells: 8kg, 12kg, 16kg</p>
-                                <div class="price">$189.99</div>
-                            </article>
-                        </div>
-
-                        <div class="equipment-grid" data-category="pilates">
-                            <article class="equipment-card">
-                                <div class="equipment-image">
-                                    <div class="placeholder-image">🤸‍♀️</div>
-                                </div>
-                                <h4>Reformer Pilates</h4>
-                                <p>Máquina profesional para pilates completo</p>
-                                <div class="price">$1,299.99</div>
-                            </article>
-
-                            <article class="equipment-card">
-                                <div class="equipment-image">
-                                    <div class="placeholder-image">⭕</div>
-                                </div>
-                                <h4>Aro de Pilates</h4>
-                                <p>Anillo de resistencia para tonificación</p>
-                                <div class="price">$39.99</div>
-                            </article>
-
-                            <article class="equipment-card">
-                                <div class="equipment-image">
-                                    <div class="placeholder-image">🏐</div>
-                                </div>
-                                <h4>Pelota Suiza</h4>
-                                <p>Balón de ejercicio antideslizante 65cm</p>
-                                <div class="price">$29.99</div>
-                            </article>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Sección Nosotros -->
-        <section id="nosotros" class="about">
-            <div class="container">
-                <div class="about-content">
-                    <div class="about-text">
-                        <header>
-                            <h2>Sobre Greenhouse</h2>
-                            <p class="lead">Cultivando bienestar desde 2019</p>
-                        </header>
-
-                        <p>En Greenhouse creemos que el bienestar físico y mental van de la mano. Por eso, seleccionamos
-                            cuidadosamente cada producto para ofrecerte solo lo mejor en equipos de fitness y
-                            suplementos naturales.</p>
-
-                        <p>Nuestro compromiso es con tu salud integral, proporcionando productos que no solo mejoren tu
-                            rendimiento físico, sino que también respeten tu cuerpo y el medio ambiente.</p>
-
-                        <div class="about-values">
-                            <div class="value-item">
-                                <span class="value-icon">🌱</span>
-                                <div>
-                                    <h4>100% Natural</h4>
-                                    <p>Solo ingredientes naturales y orgánicos</p>
-                                </div>
-                            </div>
-                            <div class="value-item">
-                                <span class="value-icon">🔬</span>
-                                <div>
-                                    <h4>Científicamente Probado</h4>
-                                    <p>Fórmulas respaldadas por investigación</p>
-                                </div>
-                            </div>
-                            <div class="value-item">
-                                <span class="value-icon">♻️</span>
-                                <div>
-                                    <h4>Eco-Friendly</h4>
-                                    <p>Empaques biodegradables y sostenibles</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="stats">
-                            <div class="stat">
-                                <span class="stat-number">10000</span>
-                                <span class="stat-label">Clientes satisfechos</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-number">500</span>
-                                <span class="stat-label">Productos disponibles</span>
-                            </div>
-                            <div class="stat">
-                                <span class="stat-number">5</span>
-                                <span class="stat-label">Años de experiencia</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="about-image">
-                        <div class="placeholder-image">🏪</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Sección Blog -->
-        <section id="blog" class="blog">
-            <div class="container">
-                <header class="section-header">
-                    <h2>Blog de Bienestar</h2>
-                    <p>Consejos, rutinas y novedades para tu vida fitness</p>
-                </header>
-
-                <div class="blog-grid">
-                    <article class="blog-post">
-                        <div class="post-image">
-                            <div class="placeholder-image">🧘‍♀️</div>
-                        </div>
-                        <div class="post-content">
-                            <div class="post-category">Nutrición</div>
-                            <time datetime="2025-01-20" class="post-date">20 Enero 2025</time>
-                            <h3><a href="#">Cómo Reducir el Cortisol Naturalmente</a></h3>
-                            <p>Descubre las mejores estrategias naturales para controlar el estrés y optimizar tu
-                                recuperación muscular.</p>
-                            <a href="#" class="read-more">Leer artículo completo</a>
-                        </div>
-                    </article>
-
-                    <article class="blog-post">
-                        <div class="post-image">
-                            <div class="placeholder-image">💪</div>
-                        </div>
-                        <div class="post-content">
-                            <div class="post-category">Entrenamiento</div>
-                            <time datetime="2025-01-18" class="post-date">18 Enero 2025</time>
-                            <h3><a href="#">Rutina de Pilates para Principiantes</a></h3>
-                            <p>Guía completa para empezar tu práctica de pilates desde casa con ejercicios básicos y
-                                efectivos.</p>
-                            <a href="#" class="read-more">Leer artículo completo</a>
-                        </div>
-                    </article>
-
-                    <article class="blog-post">
-                        <div class="post-image">
-                            <div class="placeholder-image">🥗</div>
-                        </div>
-                        <div class="post-content">
-                            <div class="post-category">Suplementación</div>
-                            <time datetime="2025-01-15" class="post-date">15 Enero 2025</time>
-                            <h3><a href="#">Proteínas Vegetales vs Animales</a></h3>
-                            <p>Comparativa completa entre fuentes de proteína para ayudarte a elegir la mejor opción
-                                para tus objetivos.</p>
-                            <a href="#" class="read-more">Leer artículo completo</a>
-                        </div>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <!-- Sección Contacto -->
-        <section id="contacto" class="contact">
-            <div class="container">
-                <header class="section-header">
-                    <h2>Contacta con Nosotros</h2>
-                    <p>¿Necesitas ayuda eligiendo el producto perfecto? Estamos aquí para ayudarte</p>
-                </header>
-
-                <div class="contact-content">
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <h3>🏬 Tienda Física</h3>
-                            <p>Av. Fitness 456<br>Centro Comercial Wellness<br>Local 12-15</p>
-                        </div>
-
-                        <div class="contact-item">
-                            <h3>📞 Atención al Cliente</h3>
-                            <p><a href="tel:+1234567890">+1 (234) 567-890</a><br>
-                                <a href="https://wa.me/1234567890">WhatsApp: +1 (234) 567-890</a>
-                            </p>
-                        </div>
-
-                        <div class="contact-item">
-                            <h3>✉️ Email</h3>
-                            <p><a href="mailto:info@greenhouse.com">info@greenhouse.com</a><br>
-                                <a href="mailto:ventas@greenhouse.com">ventas@greenhouse.com</a>
-                            </p>
-                        </div>
-
-                        <div class="contact-item">
-                            <h3>🕒 Horarios</h3>
-                            <p>Lun - Vie: 9:00 AM - 7:00 PM<br>
-                                Sáb: 9:00 AM - 5:00 PM<br>
-                                Dom: 10:00 AM - 3:00 PM</p>
-                        </div>
-                    </div>
-
-                    <form class="contact-form" action="#" method="POST">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="name">Nombre completo</label>
-                                <input type="text" id="name" name="name" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" id="email" name="email" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="subject">Asunto</label>
-                            <select id="subject" name="subject" required>
-                                <option value="">Selecciona un tema</option>
-                                <option value="producto">Consulta sobre producto</option>
-                                <option value="pedido">Estado de pedido</option>
-                                <option value="devolucion">Devolución/Cambio</option>
-                                <option value="asesoramiento">Asesoramiento nutricional</option>
-                                <option value="otro">Otro</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="message">Mensaje</label>
-                            <textarea id="message" name="message" rows="5" required
-                                placeholder="Cuéntanos cómo podemos ayudarte..."></textarea>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">Enviar Mensaje</button>
-                    </form>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Pie de página -->
-    <footer class="main-footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>🌿 Greenhouse</h3>
-                    <p>Tu tienda especializada en fitness y bienestar natural. Productos de calidad premium para
-                        alcanzar tus objetivos de forma saludable.</p>
-                    <div class="social-links">
-                        <a href="#" aria-label="Instagram">📷</a>
-                        <a href="#" aria-label="Facebook">📘</a>
-                        <a href="#" aria-label="YouTube">📺</a>
-                        <a href="#" aria-label="TikTok">🎵</a>
-                    </div>
-                </div>
-
-                <div class="footer-section">
-                    <h4>Productos</h4>
-                    <ul>
-                        <li><a href="#suplementos">Suplementos Naturales</a></li>
-                        <li><a href="#equipos">Equipos de Gimnasio</a></li>
-                        <li><a href="#equipos">Accesorios de Pilates</a></li>
-                        <li><a href="#productos">Ofertas Especiales</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>Atención al Cliente</h4>
-                    <ul>
-                        <li><a href="#contacto">Contacto</a></li>
-                        <li><a href="#">Envíos y Devoluciones</a></li>
-                        <li><a href="#">Preguntas Frecuentes</a></li>
-                        <li><a href="#">Asesoramiento Nutricional</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>Legal</h4>
-                    <ul>
-                        <li><a href="#">Términos y Condiciones</a></li>
-                        <li><a href="#">Política de Privacidad</a></li>
-                        <li><a href="#">Política de Cookies</a></li>
-                        <li><a href="#">Garantía de Productos</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>&copy; 2025 Greenhouse. Todos los derechos reservados.</p>
-                <p>Certificado por organismos regulatorios • Productos 100% naturales</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- JavaScript para funcionalidad -->
-
-</body>
-
+    <style>
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+    <script id="dhws-dataInjector" src="/public/dhws-data-injector.js"></script>
+  </body>
 </html>

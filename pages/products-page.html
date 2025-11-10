@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Productos - Greenhouse Fitness</title>
+    <link rel="stylesheet" href="../css/reset.css" />
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="../css/components.css" />
+    <link rel="stylesheet" href="../css/responsive.css" />
+    <style>
+      .products-page-container {
+        margin-top: 80px;
+        padding: 2rem 0;
+      }
+
+      .filters-sidebar {
+        background: white;
+        padding: 2rem;
+        border-radius: var(--border-radius-lg);
+        box-shadow: var(--shadow-base);
+        position: sticky;
+        top: 100px;
+      }
+
+      .filter-group {
+        margin-bottom: 2rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid var(--gray-200);
+      }
+
+      .filter-group:last-child {
+        border-bottom: none;
+      }
+
+      .filter-group h3 {
+        font-size: var(--font-size-lg);
+        margin-bottom: 1rem;
+        color: var(--gray-900);
+      }
+
+      .filter-group select,
+      .filter-group input {
+        width: 100%;
+        padding: 0.75rem;
+        border: 2px solid var(--gray-200);
+        border-radius: var(--border-radius);
+        font-size: var(--font-size-base);
+      }
+
+      .products-content {
+        flex: 1;
+      }
+
+      .products-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .products-layout {
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        gap: 2rem;
+      }
+
+      .search-bar {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .search-bar input {
+        flex: 1;
+        padding: 0.75rem 1rem;
+        border: 2px solid var(--gray-200);
+        border-radius: var(--border-radius);
+        font-size: var(--font-size-base);
+      }
+
+      .search-bar button {
+        padding: 0.75rem 1.5rem;
+      }
+
+      .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 3rem;
+      }
+
+      .pagination button {
+        padding: 0.5rem 1rem;
+      }
+
+      @media (max-width: 768px) {
+        .products-layout {
+          grid-template-columns: 1fr;
+        }
+
+        .filters-sidebar {
+          position: static;
+        }
+
+        .products-header {
+          flex-direction: column;
+          align-items: stretch;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="main-header">
+      <div class="container header-content">
+        <div class="logo">
+          <h1><a href="/pages/homepage.html">🌿 Greenhouse Fitness</a></h1>
+          <p class="tagline">Fitness Natural & Bienestar</p>
+        </div>
+
+        <nav class="main-nav">
+          <ul>
+            <li><a href="/pages/homepage.html" class="nav-link">Inicio</a></li>
+            <li>
+              <a href="/pages/products-page.html" class="nav-link active"
+                >Tienda</a
+              >
+            </li>
+            <li>
+              <a href="/pages/homepage.html#suplementos" class="nav-link"
+                >Suplementos</a
+              >
+            </li>
+            <li><a href="../html/cart.html" class="nav-link">Carrito</a></li>
+          </ul>
+        </nav>
+
+        <div class="header-actions">
+          <div class="auth-buttons">
+            <!-- Se llenará dinámicamente -->
+          </div>
+          <button class="cart-btn" onclick="goToCart()">
+            🛒 Carrito
+            <span class="cart-count">0</span>
+          </button>
+        </div>
+
+        <button class="menu-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="products-page-container">
+      <div class="container">
+        <!-- Búsqueda -->
+        <div class="search-bar">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Buscar productos..."
+            autocomplete="off"
+          />
+          <button class="btn btn-primary" id="search-btn">🔍 Buscar</button>
+        </div>
+
+        <div class="products-layout">
+          <!-- Filtros Sidebar -->
+          <aside class="filters-sidebar">
+            <h2 style="margin-bottom: 1.5rem">Filtros</h2>
+
+            <div class="filter-group">
+              <h3>Categoría</h3>
+              <select id="category-filter">
+                <option value="all">Todas las categorías</option>
+                <option value="1">🏋️ Gimnasio</option>
+                <option value="2">🧘 Pilates</option>
+                <option value="3">🏃 Cardio</option>
+                <option value="4">💊 Suplementos</option>
+                <option value="5">🎯 Accesorios</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <h3>Precio</h3>
+              <select id="price-filter">
+                <option value="">Todos los precios</option>
+                <option value="under50">Menos de $50.000</option>
+                <option value="50to100">$50.000 - $100.000</option>
+                <option value="100to200">$100.000 - $200.000</option>
+                <option value="over200">Más de $200.000</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <h3>Disponibilidad</h3>
+              <select id="stock-filter">
+                <option value="">Todos</option>
+                <option value="available">En stock</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <h3>Ordenar por</h3>
+              <select id="sort-filter">
+                <option value="default">Destacados</option>
+                <option value="price-asc">Precio: Menor a Mayor</option>
+                <option value="price-desc">Precio: Mayor a Menor</option>
+                <option value="name-asc">Nombre: A-Z</option>
+                <option value="name-desc">Nombre: Z-A</option>
+                <option value="rating">Mejor Valorados</option>
+                <option value="newest">Más Nuevos</option>
+              </select>
+            </div>
+
+            <button
+              class="btn btn-outline"
+              onclick="clearFilters()"
+              style="width: 100%"
+            >
+              Limpiar Filtros
+            </button>
+          </aside>
+
+          <!-- Productos -->
+          <div class="products-content">
+            <div class="products-header">
+              <div>
+                <h1>Todos los Productos</h1>
+                <p id="product-count" style="color: var(--gray-600)">
+                  Cargando...
+                </p>
+              </div>
+            </div>
+
+            <!-- Loader -->
+            <div id="products-loader" class="loading" style="display: none">
+              <div class="spinner"></div>
+              <p>Cargando productos...</p>
+            </div>
+
+            <!-- Grid de Productos -->
+            <div id="products-container" class="products-grid">
+              <!-- Se llenará dinámicamente -->
+            </div>
+
+            <!-- Paginación -->
+            <div class="pagination">
+              <button class="btn btn-outline" id="prev-page">← Anterior</button>
+              <span id="page-info">Página 1 de 1</span>
+              <button class="btn btn-outline" id="next-page">
+                Siguiente →
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h3>🌿 Greenhouse Fitness</h3>
+            <p>Tu destino para fitness natural y bienestar.</p>
+            <div class="social-links">
+              <a href="#">📘</a>
+              <a href="#">📷</a>
+              <a href="#">🐦</a>
+              <a href="#">📺</a>
+            </div>
+          </div>
+
+          <div class="footer-section">
+            <h4>Comprar</h4>
+            <ul>
+              <li>
+                <a href="/pages/products-page.html">Todos los Productos</a>
+              </li>
+              <li>
+                <a href="/pages/homepage.html#suplementos">Suplementos</a>
+              </li>
+              <li><a href="/pages/homepage.html#equipos">Equipos</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h4>Mi Cuenta</h4>
+            <ul>
+              <li><a href="../html/login.html">Iniciar Sesión</a></li>
+              <li><a href="../html/register.html">Registrarse</a></li>
+              <li><a href="../html/cart.html">Mi Carrito</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-section">
+            <h4>Ayuda</h4>
+            <ul>
+              <li><a href="#">Preguntas Frecuentes</a></li>
+              <li><a href="#">Envíos</a></li>
+              <li><a href="#">Contacto</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2025 Greenhouse Fitness. Todos los derechos reservados.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../js/api.js"></script>
+    <script src="../js/products.js"></script>
+    <script>
+      // Inicializar
+      function updateAuthUI() {
+        const user = API.getUser();
+        const authButtons = document.querySelector(".auth-buttons");
+
+        if (user) {
+          authButtons.innerHTML = `
+                    <span style="margin-right: 10px;">Hola, ${user.nombre}!</span>
+                    <button class="btn btn-outline" onclick="logout()">Cerrar Sesión</button>
+                `;
+        } else {
+          authButtons.innerHTML = `
+                    <a href="../html/login.html" class="btn btn-outline">Iniciar Sesión</a>
+                    <a href="../html/register.html" class="btn btn-primary">Registrarse</a>
+                `;
+        }
+      }
+
+      function logout() {
+        if (confirm("¿Seguro que deseas cerrar sesión?")) {
+          API.Auth.logout();
+        }
+      }
+
+      function goToCart() {
+        const user = API.getUser();
+        if (!user) {
+          API.showNotification("Debes iniciar sesión primero", "warning");
+          window.location.href = "../html/login.html";
+          return;
+        }
+        window.location.href = "../html/cart.html";
+      }
+
+      // Menú móvil
+      const menuToggle = document.querySelector(".menu-toggle");
+      const mainNav = document.querySelector(".main-nav");
+
+      menuToggle?.addEventListener("click", () => {
+        menuToggle.classList.toggle("active");
+        mainNav.classList.toggle("active");
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        updateAuthUI();
+        API.updateCartCount();
+      });
+    </script>
+    <script src="../js/api.js"></script>
+  </body>
+</html>

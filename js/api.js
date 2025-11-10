@@ -2,44 +2,44 @@
 // API Client para Greenhouse Fitness
 // ============================================
 
-const API_BASE_URL = 'http://localhost:3000/api';
+const API_BASE_URL = "http://localhost:3000/api";
 
 // Helper para obtener el token del localStorage
 const getToken = () => {
-  return localStorage.getItem('gh_token');
+  return localStorage.getItem("gh_token");
 };
 
 // Helper para guardar el token
 const saveToken = (token) => {
-  localStorage.setItem('gh_token', token);
+  localStorage.setItem("gh_token", token);
 };
 
 // Helper para eliminar el token
 const removeToken = () => {
-  localStorage.removeItem('gh_token');
-  localStorage.removeItem('gh_user');
+  localStorage.removeItem("gh_token");
+  localStorage.removeItem("gh_user");
 };
 
 // Helper para obtener el usuario
 const getUser = () => {
-  const user = localStorage.getItem('gh_user');
+  const user = localStorage.getItem("gh_user");
   return user ? JSON.parse(user) : null;
 };
 
 // Helper para guardar el usuario
 const saveUser = (user) => {
-  localStorage.setItem('gh_user', JSON.stringify(user));
+  localStorage.setItem("gh_user", JSON.stringify(user));
 };
 
 // Configuración base de fetch
 const fetchAPI = async (endpoint, options = {}) => {
   const token = getToken();
-  
+
   const config = {
     ...options,
     headers: {
-      'Content-Type': 'application/json',
-      ...(token && { 'Authorization': `Bearer ${token}` }),
+      "Content-Type": "application/json",
+      ...(token && { Authorization: `Bearer ${token}` }),
       ...options.headers,
     },
   };
@@ -49,12 +49,12 @@ const fetchAPI = async (endpoint, options = {}) => {
     const data = await response.json();
 
     if (!response.ok) {
-      throw new Error(data.message || 'Error en la petición');
+      throw new Error(data.message || "Error en la petición");
     }
 
     return data;
   } catch (error) {
-    console.error('API Error:', error);
+    console.error("API Error:", error);
     throw error;
   }
 };
@@ -67,7 +67,7 @@ const ProductosAPI = {
   // Obtener todos los productos
   getAll: async (filters = {}) => {
     const params = new URLSearchParams(filters).toString();
-    return fetchAPI(`/productos${params ? `?${params}` : ''}`);
+    return fetchAPI(`/productos${params ? `?${params}` : ""}`);
   },
 
   // Obtener producto por ID
@@ -82,8 +82,8 @@ const ProductosAPI = {
 
   // Crear producto (requiere autenticación)
   create: async (productoData) => {
-    return fetchAPI('/productos', {
-      method: 'POST',
+    return fetchAPI("/productos", {
+      method: "POST",
       body: JSON.stringify(productoData),
     });
   },
@@ -91,7 +91,7 @@ const ProductosAPI = {
   // Actualizar producto
   update: async (id, productoData) => {
     return fetchAPI(`/productos/${id}`, {
-      method: 'PUT',
+      method: "PUT",
       body: JSON.stringify(productoData),
     });
   },
@@ -99,7 +99,7 @@ const ProductosAPI = {
   // Eliminar producto
   delete: async (id) => {
     return fetchAPI(`/productos/${id}`, {
-      method: 'DELETE',
+      method: "DELETE",
     });
   },
 };
@@ -110,7 +110,7 @@ const ProductosAPI = {
 
 const CategoriasAPI = {
   getAll: async () => {
-    return fetchAPI('/categorias');
+    return fetchAPI("/categorias");
   },
 
   getById: async (id) => {
@@ -124,7 +124,7 @@ const CategoriasAPI = {
 
 const SuplementosAPI = {
   getAll: async () => {
-    return fetchAPI('/suplementos');
+    return fetchAPI("/suplementos");
   },
 
   getById: async (id) => {
@@ -143,8 +143,8 @@ const SuplementosAPI = {
 const AuthAPI = {
   // Registrar usuario
   register: async (userData) => {
-    const response = await fetchAPI('/usuarios/register', {
-      method: 'POST',
+    const response = await fetchAPI("/usuarios/register", {
+      method: "POST",
       body: JSON.stringify(userData),
     });
 
@@ -158,8 +158,8 @@ const AuthAPI = {
 
   // Iniciar sesión
   login: async (email, password) => {
-    const response = await fetchAPI('/usuarios/login', {
-      method: 'POST',
+    const response = await fetchAPI("/usuarios/login", {
+      method: "POST",
       body: JSON.stringify({ email, password }),
     });
 
@@ -174,7 +174,7 @@ const AuthAPI = {
   // Cerrar sesión
   logout: () => {
     removeToken();
-    window.location.href = '/index.html';
+    window.location.href = "/index.html";
   },
 
   // Verificar si está autenticado
@@ -184,13 +184,13 @@ const AuthAPI = {
 
   // Obtener perfil
   getProfile: async () => {
-    return fetchAPI('/usuarios/profile');
+    return fetchAPI("/usuarios/profile");
   },
 
   // Actualizar perfil
   updateProfile: async (id, userData) => {
     return fetchAPI(`/usuarios/${id}`, {
-      method: 'PUT',
+      method: "PUT",
       body: JSON.stringify(userData),
     });
   },
@@ -208,8 +208,8 @@ const CarritoAPI = {
 
   // Agregar producto al carrito
   add: async (id_usuario, id_producto, cantidad = 1) => {
-    return fetchAPI('/carrito', {
-      method: 'POST',
+    return fetchAPI("/carrito", {
+      method: "POST",
       body: JSON.stringify({ id_usuario, id_producto, cantidad }),
     });
   },
@@ -217,7 +217,7 @@ const CarritoAPI = {
   // Actualizar cantidad de un item
   updateQuantity: async (id_carrito, cantidad) => {
     return fetchAPI(`/carrito/${id_carrito}`, {
-      method: 'PUT',
+      method: "PUT",
       body: JSON.stringify({ cantidad }),
     });
   },
@@ -225,14 +225,14 @@ const CarritoAPI = {
   // Eliminar item del carrito
   remove: async (id_carrito) => {
     return fetchAPI(`/carrito/${id_carrito}`, {
-      method: 'DELETE',
+      method: "DELETE",
     });
   },
 
   // Vaciar carrito
   clear: async (id_usuario) => {
     return fetchAPI(`/carrito/clear/${id_usuario}`, {
-      method: 'DELETE',
+      method: "DELETE",
     });
   },
 };
@@ -245,7 +245,7 @@ const PedidosAPI = {
   // Obtener pedidos
   getAll: async (filters = {}) => {
     const params = new URLSearchParams(filters).toString();
-    return fetchAPI(`/pedidos${params ? `?${params}` : ''}`);
+    return fetchAPI(`/pedidos${params ? `?${params}` : ""}`);
   },
 
   // Obtener pedido por ID
@@ -255,8 +255,8 @@ const PedidosAPI = {
 
   // Crear pedido
   create: async (pedido, items) => {
-    return fetchAPI('/pedidos', {
-      method: 'POST',
+    return fetchAPI("/pedidos", {
+      method: "POST",
       body: JSON.stringify({ pedido, items }),
     });
   },
@@ -264,14 +264,14 @@ const PedidosAPI = {
   // Actualizar estado del pedido
   updateStatus: async (id, estado) => {
     return fetchAPI(`/pedidos/${id}/estado`, {
-      method: 'PATCH',
+      method: "PATCH",
       body: JSON.stringify({ estado }),
     });
   },
 
   // Obtener estadísticas
   getStats: async () => {
-    return fetchAPI('/pedidos/stats');
+    return fetchAPI("/pedidos/stats");
   },
 };
 
@@ -297,8 +297,8 @@ const ValoracionesAPI = {
 
   // Crear valoración
   create: async (valoracionData) => {
-    return fetchAPI('/valoraciones', {
-      method: 'POST',
+    return fetchAPI("/valoraciones", {
+      method: "POST",
       body: JSON.stringify(valoracionData),
     });
   },
@@ -306,7 +306,7 @@ const ValoracionesAPI = {
   // Actualizar valoración
   update: async (id, valoracionData) => {
     return fetchAPI(`/valoraciones/${id}`, {
-      method: 'PUT',
+      method: "PUT",
       body: JSON.stringify(valoracionData),
     });
   },
@@ -314,7 +314,7 @@ const ValoracionesAPI = {
   // Eliminar valoración
   delete: async (id) => {
     return fetchAPI(`/valoraciones/${id}`, {
-      method: 'DELETE',
+      method: "DELETE",
     });
   },
 };
@@ -324,16 +324,48 @@ const ValoracionesAPI = {
 // ============================================
 
 // Mostrar notificación
-const showNotification = (message, type = 'success') => {
-  const notification = document.createElement('div');
+const showNotification = (message, type = "success") => {
+  // Remover notificaciones anteriores
+  const existingNotifications = document.querySelectorAll(".notification");
+  existingNotifications.forEach((n) => n.remove());
+
+  const notification = document.createElement("div");
   notification.className = `notification notification-${type}`;
   notification.textContent = message;
-  notification.style.transform = 'translateX(0)';
-  
+
+  // Estilos inline para asegurar que funcione
+  notification.style.position = "fixed";
+  notification.style.top = "20px";
+  notification.style.right = "20px";
+  notification.style.background = "white";
+  notification.style.padding = "1rem 1.5rem";
+  notification.style.borderRadius = "8px";
+  notification.style.boxShadow = "0 10px 25px rgba(0,0,0,0.2)";
+  notification.style.zIndex = "10000";
+  notification.style.maxWidth = "300px";
+  notification.style.transform = "translateX(400px)";
+  notification.style.transition = "transform 0.3s ease";
+
+  // Colores según tipo
+  const colors = {
+    success: "#22c55e",
+    error: "#ef4444",
+    warning: "#f59e0b",
+    info: "#3b82f6",
+  };
+
+  notification.style.borderLeft = `4px solid ${colors[type] || colors.success}`;
+
   document.body.appendChild(notification);
 
+  // Animar entrada
   setTimeout(() => {
-    notification.style.transform = 'translateX(400px)';
+    notification.style.transform = "translateX(0)";
+  }, 10);
+
+  // Auto-cerrar después de 3 segundos
+  setTimeout(() => {
+    notification.style.transform = "translateX(400px)";
     setTimeout(() => notification.remove(), 300);
   }, 3000);
 };
@@ -345,33 +377,33 @@ const updateCartCount = async () => {
 
   try {
     const response = await CarritoAPI.get(user.id_usuario);
-    const cartCount = document.querySelector('.cart-count');
-    
+    const cartCount = document.querySelector(".cart-count");
+
     if (cartCount && response.data.totales) {
       cartCount.textContent = response.data.totales.total_items || 0;
     }
   } catch (error) {
-    console.error('Error actualizando contador del carrito:', error);
+    console.error("Error actualizando contador del carrito:", error);
   }
 };
 
 // Formatear precio
 const formatPrice = (price) => {
-  return new Intl.NumberFormat('es-CO', {
-    style: 'currency',
-    currency: 'COP',
+  return new Intl.NumberFormat("es-CO", {
+    style: "currency",
+    currency: "COP",
     minimumFractionDigits: 0,
   }).format(price);
 };
 
 // Formatear fecha
 const formatDate = (date) => {
-  return new Intl.DateTimeFormat('es-CO', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
+  return new Intl.DateTimeFormat("es-CO", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
   }).format(new Date(date));
 };
 

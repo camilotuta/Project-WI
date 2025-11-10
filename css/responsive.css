@@ -1,0 +1,425 @@
+/* ===============================================
+   RESPONSIVE DESIGN - Mobile First
+   =============================================== */
+
+/* ===============================================
+   MOBILE FIRST (Base: < 768px)
+   =============================================== */
+
+/* Header móvil */
+@media (max-width: 767px) {
+    .main-header {
+        padding: 0.5rem 0;
+    }
+    
+    .header-content {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+    
+    .logo h1 {
+        font-size: var(--font-size-xl);
+    }
+    
+    .logo .tagline {
+        display: none;
+    }
+    
+    /* Menú hamburguesa visible */
+    .menu-toggle {
+        display: flex !important;
+        order: 3;
+    }
+    
+    /* Navegación móvil */
+    .main-nav {
+        position: fixed;
+        top: 0;
+        left: -100%;
+        width: 80%;
+        max-width: 300px;
+        height: 100vh;
+        background: white;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        transition: left 0.3s ease;
+        z-index: 9999;
+        padding: 2rem 0;
+    }
+    
+    .main-nav.active {
+        left: 0;
+    }
+    
+    .main-nav ul {
+        flex-direction: column;
+        gap: 0;
+    }
+    
+    .nav-link {
+        display: block;
+        padding: 1rem 2rem;
+        border-bottom: 1px solid var(--gray-100);
+    }
+    
+    /* Header actions */
+    .header-actions {
+        gap: 0.5rem;
+    }
+    
+    .auth-buttons {
+        display: flex;
+        gap: 0.5rem;
+    }
+    
+    .auth-buttons .btn {
+        padding: 0.5rem 1rem;
+        font-size: var(--font-size-sm);
+    }
+    
+    .cart-btn {
+        padding: 0.5rem 1rem;
+        font-size: var(--font-size-sm);
+    }
+    
+    /* Hero Section */
+    .hero {
+        min-height: auto;
+        padding: 2rem 0;
+    }
+    
+    .hero .container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .hero-content h2 {
+        font-size: var(--font-size-2xl) !important;
+        text-align: center;
+    }
+    
+    .hero-content p {
+        text-align: center;
+    }
+    
+    .hero-features {
+        justify-content: center;
+    }
+    
+    .hero-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .hero-actions .btn {
+        width: 100%;
+    }
+    
+    .hero-image {
+        order: -1;
+    }
+    
+    /* Secciones */
+    section {
+        padding: 2rem 0;
+    }
+    
+    .section-header h2 {
+        font-size: var(--font-size-2xl) !important;
+    }
+    
+    /* Grids */
+    .products-grid,
+    .categories-grid,
+    .supplements-grid,
+    .equipment-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1rem;
+    }
+    
+    /* Product Card */
+    .product-card {
+        max-width: 100%;
+    }
+    
+    .product-actions {
+        flex-direction: column;
+    }
+    
+    .product-actions .btn {
+        width: 100%;
+    }
+    
+    /* Filtros */
+    .filters {
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding-bottom: 0.5rem;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .filter-btn {
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+    
+    /* Tabs */
+    .category-tabs {
+        overflow-x: auto;
+        justify-content: flex-start;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .tab-btn {
+        white-space: nowrap;
+        flex-shrink: 0;
+        padding: 0.75rem 1rem;
+        font-size: var(--font-size-sm);
+    }
+    
+    /* Footer */
+    .footer-content {
+        grid-template-columns: 1fr !important;
+        text-align: center;
+    }
+    
+    .social-links {
+        justify-content: center;
+    }
+    
+    /* Carrito */
+    .cart-content {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .cart-item {
+        grid-template-columns: 80px 1fr !important;
+        gap: 1rem;
+    }
+    
+    .item-price,
+    .item-quantity,
+    .item-subtotal,
+    .item-remove {
+        grid-column: 2;
+    }
+    
+    .cart-summary {
+        position: static !important;
+    }
+    
+    /* Product Detail */
+    .product-detail {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .product-gallery {
+        position: static !important;
+    }
+    
+    .action-buttons {
+        flex-direction: column;
+    }
+    
+    .tab-buttons {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    /* Notificaciones */
+    .notification {
+        right: 10px;
+        left: 10px;
+        max-width: none;
+    }
+}
+
+/* ===============================================
+   TABLET (768px - 1023px)
+   =============================================== */
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .container {
+        padding: 0 2rem;
+    }
+    
+    /* Grids 2 columnas */
+    .products-grid,
+    .categories-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    
+    .supplements-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    
+    .equipment-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    
+    /* Hero */
+    .hero-content h2 {
+        font-size: var(--font-size-3xl);
+    }
+    
+    /* Footer */
+    .footer-content {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+/* ===============================================
+   DESKTOP PEQUEÑO (1024px - 1279px)
+   =============================================== */
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+    .container {
+        max-width: 1000px;
+    }
+    
+    .products-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+    
+    .categories-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+}
+
+/* ===============================================
+   DESKTOP GRANDE (>= 1280px)
+   =============================================== */
+
+@media (min-width: 1280px) {
+    .container {
+        max-width: 1200px;
+    }
+    
+    .products-grid {
+        grid-template-columns: repeat(4, 1fr) !important;
+    }
+    
+    .hero-content h2 {
+        font-size: var(--font-size-5xl);
+    }
+}
+
+/* ===============================================
+   LANDSCAPE MÓVIL
+   =============================================== */
+
+@media (max-width: 767px) and (orientation: landscape) {
+    .hero {
+        min-height: auto;
+        padding: 1rem 0;
+    }
+    
+    .hero-image {
+        display: none;
+    }
+}
+
+/* ===============================================
+   PRINT
+   =============================================== */
+
+@media print {
+    .main-header,
+    .main-footer,
+    .menu-toggle,
+    .cart-btn,
+    .btn,
+    .notification,
+    .filters,
+    .category-tabs {
+        display: none !important;
+    }
+    
+    .main-content {
+        margin-top: 0;
+    }
+    
+    body {
+        font-size: 12pt;
+    }
+    
+    .product-card,
+    .cart-item {
+        page-break-inside: avoid;
+    }
+}
+
+/* ===============================================
+   ACCESIBILIDAD
+   =============================================== */
+
+/* Usuarios que prefieren reducir movimiento */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --white: #1a1a1a;
+        --gray-50: #2a2a2a;
+        --gray-100: #3a3a3a;
+        --gray-200: #4a4a4a;
+        --gray-900: #f0f0f0;
+        --gray-800: #e0e0e0;
+        --gray-700: #d0d0d0;
+    }
+    
+    body {
+        background-color: #1a1a1a;
+        color: #f0f0f0;
+    }
+    
+    .main-header,
+    .product-card,
+    .cart-items,
+    .cart-summary {
+        background-color: #2a2a2a;
+    }
+}
+
+/* ===============================================
+   UTILIDADES RESPONSIVE
+   =============================================== */
+
+/* Ocultar en móvil */
+@media (max-width: 767px) {
+    .hide-mobile {
+        display: none !important;
+    }
+}
+
+/* Ocultar en desktop */
+@media (min-width: 768px) {
+    .hide-desktop {
+        display: none !important;
+    }
+}
+
+/* Texto centrado en móvil */
+@media (max-width: 767px) {
+    .text-center-mobile {
+        text-align: center !important;
+    }
+}
+
+/* Stack en móvil */
+@media (max-width: 767px) {
+    .stack-mobile {
+        flex-direction: column !important;
+    }
+    
+    .stack-mobile > * {
+        width: 100% !important;
+    }
+}

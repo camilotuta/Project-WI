@@ -3,243 +3,941 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Greenhouse Fitness - Tu Tienda de Fitness Natural</title>
-    <link rel="stylesheet" href="../css/styles.css" />
+    <title>
+      🌿 Greenhouse Fitness - Suplementos Naturales y Equipos de Fitness
+    </title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <script
+      type="module"
+      async
+      src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fgreenhouse5266back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.9"
+    ></script>
+    <script
+      type="module"
+      defer
+      src="https://static.rocket.new/rocket-shot.js?v=0.0.1"
+    ></script>
   </head>
-  <body>
-    <!-- Header -->
-    <header class="main-header">
-      <div class="container header-content">
-        <div class="logo">
-          <h1><a href="/pages/homepage.html">🌿 Greenhouse Fitness</a></h1>
-          <p class="tagline">Fitness Natural & Bienestar</p>
-        </div>
-
-        <nav class="main-nav">
-          <ul>
-            <li>
-              <a href="/pages/homepage.html" class="nav-link active">Inicio</a>
-            </li>
-            <li><a href="#productos" class="nav-link">Productos</a></li>
-            <li><a href="#suplementos" class="nav-link">Suplementos</a></li>
-            <li><a href="#equipos" class="nav-link">Equipos</a></li>
-            <li><a href="#about" class="nav-link">Nosotros</a></li>
-          </ul>
-        </nav>
-
-        <div class="header-actions">
-          <div class="auth-buttons">
-            <!-- Se llenará dinámicamente -->
+  <body class="bg-background font-body">
+    <!-- Navigation Header -->
+    <nav class="bg-white shadow-soft sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <!-- Logo -->
+          <div class="flex items-center">
+            <a href="homepage.html" class="flex items-center space-x-2">
+              <div
+                class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center"
+              >
+                <span class="text-white text-xl">🌿</span>
+              </div>
+              <span class="text-xl font-heading font-bold text-primary"
+                >Greenhouse Fitness</span
+              >
+            </a>
           </div>
-          <button class="cart-btn" onclick="goToCart()">
-            🛒 Carrito
-            <span class="cart-count">0</span>
-          </button>
+
+          <!-- Desktop Navigation -->
+          <div class="hidden md:flex items-center space-x-8">
+            <a
+              href="homepage.html"
+              class="text-primary font-medium hover:text-primary-600 transition-micro"
+              >Inicio</a
+            >
+            <a
+              href="product_catalog.html"
+              class="text-text-secondary hover:text-primary transition-micro"
+              >Productos</a
+            >
+            <div class="relative group">
+              <button
+                class="text-text-secondary hover:text-primary transition-micro flex items-center"
+              >
+                Categorías
+                <svg
+                  class="w-4 h-4 ml-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  ></path>
+                </svg>
+              </button>
+              <div
+                class="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-medium opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-state"
+              >
+                <div class="py-2">
+                  <a
+                    href="product_catalog.html?category=gym"
+                    class="block px-4 py-2 text-sm text-text-secondary hover:bg-surface-100 hover:text-primary"
+                    >🏋️ Gimnasio</a
+                  >
+                  <a
+                    href="product_catalog.html?category=pilates"
+                    class="block px-4 py-2 text-sm text-text-secondary hover:bg-surface-100 hover:text-primary"
+                    >🧘 Pilates</a
+                  >
+                  <a
+                    href="product_catalog.html?category=cardio"
+                    class="block px-4 py-2 text-sm text-text-secondary hover:bg-surface-100 hover:text-primary"
+                    >🏃 Cardio</a
+                  >
+                  <a
+                    href="product_catalog.html?category=supplements"
+                    class="block px-4 py-2 text-sm text-text-secondary hover:bg-surface-100 hover:text-primary"
+                    >💊 Suplementos</a
+                  >
+                  <a
+                    href="product_catalog.html?category=accessories"
+                    class="block px-4 py-2 text-sm text-text-secondary hover:bg-surface-100 hover:text-primary"
+                    >🎯 Accesorios</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- User Actions -->
+          <div class="flex items-center space-x-4">
+            <button
+              class="p-2 text-text-secondary hover:text-primary transition-micro"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                ></path>
+              </svg>
+            </button>
+            <a
+              href="shopping_cart.html"
+              class="relative p-2 text-text-secondary hover:text-primary transition-micro"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 11-4 0v-6m4 0V9a2 2 0 10-4 0v4.01"
+                ></path>
+              </svg>
+              <span
+                class="absolute -top-1 -right-1 bg-accent text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
+                >3</span
+              >
+            </a>
+            <a href="user_login.html" class="btn-primary">Iniciar Sesión</a>
+
+            <!-- Mobile Menu Button -->
+            <button
+              class="md:hidden p-2 text-text-secondary hover:text-primary transition-micro"
+              id="mobile-menu-button"
+            >
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div class="md:hidden hidden" id="mobile-menu">
+        <div class="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-border">
+          <a
+            href="homepage.html"
+            class="block px-3 py-2 text-primary font-medium"
+            >Inicio</a
+          >
+          <a
+            href="product_catalog.html"
+            class="block px-3 py-2 text-text-secondary hover:text-primary"
+            >Productos</a
+          >
+          <a
+            href="product_catalog.html?category=gym"
+            class="block px-3 py-2 text-text-secondary hover:text-primary"
+            >🏋️ Gimnasio</a
+          >
+          <a
+            href="product_catalog.html?category=pilates"
+            class="block px-3 py-2 text-text-secondary hover:text-primary"
+            >🧘 Pilates</a
+          >
+          <a
+            href="product_catalog.html?category=cardio"
+            class="block px-3 py-2 text-text-secondary hover:text-primary"
+            >🏃 Cardio</a
+          >
+          <a
+            href="product_catalog.html?category=supplements"
+            class="block px-3 py-2 text-text-secondary hover:text-primary"
+            >💊 Suplementos</a
+          >
+          <a
+            href="product_catalog.html?category=accessories"
+            class="block px-3 py-2 text-text-secondary hover:text-primary"
+            >🎯 Accesorios</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section
+      class="relative bg-gradient-to-br from-primary-50 to-secondary-50 overflow-hidden"
+    >
+      <div class="absolute inset-0 bg-white opacity-50"></div>
+      <div
+        class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32"
+      >
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <div class="text-center lg:text-left">
+            <h1
+              class="text-4xl lg:text-6xl font-heading font-bold text-primary mb-6 text-balance"
+            >
+              Fitness Natural y
+              <span class="text-secondary">Orgánico</span>
+            </h1>
+            <p
+              class="text-lg text-text-secondary mb-8 max-w-xl mx-auto lg:mx-0"
+            >
+              Descubre nuestra selección premium de suplementos naturales y
+              equipos de fitness diseñados para potenciar tu rendimiento de
+              forma saludable.
+            </p>
+            <div
+              class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+            >
+              <a href="product_catalog.html" class="btn-primary text-center">
+                Explorar Productos
+              </a>
+              <a
+                href="product_catalog.html?category=supplements"
+                class="bg-white text-primary border-2 border-primary px-6 py-3 rounded-lg font-medium hover:bg-primary hover:text-white transition-state text-center"
+              >
+                Ver Suplementos
+              </a>
+            </div>
+
+            <!-- Trust Badges -->
+            <div
+              class="flex flex-wrap justify-center lg:justify-start gap-6 mt-8"
+            >
+              <div class="flex items-center space-x-2">
+                <span class="text-success text-xl">✓</span>
+                <span class="text-sm text-text-secondary">100% Natural</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <span class="text-success text-xl">🌱</span>
+                <span class="text-sm text-text-secondary"
+                  >Certificado Orgánico</span
+                >
+              </div>
+              <div class="flex items-center space-x-2">
+                <span class="text-success text-xl">🚚</span>
+                <span class="text-sm text-text-secondary">Envío Gratis</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="relative">
+            <div
+              class="aspect-square rounded-2xl overflow-hidden shadow-organic-hover"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1578582859862-83398cd3e0c2"
+                alt="Atleta entrenando con suplementos naturales y equipos de fitness orgánicos"
+                class="w-full h-full object-cover"
+                loading="lazy"
+                onerror="this.src='https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;"
+              />
+            </div>
+            <!-- Floating Elements -->
+            <div
+              class="absolute -top-4 -right-4 bg-accent text-white px-4 py-2 rounded-full text-sm font-medium shadow-medium"
+            >
+              ¡Nuevo!
+            </div>
+            <div
+              class="absolute -bottom-4 -left-4 bg-success text-white px-4 py-2 rounded-full text-sm font-medium shadow-medium"
+            >
+              Eco-Friendly
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="py-16 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2
+            class="text-3xl lg:text-4xl font-heading font-bold text-primary mb-4"
+          >
+            Explora Nuestras Categorías
+          </h2>
+          <p class="text-lg text-text-secondary max-w-2xl mx-auto">
+            Encuentra exactamente lo que necesitas para tu rutina de fitness
+          </p>
         </div>
 
-        <button class="menu-toggle">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-      </div>
-    </header>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+          <!-- Gym Equipment -->
+          <a
+            href="product_catalog.html?category=gym"
+            class="group card p-6 text-center hover:shadow-organic-hover transition-state"
+          >
+            <div class="text-4xl mb-4 group-hover:scale-110 transition-state">
+              🏋️
+            </div>
+            <h3 class="font-heading font-semibold text-primary mb-2">
+              Gimnasio
+            </h3>
+            <p class="text-sm text-text-secondary">Pesas, barras y más</p>
+          </a>
 
-    <!-- Main Content -->
-    <main class="main-content">
-      <!-- Hero Section -->
-      <section class="hero">
-        <div class="container">
-          <div class="hero-content">
-            <h2>Transforma Tu Vida con Productos Naturales</h2>
-            <p>
-              Descubre nuestra selección premium de equipos fitness y
-              suplementos 100% naturales para alcanzar tus objetivos de
-              bienestar.
+          <!-- Pilates -->
+          <a
+            href="product_catalog.html?category=pilates"
+            class="group card p-6 text-center hover:shadow-organic-hover transition-state"
+          >
+            <div class="text-4xl mb-4 group-hover:scale-110 transition-state">
+              🧘
+            </div>
+            <h3 class="font-heading font-semibold text-primary mb-2">
+              Pilates
+            </h3>
+            <p class="text-sm text-text-secondary">Esterillas y accesorios</p>
+          </a>
+
+          <!-- Cardio -->
+          <a
+            href="product_catalog.html?category=cardio"
+            class="group card p-6 text-center hover:shadow-organic-hover transition-state"
+          >
+            <div class="text-4xl mb-4 group-hover:scale-110 transition-state">
+              🏃
+            </div>
+            <h3 class="font-heading font-semibold text-primary mb-2">Cardio</h3>
+            <p class="text-sm text-text-secondary">Máquinas y equipos</p>
+          </a>
+
+          <!-- Supplements -->
+          <a
+            href="product_catalog.html?category=supplements"
+            class="group card p-6 text-center hover:shadow-organic-hover transition-state"
+          >
+            <div class="text-4xl mb-4 group-hover:scale-110 transition-state">
+              💊
+            </div>
+            <h3 class="font-heading font-semibold text-primary mb-2">
+              Suplementos
+            </h3>
+            <p class="text-sm text-text-secondary">Naturales y orgánicos</p>
+          </a>
+
+          <!-- Accessories -->
+          <a
+            href="product_catalog.html?category=accessories"
+            class="group card p-6 text-center hover:shadow-organic-hover transition-state"
+          >
+            <div class="text-4xl mb-4 group-hover:scale-110 transition-state">
+              🎯
+            </div>
+            <h3 class="font-heading font-semibold text-primary mb-2">
+              Accesorios
+            </h3>
+            <p class="text-sm text-text-secondary">Complementos fitness</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Featured Products Section -->
+    <section class="py-16 bg-surface-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2
+            class="text-3xl lg:text-4xl font-heading font-bold text-primary mb-4"
+          >
+            Productos Destacados
+          </h2>
+          <p class="text-lg text-text-secondary max-w-2xl mx-auto">
+            Los favoritos de nuestra comunidad fitness
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Product 1 -->
+          <div class="card group hover:shadow-organic-hover transition-state">
+            <div class="relative overflow-hidden rounded-t-lg">
+              <img
+                src="https://images.unsplash.com/photo-1558601069-5433c2baf2df"
+                alt="Proteína Whey Natural - Suplemento orgánico para desarrollo muscular"
+                class="w-full h-48 object-cover group-hover:scale-105 transition-state"
+                loading="lazy"
+                onerror="this.src='https://images.unsplash.com/photo-1593095948071-474c5cc2989d?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;"
+              />
+              <div class="absolute top-2 left-2">
+                <span class="badge-success">Nuevo</span>
+              </div>
+              <div class="absolute top-2 right-2">
+                <span
+                  class="bg-accent text-white px-2 py-1 rounded text-xs font-medium"
+                  >-20%</span
+                >
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-heading font-semibold text-primary mb-2">
+                Proteína Whey Natural
+              </h3>
+              <div class="flex items-center mb-2">
+                <div class="flex text-accent text-sm">★★★★★</div>
+                <span class="text-xs text-text-tertiary ml-2"
+                  >(127 reseñas)</span
+                >
+              </div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center space-x-2">
+                  <span class="text-lg font-bold text-primary">€32.99</span>
+                  <span class="text-sm text-text-tertiary line-through"
+                    >€41.24</span
+                  >
+                </div>
+              </div>
+              <a
+                href="product_details.html?id=1"
+                class="w-full bg-primary text-white py-2 px-4 rounded-lg font-medium hover:bg-primary-600 transition-micro text-center block"
+              >
+                Ver Detalles
+              </a>
+            </div>
+          </div>
+
+          <!-- Product 2 -->
+          <div class="card group hover:shadow-organic-hover transition-state">
+            <div class="relative overflow-hidden rounded-t-lg">
+              <img
+                src="https://images.unsplash.com/photo-1632994970656-f29ecae249f0"
+                alt="Mancuernas Ajustables - Equipo de gimnasio profesional para entrenamiento en casa"
+                class="w-full h-48 object-cover group-hover:scale-105 transition-state"
+                loading="lazy"
+                onerror="this.src='https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;"
+              />
+              <div class="absolute top-2 left-2">
+                <span class="badge-warning">Popular</span>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-heading font-semibold text-primary mb-2">
+                Mancuernas Ajustables
+              </h3>
+              <div class="flex items-center mb-2">
+                <div class="flex text-accent text-sm">★★★★☆</div>
+                <span class="text-xs text-text-tertiary ml-2"
+                  >(89 reseñas)</span
+                >
+              </div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center space-x-2">
+                  <span class="text-lg font-bold text-primary">€149.99</span>
+                </div>
+              </div>
+              <a
+                href="product_details.html?id=2"
+                class="w-full bg-primary text-white py-2 px-4 rounded-lg font-medium hover:bg-primary-600 transition-micro text-center block"
+              >
+                Ver Detalles
+              </a>
+            </div>
+          </div>
+
+          <!-- Product 3 -->
+          <div class="card group hover:shadow-organic-hover transition-state">
+            <div class="relative overflow-hidden rounded-t-lg">
+              <img
+                src="https://images.unsplash.com/photo-1591801617543-016a9a0c6ba5"
+                alt="Esterilla de Yoga Eco - Esterilla antideslizante hecha con materiales naturales"
+                class="w-full h-48 object-cover group-hover:scale-105 transition-state"
+                loading="lazy"
+                onerror="this.src='https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;"
+              />
+              <div class="absolute top-2 left-2">
+                <span class="badge-success">Eco</span>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-heading font-semibold text-primary mb-2">
+                Esterilla de Yoga Eco
+              </h3>
+              <div class="flex items-center mb-2">
+                <div class="flex text-accent text-sm">★★★★★</div>
+                <span class="text-xs text-text-tertiary ml-2"
+                  >(203 reseñas)</span
+                >
+              </div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center space-x-2">
+                  <span class="text-lg font-bold text-primary">€45.99</span>
+                </div>
+              </div>
+              <a
+                href="product_details.html?id=3"
+                class="w-full bg-primary text-white py-2 px-4 rounded-lg font-medium hover:bg-primary-600 transition-micro text-center block"
+              >
+                Ver Detalles
+              </a>
+            </div>
+          </div>
+
+          <!-- Product 4 -->
+          <div class="card group hover:shadow-organic-hover transition-state">
+            <div class="relative overflow-hidden rounded-t-lg">
+              <img
+                src="https://images.unsplash.com/photo-1693996046514-0406d0773a7d"
+                alt="Creatina Natural - Suplemento puro para mejorar rendimiento deportivo"
+                class="w-full h-48 object-cover group-hover:scale-105 transition-state"
+                loading="lazy"
+                onerror="this.src='https://images.unsplash.com/photo-1593095948071-474c5cc2989d?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;"
+              />
+              <div class="absolute top-2 left-2">
+                <span class="badge-success">Orgánico</span>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-heading font-semibold text-primary mb-2">
+                Creatina Natural
+              </h3>
+              <div class="flex items-center mb-2">
+                <div class="flex text-accent text-sm">★★★★☆</div>
+                <span class="text-xs text-text-tertiary ml-2"
+                  >(156 reseñas)</span
+                >
+              </div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center space-x-2">
+                  <span class="text-lg font-bold text-primary">€24.99</span>
+                </div>
+              </div>
+              <a
+                href="product_details.html?id=4"
+                class="w-full bg-primary text-white py-2 px-4 rounded-lg font-medium hover:bg-primary-600 transition-micro text-center block"
+              >
+                Ver Detalles
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-center mt-12">
+          <a href="product_catalog.html" class="btn-secondary">
+            Ver Todos los Productos
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Supplements Highlight Section -->
+    <section class="py-16 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2
+              class="text-3xl lg:text-4xl font-heading font-bold text-primary mb-6"
+            >
+              Suplementos 100% Naturales
+            </h2>
+            <p class="text-lg text-text-secondary mb-8">
+              Nuestros suplementos están formulados con ingredientes orgánicos
+              certificados, sin aditivos artificiales ni conservantes químicos.
+              Cada producto pasa por rigurosos controles de calidad.
             </p>
 
-            <div class="hero-features">
-              <div class="feature-item">
-                <span class="feature-icon">✓</span>
-                <span>Productos Orgánicos</span>
+            <div class="space-y-4 mb-8">
+              <div class="flex items-start space-x-3">
+                <div
+                  class="flex-shrink-0 w-6 h-6 bg-success rounded-full flex items-center justify-center mt-1"
+                >
+                  <svg
+                    class="w-4 h-4 text-white"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-heading font-semibold text-primary">
+                    Certificación Orgánica
+                  </h3>
+                  <p class="text-text-secondary">
+                    Todos nuestros productos cuentan con certificación orgánica
+                    europea
+                  </p>
+                </div>
               </div>
-              <div class="feature-item">
-                <span class="feature-icon">✓</span>
-                <span>Envío Gratis</span>
+
+              <div class="flex items-start space-x-3">
+                <div
+                  class="flex-shrink-0 w-6 h-6 bg-success rounded-full flex items-center justify-center mt-1"
+                >
+                  <svg
+                    class="w-4 h-4 text-white"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-heading font-semibold text-primary">
+                    Sin Aditivos Químicos
+                  </h3>
+                  <p class="text-text-secondary">
+                    Libres de colorantes, conservantes y saborizantes
+                    artificiales
+                  </p>
+                </div>
               </div>
-              <div class="feature-item">
-                <span class="feature-icon">✓</span>
-                <span>Garantía 30 días</span>
+
+              <div class="flex items-start space-x-3">
+                <div
+                  class="flex-shrink-0 w-6 h-6 bg-success rounded-full flex items-center justify-center mt-1"
+                >
+                  <svg
+                    class="w-4 h-4 text-white"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-heading font-semibold text-primary">
+                    Máxima Biodisponibilidad
+                  </h3>
+                  <p class="text-text-secondary">
+                    Formulaciones optimizadas para mejor absorción y efectividad
+                  </p>
+                </div>
               </div>
             </div>
 
-            <div class="hero-actions">
-              <a href="#productos" class="btn btn-primary">Ver Productos</a>
-              <a href="#suplementos" class="btn btn-secondary"
-                >Suplementos Naturales</a
+            <a
+              href="product_catalog.html?category=supplements"
+              class="btn-accent"
+            >
+              Explorar Suplementos
+            </a>
+          </div>
+
+          <div class="relative">
+            <div
+              class="aspect-square rounded-2xl overflow-hidden shadow-organic-hover"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1619526198581-f4f359427a8a"
+                alt="Variedad de suplementos naturales y orgánicos con ingredientes frescos y plantas medicinales"
+                class="w-full h-full object-cover"
+                loading="lazy"
+                onerror="this.src='https://images.pexels.com/photos/6551415/pexels-photo-6551415.jpeg?auto=compress&cs=tinysrgb&w=800'; this.onerror=null;"
+              />
+            </div>
+
+            <!-- Trust Badges -->
+            <div
+              class="absolute -bottom-6 left-6 right-6 flex justify-center space-x-4"
+            >
+              <div class="bg-white rounded-lg shadow-medium p-3 text-center">
+                <div class="text-2xl mb-1">🌱</div>
+                <div class="text-xs font-medium text-primary">Orgánico</div>
+              </div>
+              <div class="bg-white rounded-lg shadow-medium p-3 text-center">
+                <div class="text-2xl mb-1">🔬</div>
+                <div class="text-xs font-medium text-primary">Testado</div>
+              </div>
+              <div class="bg-white rounded-lg shadow-medium p-3 text-center">
+                <div class="text-2xl mb-1">✅</div>
+                <div class="text-xs font-medium text-primary">Certificado</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-16 bg-gradient-to-r from-primary to-secondary">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl lg:text-4xl font-heading font-bold text-white mb-4">
+          Únete a Nuestra Comunidad Fitness
+        </h2>
+        <p class="text-lg text-primary-100 mb-8 max-w-2xl mx-auto">
+          Recibe consejos exclusivos, ofertas especiales y las últimas novedades
+          en suplementos naturales directamente en tu email.
+        </p>
+
+        <form class="max-w-md mx-auto">
+          <div class="flex flex-col sm:flex-row gap-4">
+            <input
+              type="email"
+              placeholder="Tu email aquí..."
+              class="flex-1 px-4 py-3 rounded-lg border-0 focus:outline-none focus:ring-2 focus:ring-accent"
+              required
+            />
+            <button
+              type="submit"
+              class="bg-accent text-white px-6 py-3 rounded-lg font-medium hover:bg-accent-600 transition-micro whitespace-nowrap"
+            >
+              Suscribirse
+            </button>
+          </div>
+          <p class="text-sm text-primary-200 mt-3">
+            No spam. Puedes cancelar en cualquier momento.
+          </p>
+        </form>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary-800 text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Company Info -->
+          <div>
+            <div class="flex items-center space-x-2 mb-4">
+              <div
+                class="w-8 h-8 bg-accent rounded-lg flex items-center justify-center"
+              >
+                <span class="text-white text-lg">🌿</span>
+              </div>
+              <span class="text-lg font-heading font-bold"
+                >Greenhouse Fitness</span
+              >
+            </div>
+            <p class="text-primary-200 mb-4">
+              Tu tienda de confianza para suplementos naturales y equipos de
+              fitness de calidad premium.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="javascript:void(0)"
+                class="text-primary-200 hover:text-white transition-micro"
+                >📘</a
+              >
+              <a
+                href="javascript:void(0)"
+                class="text-primary-200 hover:text-white transition-micro"
+                >📷</a
+              >
+              <a
+                href="javascript:void(0)"
+                class="text-primary-200 hover:text-white transition-micro"
+                >🐦</a
+              >
+              <a
+                href="javascript:void(0)"
+                class="text-primary-200 hover:text-white transition-micro"
+                >📺</a
               >
             </div>
           </div>
 
-          <div class="hero-image">
-            <div class="placeholder-image hero-img">💪</div>
+          <!-- Quick Links -->
+          <div>
+            <h3 class="font-heading font-semibold mb-4">Enlaces Rápidos</h3>
+            <ul class="space-y-2">
+              <li>
+                <a
+                  href="homepage.html"
+                  class="text-primary-200 hover:text-white transition-micro"
+                  >Inicio</a
+                >
+              </li>
+              <li>
+                <a
+                  href="product_catalog.html"
+                  class="text-primary-200 hover:text-white transition-micro"
+                  >Productos</a
+                >
+              </li>
+              <li>
+                <a
+                  href="product_catalog.html?category=supplements"
+                  class="text-primary-200 hover:text-white transition-micro"
+                  >Suplementos</a
+                >
+              </li>
+              <li>
+                <a
+                  href="shopping_cart.html"
+                  class="text-primary-200 hover:text-white transition-micro"
+                  >Carrito</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Categories -->
+          <div>
+            <h3 class="font-heading font-semibold mb-4">Categorías</h3>
+            <ul class="space-y-2">
+              <li>
+                <a
+                  href="product_catalog.html?category=gym"
+                  class="text-primary-200 hover:text-white transition-micro"
+                  >🏋️ Gimnasio</a
+                >
+              </li>
+              <li>
+                <a
+                  href="product_catalog.html?category=pilates"
+                  class="text-primary-200 hover:text-white transition-micro"
+                  >🧘 Pilates</a
+                >
+              </li>
+              <li>
+                <a
+                  href="product_catalog.html?category=cardio"
+                  class="text-primary-200 hover:text-white transition-micro"
+                  >🏃 Cardio</a
+                >
+              </li>
+              <li>
+                <a
+                  href="product_catalog.html?category=accessories"
+                  class="text-primary-200 hover:text-white transition-micro"
+                  >🎯 Accesorios</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Contact -->
+          <div>
+            <h3 class="font-heading font-semibold mb-4">Contacto</h3>
+            <ul class="space-y-2 text-primary-200">
+              <li class="flex items-center space-x-2">
+                <span>📧</span>
+                <span>info@greenhousefitness.com</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <span>📞</span>
+                <span>+34 900 123 456</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <span>📍</span>
+                <span>Madrid, España</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <span>🕒</span>
+                <span>Lun-Vie: 9:00-18:00</span>
+              </li>
+            </ul>
           </div>
         </div>
-      </section>
 
-      <!-- Categorías -->
-      <section class="categories-section">
-        <div class="container">
-          <div class="section-header">
-            <h2>Categorías</h2>
-            <p>Explora nuestras categorías de productos</p>
-          </div>
-          <div id="categories-grid" class="categories-grid">
-            <!-- Se llenará dinámicamente -->
-          </div>
-        </div>
-      </section>
-
-      <!-- Productos Destacados -->
-      <section id="productos" class="featured-products">
-        <div class="container">
-          <div class="section-header">
-            <h2>Productos Destacados</h2>
-            <p>Los favoritos de nuestra comunidad fitness</p>
-          </div>
-
-          <div class="filters">
-            <button class="filter-btn active" data-filter="all">Todos</button>
-            <button class="filter-btn" data-filter="destacado">
-              Destacados
-            </button>
-            <button class="filter-btn" data-filter="nuevo">Nuevos</button>
-            <button class="filter-btn" data-filter="oferta">En Oferta</button>
-          </div>
-
-          <div id="products-grid" class="products-grid">
-            <!-- Se llenará dinámicamente -->
-          </div>
-
-          <div class="loading" id="loading-products" style="display: none">
-            <div class="spinner"></div>
-            <p>Cargando productos...</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Suplementos -->
-      <section id="suplementos" class="supplements">
-        <div class="container">
-          <div class="section-header">
-            <h2>Suplementos Naturales</h2>
-            <p>
-              Potencia tu rendimiento con nuestros suplementos 100% orgánicos
-            </p>
-          </div>
-
-          <div id="supplements-grid" class="supplements-grid">
-            <!-- Se llenará dinámicamente -->
-          </div>
-        </div>
-      </section>
-
-      <!-- Equipos por Categoría -->
-      <section id="equipos" class="equipment">
-        <div class="container">
-          <div class="section-header">
-            <h2>Equipos de Entrenamiento</h2>
-            <p>Todo lo que necesitas para tu gimnasio en casa</p>
-          </div>
-
-          <div class="category-tabs">
-            <button class="tab-btn active" data-category="1">
-              🏋️ Gimnasio
-            </button>
-            <button class="tab-btn" data-category="2">🧘 Pilates</button>
-            <button class="tab-btn" data-category="3">🏃 Cardio</button>
-            <button class="tab-btn" data-category="5">🎯 Accesorios</button>
-          </div>
-
-          <div id="equipment-grid" class="equipment-grid">
-            <!-- Se llenará dinámicamente -->
-          </div>
-        </div>
-      </section>
-
-      <!-- Newsletter -->
-      <section class="newsletter">
-        <div class="container">
-          <h2>Únete a Nuestra Comunidad</h2>
-          <p>
-            Recibe ofertas exclusivas y tips de fitness directamente en tu
-            correo
+        <div class="border-t border-primary-700 mt-8 pt-8 text-center">
+          <p class="text-primary-200">
+            © 2025 Greenhouse Fitness. Todos los derechos reservados.
           </p>
-          <form class="newsletter-form" id="newsletterForm">
-            <input type="email" placeholder="Tu email" required />
-            <button type="submit" class="btn btn-primary">Suscribirse</button>
-          </form>
-        </div>
-      </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="main-footer">
-      <div class="container">
-        <div class="footer-content">
-          <div class="footer-section">
-            <h3>🌿 Greenhouse Fitness</h3>
-            <p>
-              Tu destino para fitness natural y bienestar. Productos orgánicos
-              certificados para tu mejor versión.
-            </p>
-            <div class="social-links">
-              <a href="#" title="Facebook">📘</a>
-              <a href="#" title="Instagram">📷</a>
-              <a href="#" title="Twitter">🐦</a>
-              <a href="#" title="YouTube">📺</a>
-            </div>
-          </div>
-
-          <div class="footer-section">
-            <h4>Comprar</h4>
-            <ul>
-              <li><a href="#productos">Productos</a></li>
-              <li><a href="#suplementos">Suplementos</a></li>
-              <li><a href="#equipos">Equipos</a></li>
-              <li><a href="#">Ofertas</a></li>
-            </ul>
-          </div>
-
-          <div class="footer-section">
-            <h4>Ayuda</h4>
-            <ul>
-              <li><a href="#">Preguntas Frecuentes</a></li>
-              <li><a href="#">Envíos</a></li>
-              <li><a href="#">Devoluciones</a></li>
-              <li><a href="#">Contacto</a></li>
-            </ul>
-          </div>
-
-          <div class="footer-section">
-            <h4>Legal</h4>
-            <ul>
-              <li><a href="#">Términos y Condiciones</a></li>
-              <li><a href="#">Política de Privacidad</a></li>
-              <li><a href="#">Política de Cookies</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="footer-bottom">
-          <p>&copy; 2025 Greenhouse Fitness. Todos los derechos reservados.</p>
-          <p>Hecho con 💚 para una vida más saludable</p>
         </div>
       </div>
     </footer>
 
-    <!-- Scripts -->
+    <!-- Mobile Menu Script -->
+    <script>
+      document
+        .getElementById("mobile-menu-button")
+        .addEventListener("click", function () {
+          const mobileMenu = document.getElementById("mobile-menu");
+          mobileMenu.classList.toggle("hidden");
+        });
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+
+      // Add fade-in animation on scroll
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
+          }
+        });
+      }, observerOptions);
+
+      // Observe product cards for animation
+      document.querySelectorAll(".card").forEach((card) => {
+        card.style.opacity = "0";
+        card.style.transform = "translateY(20px)";
+        card.style.transition =
+          "opacity 0.6s ease-out, transform 0.6s ease-out";
+        observer.observe(card);
+      });
+    </script>
+
     <script src="../js/api.js"></script>
-    <script src="../js/homepage.js"></script>
   </body>
 </html>

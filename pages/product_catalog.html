@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🌿 Catálogo de Productos - Greenhouse Fitness</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script
+      type="module"
+      async
+      src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fgreenhouse5266back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.9"
+    ></script>
+    <script
+      type="module"
+      defer
+      src="https://static.rocket.new/rocket-shot.js?v=0.0.1"
+    ></script>
+  </head>
+  <body class="bg-background font-body">
+    <!-- Navigation Header -->
+    <nav class="bg-white shadow-soft sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <!-- Logo -->
+          <div class="flex items-center">
+            <a href="homepage.html" class="flex items-center space-x-2">
+              <div
+                class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center"
+              >
+                <span class="text-white text-xl">🌿</span>
+              </div>
+              <span class="text-xl font-heading font-bold text-primary"
+                >Greenhouse Fitness</span
+              >
+            </a>
+          </div>
+
+          <!-- Desktop Navigation -->
+          <div class="hidden md:flex items-center space-x-8">
+            <a
+              href="homepage.html"
+              class="text-text-secondary hover:text-primary transition-micro"
+              >Inicio</a
+            >
+            <a
+              href="product_catalog.html"
+              class="text-primary font-medium hover:text-primary-600 transition-micro"
+              >Productos</a
+            >
+            <div class="relative group">
+              <button
+                class="text-text-secondary hover:text-primary transition-micro flex items-center"
+              >
+                Categorías
+                <svg
+                  class="w-4 h-4 ml-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  ></path>
+                </svg>
+              </button>
+              <div
+                class="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-medium opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-state"
+              >
+                <div class="py-2">
+                  <a
+                    href="product_catalog.html?category=gym"
+                    class="block px-4 py-2 text-sm text-text-secondary hover:bg-surface-100 hover:text-primary"
+                    >🏋️ Gimnasio</a
+                  >
+                  <a
+                    href="product_catalog.html?category=pilates"
+                    class="block px-4 py-2 text-sm text-text-secondary hover:bg-surface-100 hover:text-primary"
+                    >🧘 Pilates</a
+                  >
+                  <a
+                    href="product_catalog.html?category=cardio"
+                    class="block px-4 py-2 text-sm text-text-secondary hover:bg-surface-100 hover:text-primary"
+                    >🏃 Cardio</a
+                  >
+                  <a
+                    href="product_catalog.html?category=supplements"
+                    class="block px-4 py-2 text-sm text-text-secondary hover:bg-surface-100 hover:text-primary"
+                    >💊 Suplementos</a
+                  >
+                  <a
+                    href="product_catalog.html?category=accessories"
+                    class="block px-4 py-2 text-sm text-text-secondary hover:bg-surface-100 hover:text-primary"
+                    >🎯 Accesorios</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- User Actions -->
+          <div class="flex items-center space-x-4">
+            <button
+              class="p-2 text-text-secondary hover:text-primary transition-micro"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                ></path>
+              </svg>
+            </button>
+            <a
+              href="shopping_cart.html"
+              class="relative p-2 text-text-secondary hover:text-primary transition-micro"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 11-4 0v-6m4 0V9a2 2 0 10-4 0v4.01"
+                ></path>
+              </svg>
+              <span
+                class="absolute -top-1 -right-1 bg-accent text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
+                id="cart-count"
+                >3</span
+              >
+            </a>
+            <a href="user_login.html" class="btn-primary">Iniciar Sesión</a>
+
+            <!-- Mobile Menu Button -->
+            <button
+              class="md:hidden p-2 text-text-secondary hover:text-primary transition-micro"
+              id="mobile-menu-button"
+            >
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div class="md:hidden hidden" id="mobile-menu">
+        <div class="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-border">
+          <a
+            href="homepage.html"
+            class="block px-3 py-2 text-text-secondary hover:text-primary"
+            >Inicio</a
+          >
+          <a
+            href="product_catalog.html"
+            class="block px-3 py-2 text-primary font-medium"
+            >Productos</a
+          >
+          <a
+            href="product_catalog.html?category=gym"
+            class="block px-3 py-2 text-text-secondary hover:text-primary"
+            >🏋️ Gimnasio</a
+          >
+          <a
+            href="product_catalog.html?category=pilates"
+            class="block px-3 py-2 text-text-secondary hover:text-primary"
+            >🧘 Pilates</a
+          >
+          <a
+            href="product_catalog.html?category=cardio"
+            class="block px-3 py-2 text-text-secondary hover:text-primary"
+            >🏃 Cardio</a
+          >
+          <a
+            href="product_catalog.html?category=supplements"
+            class="block px-3 py-2 text-text-secondary hover:text-primary"
+            >💊 Suplementos</a
+          >
+          <a
+            href="product_catalog.html?category=accessories"
+            class="block px-3 py-2 text-text-secondary hover:text-primary"
+            >🎯 Accesorios</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="bg-gradient-to-br from-primary-50 to-secondary-50 py-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+          <h1
+            class="text-3xl lg:text-4xl font-heading font-bold text-primary mb-4"
+          >
+            Catálogo de Productos
+          </h1>
+          <p class="text-lg text-text-secondary max-w-2xl mx-auto">
+            Descubre nuestra amplia selección de suplementos naturales y equipos
+            de fitness
+          </p>
+          <div class="mt-6">
+            <span class="text-sm text-text-tertiary">
+              Mostrando <span id="product-count">24</span> productos
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filter and Search Section -->
+    <section class="bg-white border-b border-border sticky top-16 z-40">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <!-- Search Bar -->
+        <div class="mb-4">
+          <div class="relative max-w-md mx-auto md:mx-0">
+            <input
+              type="text"
+              placeholder="Buscar productos..."
+              class="w-full pl-10 pr-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+              id="search-input"
+            />
+            <div
+              class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+            >
+              <svg
+                class="w-5 h-5 text-text-tertiary"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                ></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Filter Controls -->
+        <div
+          class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4"
+        >
+          <!-- Category Filters -->
+          <div class="flex flex-wrap gap-2">
+            <button class="filter-btn active" data-filter="all">Todos</button>
+            <button class="filter-btn" data-filter="gym">🏋️ Gimnasio</button>
+            <button class="filter-btn" data-filter="pilates">🧘 Pilates</button>
+            <button class="filter-btn" data-filter="cardio">🏃 Cardio</button>
+            <button class="filter-btn" data-filter="supplements">
+              💊 Suplementos
+            </button>
+            <button class="filter-btn" data-filter="accessories">
+              🎯 Accesorios
+            </button>
+          </div>
+
+          <!-- Additional Filters and Sort -->
+          <div class="flex flex-wrap items-center gap-4">
+            <!-- Special Filters -->
+            <div class="flex gap-2">
+              <button class="special-filter-btn" data-special="featured">
+                ⭐ Destacados
+              </button>
+              <button class="special-filter-btn" data-special="new">
+                🆕 Nuevos
+              </button>
+              <button class="special-filter-btn" data-special="offers">
+                🏷️ Ofertas
+              </button>
+            </div>
+
+            <!-- Sort Dropdown -->
+            <div class="relative">
+              <select
+                class="appearance-none bg-white border border-border rounded-lg px-4 py-2 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                id="sort-select"
+              >
+                <option value="relevance">Relevancia</option>
+                <option value="price-low">Precio: Menor a Mayor</option>
+                <option value="price-high">Precio: Mayor a Menor</option>
+                <option value="rating">Mejor Valorados</option>
+                <option value="newest">Más Nuevos</option>
+              </select>
+              <div
+                class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none"
+              >
+                <svg
+                  class="w-4 h-4 text-text-tertiary"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  ></path>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Reset Filters -->
+            <button
+              class="text-sm text-text-secondary hover:text-primary transition-micro"
+              id="reset-filters"
+            >
+              Limpiar Filtros
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Filter Toggle -->
+        <button
+          class="lg:hidden w-full mt-4 bg-surface-100 text-text-secondary px-4 py-2 rounded-lg flex items-center justify-center"
+          id="mobile-filter-toggle"
+        >
+          <svg
+            class="w-5 h-5 mr-2"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.207A1 1 0 013 6.5V4z"
+            ></path>
+          </svg>
+          Filtros y Ordenar
+        </button>
+      </div>
+    </section>
+
+    <!-- Products Grid Section -->
+    <section class="py-8 bg-surface-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Loading State -->
+        <div id="loading-state" class="hidden">
+          <div
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+          >
+            <!-- Skeleton Cards -->
+            <div class="card p-4" v-for="i in 8">
+              <div class="skeleton h-48 mb-4"></div>
+              <div class="skeleton-title"></div>
+              <div class="skeleton-text"></div>
+              <div class="skeleton-text w-3/4"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div
+          id="products-grid"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+        >
+          <!-- Product 1 - Proteína Whey Natural -->
+          <div
+            class="card group hover:shadow-organic-hover transition-state product-card"
+            data-category="supplements"
+            data-featured="true"
+            data-new="true"
+          >
+            <div class="relative overflow-hidden rounded-t-lg">
+              <img
+                src="https://images.unsplash.com/photo-1558601069-5433c2baf2df"
+                alt="Proteína Whey Natural - Suplemento orgánico para desarrollo muscular con ingredientes naturales"
+                class="w-full h-48 object-cover group-hover:scale-105 transition-state"
+                loading="lazy"
+                onerror="this.src='https://images.unsplash.com/photo-1593095948071-474c5cc2989d?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;"
+              />
+              <div class="absolute top-2 left-2">
+                <span class="badge-success">Nuevo</span>
+              </div>
+              <div class="absolute top-2 right-2">
+                <span
+                  class="bg-accent text-white px-2 py-1 rounded text-xs font-medium"
+                  >-20%</span
+                >
+              </div>
+              <div class="absolute bottom-2 left-2">
+                <span
+                  class="bg-success text-white px-2 py-1 rounded text-xs font-medium"
+                  >En Stock</span
+                >
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-heading font-semibold text-primary mb-2">
+                Proteína Whey Natural
+              </h3>
+              <div class="flex items-center mb-2">
+                <div class="flex text-accent text-sm">★★★★★</div>
+                <span class="text-xs text-text-tertiary ml-2"
+                  >(127 reseñas)</span
+                >
+              </div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center space-x-2">
+                  <span class="text-lg font-bold text-primary">€32.99</span>
+                  <span class="text-sm text-text-tertiary line-through"
+                    >€41.24</span
+                  >
+                </div>
+              </div>
+              <div class="flex gap-2">
+                <button
+                  class="flex-1 bg-primary text-white py-2 px-4 rounded-lg font-medium hover:bg-primary-600 transition-micro add-to-cart-btn"
+                  data-product-id="1"
+                >
+                  Añadir al Carrito
+                </button>
+                <a
+                  href="product_details.html?id=1"
+                  class="bg-surface-100 text-primary py-2 px-3 rounded-lg hover:bg-surface-200 transition-micro"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    ></path>
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                    ></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 2 - Mancuernas Ajustables -->
+          <div
+            class="card group hover:shadow-organic-hover transition-state product-card"
+            data-category="gym"
+            data-featured="true"
+          >
+            <div class="relative overflow-hidden rounded-t-lg">
+              <img
+                src="https://images.unsplash.com/photo-1558611848-73f7eb4001a1"
+                alt="Mancuernas Ajustables - Equipo de gimnasio profesional para entrenamiento en casa con peso variable"
+                class="w-full h-48 object-cover group-hover:scale-105 transition-state"
+                loading="lazy"
+                onerror="this.src='https://images.unsplash.com/photo-1706304003186-61fa7521c236'; this.onerror=null;"
+              />
+              <div class="absolute top-2 left-2">
+                <span class="badge-warning">Popular</span>
+              </div>
+              <div class="absolute bottom-2 left-2">
+                <span
+                  class="bg-success text-white px-2 py-1 rounded text-xs font-medium"
+                  >En Stock</span
+                >
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-heading font-semibold text-primary mb-2">
+                Mancuernas Ajustables
+              </h3>
+              <div class="flex items-center mb-2">
+                <div class="flex text-accent text-sm">★★★★☆</div>
+                <span class="text-xs text-text-tertiary ml-2"
+                  >(89 reseñas)</span
+                >
+              </div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center space-x-2">
+                  <span class="text-lg font-bold text-primary">€149.99</span>
+                </div>
+              </div>
+              <div class="flex gap-2">
+                <button
+                  class="flex-1 bg-primary text-white py-2 px-4 rounded-lg font-medium hover:bg-primary-600 transition-micro add-to-cart-btn"
+                  data-product-id="2"
+                >
+                  Añadir al Carrito
+                </button>
+                <a
+                  href="product_details.html?id=2"
+                  class="bg-surface-100 text-primary py-2 px-3 rounded-lg hover:bg-surface-200 transition-micro"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    ></path>
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                    ></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 3 - Esterilla de Yoga Eco -->
+          <div
+            class="card group hover:shadow-organic-hover transition-state product-card"
+            data-category="pilates"
+            data-featured="true"
+          >
+            <div class="relative overflow-hidden rounded-t-lg">
+              <img
+                src="https://images.unsplash.com/photo-1695837776974-fe23fd972783"
+                alt="Esterilla de Yoga Eco - Esterilla antideslizante hecha con materiales naturales y sostenibles"
+                class="w-full h-48 object-cover group-hover:scale-105 transition-state"
+                loading="lazy"
+                onerror="this.src='https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;"
+              />
+              <div class="absolute top-2 left-2">
+                <span class="badge-success">Eco</span>
+              </div>
+              <div class="absolute bottom-2 left-2">
+                <span
+                  class="bg-success text-white px-2 py-1 rounded text-xs font-medium"
+                  >En Stock</span
+                >
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-heading font-semibold text-primary mb-2">
+                Esterilla de Yoga Eco
+              </h3>
+              <div class="flex items-center mb-2">
+                <div class="flex text-accent text-sm">★★★★★</div>
+                <span class="text-xs text-text-tertiary ml-2"
+                  >(203 reseñas)</span
+                >
+              </div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center space-x-2">
+                  <span class="text-lg font-bold text-primary">€45.99</span>
+                </div>
+              </div>
+              <div class="flex gap-2">
+                <button
+                  class="flex-1 bg-primary text-white py-2 px-4 rounded-lg font-medium hover:bg-primary-600 transition-micro add-to-cart-btn"
+                  data-product-id="3"
+                >
+                  Añadir al Carrito
+                </button>
+                <a
+                  href="product_details.html?id=3"
+                  class="bg-surface-100 text-primary py-2 px-3 rounded-lg hover:bg-surface-200 transition-micro"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    ></path>
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                    ></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 4 - Creatina Natural -->
+          <div
+            class="card group hover:shadow-organic-hover transition-state product-card"
+            data-category="supplements"
+            data-offers="true"
+          >
+            <div class="relative overflow-hidden rounded-t-lg">
+              <img
+                src="https://images.unsplash.com/photo-1693996045435-af7c48b9cafb"
+                alt="Creatina Natural - Suplemento puro para mejorar rendimiento deportivo sin aditivos químicos"
+                class="w-full h-48 object-cover group-hover:scale-105 transition-state"
+                loading="lazy"
+                onerror="this.src='https://images.unsplash.com/photo-1593095948071-474c5cc2989d?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;"
+              />
+              <div class="absolute top-2 left-2">
+                <span class="badge-success">Orgánico</span>
+              </div>
+              <div class="absolute top-2 right-2">
+                <span
+                  class="bg-accent text-white px-2 py-1 rounded text-xs font-medium"
+                  >-15%</span
+                >
+              </div>
+              <div class="absolute bottom-2 left-2">
+                <span
+                  class="bg-warning text-white px-2 py-1 rounded text-xs font-medium"
+                  >Pocas Unidades</span
+                >
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-heading font-semibold text-primary mb-2">
+                Creatina Natural
+              </h3>
+              <div class="flex items-center mb-2">
+                <div class="flex text-accent text-sm">★★★★☆</div>
+                <span class="text-xs text-text-tertiary ml-2"
+                  >(156 reseñas)</span
+                >
+              </div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center space-x-2">
+                  <span class="text-lg font-bold text-primary">€24.99</span>
+                  <span class="text-sm text-text-tertiary line-through"
+                    >€29.40</span
+                  >
+                </div>
+              </div>
+              <div class="flex gap-2">
+                <button
+                  class="flex-1 bg-primary text-white py-2 px-4 rounded-lg font-medium hover:bg-primary-600 transition-micro add-to-cart-btn"
+                  data-product-id="4"
+                >
+                  Añadir al Carrito
+                </button>
+                <a
+                  href="product_details.html?id=4"
+                  class="bg-surface-100 text-primary py-2 px-3 rounded-lg hover:bg-surface-200 transition-micro"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    ></path>
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                    ></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 5 - Cinta de Correr Plegable -->
+          <div
+            class="card group hover:shadow-organic-hover transition-state product-card"
+            data-category="cardio"
+          >
+            <div class="relative overflow-hidden rounded-t-lg">
+              <img
+                src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt="Cinta de Correr Plegable - Máquina de cardio compacta para entrenamiento en casa con múltiples programas"
+                class="w-full h-48 object-cover group-hover:scale-105 transition-state"
+                loading="lazy"
+                onerror="this.src='https://images.pexels.com/photos/416717/pexels-photo-416717.jpeg?auto=compress&cs=tinysrgb&w=800'; this.onerror=null;"
+              />
+              <div class="absolute bottom-2 left-2">
+                <span
+                  class="bg-success text-white px-2 py-1 rounded text-xs font-medium"
+                  >En Stock</span
+                >
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-heading font-semibold text-primary mb-2">
+                Cinta de Correr Plegable
+              </h3>
+              <div class="flex items-center mb-2">
+                <div class="flex text-accent text-sm">★★★★☆</div>
+                <span class="text-xs text-text-tertiary ml-2"
+                  >(67 reseñas)</span
+                >
+              </div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center space-x-2">
+                  <span class="text-lg font-bold text-primary">€899.99</span>
+                </div>
+              </div>
+              <div class="flex gap-2">
+                <button
+                  class="flex-1 bg-primary text-white py-2 px-4 rounded-lg font-medium hover:bg-primary-600 transition-micro add-to-cart-btn"
+                  data-product-id="5"
+                >
+                  Añadir al Carrito
+                </button>
+                <a
+                  href="product_details.html?id=5"
+                  class="bg-surface-100 text-primary py-2 px-3 rounded-lg hover:bg-surface-200 transition-micro"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    ></path>
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                    ></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 6 - Banda Elástica Set -->
+          <div
+            class="card group hover:shadow-organic-hover transition-state product-card"
+            data-category="accessories"
+            data-new="true"
+          >
+            <div class="relative overflow-hidden rounded-t-lg">
+              <img
+                src="https://images.unsplash.com/photo-1584827386985-3b695ee3d957"
+                alt="Banda Elástica Set - Kit completo de bandas de resistencia para entrenamiento funcional y rehabilitación"
+                class="w-full h-48 object-cover group-hover:scale-105 transition-state"
+                loading="lazy"
+                onerror="this.src='https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;"
+              />
+              <div class="absolute top-2 left-2">
+                <span class="badge-success">Nuevo</span>
+              </div>
+              <div class="absolute bottom-2 left-2">
+                <span
+                  class="bg-success text-white px-2 py-1 rounded text-xs font-medium"
+                  >En Stock</span
+                >
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-heading font-semibold text-primary mb-2">
+                Banda Elástica Set
+              </h3>
+              <div class="flex items-center mb-2">
+                <div class="flex text-accent text-sm">★★★★★</div>
+                <span class="text-xs text-text-tertiary ml-2"
+                  >(94 reseñas)</span
+                >
+              </div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center space-x-2">
+                  <span class="text-lg font-bold text-primary">€29.99</span>
+                </div>
+              </div>
+              <div class="flex gap-2">
+                <button
+                  class="flex-1 bg-primary text-white py-2 px-4 rounded-lg font-medium hover:bg-primary-600 transition-micro add-to-cart-btn"
+                  data-product-id="6"
+                >
+                  Añadir al Carrito
+                </button>
+                <a
+                  href="product_details.html?id=6"
+                  class="bg-surface-100 text-primary py-2 px-3 rounded-lg hover:bg-surface-200 transition-micro"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    ></path>
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                    ></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 7 - BCAA Natural -->
+          <div
+            class="card group hover:shadow-organic-hover transition-state product-card"
+            data-category="supplements"
+            data-offers="true"
+          >
+            <div class="relative overflow-hidden rounded-t-lg">
+              <img
+                src="https://images.unsplash.com/photo-1632470233586-19af5d7d1a08"
+                alt="BCAA Natural - Aminoácidos de cadena ramificada naturales para recuperación muscular y rendimiento"
+                class="w-full h-48 object-cover group-hover:scale-105 transition-state"
+                loading="lazy"
+                onerror="this.src='https://images.unsplash.com/photo-1593095948071-474c5cc2989d?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;"
+              />
+              <div class="absolute top-2 left-2">
+                <span class="badge-success">Orgánico</span>
+              </div>
+              <div class="absolute top-2 right-2">
+                <span
+                  class="bg-accent text-white px-2 py-1 rounded text-xs font-medium"
+                  >-25%</span
+                >
+              </div>
+              <div class="absolute bottom-2 left-2">
+                <span
+                  class="bg-success text-white px-2 py-1 rounded text-xs font-medium"
+                  >En Stock</span
+                >
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-heading font-semibold text-primary mb-2">
+                BCAA Natural
+              </h3>
+              <div class="flex items-center mb-2">
+                <div class="flex text-accent text-sm">★★★★☆</div>
+                <span class="text-xs text-text-tertiary ml-2"
+                  >(112 reseñas)</span
+                >
+              </div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center space-x-2">
+                  <span class="text-lg font-bold text-primary">€22.49</span>
+                  <span class="text-sm text-text-tertiary line-through"
+                    >€29.99</span
+                  >
+                </div>
+              </div>
+              <div class="flex gap-2">
+                <button
+                  class="flex-1 bg-primary text-white py-2 px-4 rounded-lg font-medium hover:bg-primary-600 transition-micro add-to-cart-btn"
+                  data-product-id="7"
+                >
+                  Añadir al Carrito
+                </button>
+                <a
+                  href="product_details.html?id=7"
+                  class="bg-surface-100 text-primary py-2 px-3 rounded-lg hover:bg-surface-200 transition-micro"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    ></path>
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                    ></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 8 - Pelota de Pilates -->
+          <div
+            class="card group hover:shadow-organic-hover transition-state product-card"
+            data-category="pilates"
+          >
+            <div class="relative overflow-hidden rounded-t-lg">
+              <img
+                src="https://images.unsplash.com/photo-1717500252747-7fb0d76be34f"
+                alt="Pelota de Pilates - Balón de ejercicio antirrebote para pilates, yoga y entrenamiento funcional"
+                class="w-full h-48 object-cover group-hover:scale-105 transition-state"
+                loading="lazy"
+                onerror="this.src='https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;"
+              />
+              <div class="absolute bottom-2 left-2">
+                <span
+                  class="bg-success text-white px-2 py-1 rounded text-xs font-medium"
+                  >En Stock</span
+                >
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-heading font-semibold text-primary mb-2">
+                Pelota de Pilates
+              </h3>
+              <div class="flex items-center mb-2">
+                <div class="flex text-accent text-sm">★★★★★</div>
+                <span class="text-xs text-text-tertiary ml-2"
+                  >(78 reseñas)</span
+                >
+              </div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center space-x-2">
+                  <span class="text-lg font-bold text-primary">€19.99</span>
+                </div>
+              </div>
+              <div class="flex gap-2">
+                <button
+                  class="flex-1 bg-primary text-white py-2 px-4 rounded-lg font-medium hover:bg-primary-600 transition-micro add-to-cart-btn"
+                  data-product-id="8"
+                >
+                  Añadir al Carrito
+                </button>
+                <a
+                  href="product_details.html?id=8"
+                  class="bg-surface-100 text-primary py-2 px-3 rounded-lg hover:bg-surface-200 transition-micro"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    ></path>
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                    ></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- No Results Message -->
+        <div id="no-results" class="hidden text-center py-12">
+          <div class="text-6xl mb-4">🔍</div>
+          <h3 class="text-xl font-heading font-semibold text-primary mb-2">
+            No se encontraron productos
+          </h3>
+          <p class="text-text-secondary mb-6">
+            Intenta ajustar tus filtros o términos de búsqueda
+          </p>
+          <button class="btn-primary" id="clear-all-filters">
+            Limpiar Todos los Filtros
+          </button>
+        </div>
+
+        <!-- Load More Button -->
+        <div class="text-center mt-12">
+          <button class="btn-secondary" id="load-more-btn">
+            Cargar Más Productos
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary-800 text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Company Info -->
+          <div>
+            <div class="flex items-center space-x-2 mb-4">
+              <div
+                class="w-8 h-8 bg-accent rounded-lg flex items-center justify-center"
+              >
+                <span class="text-white text-lg">🌿</span>
+              </div>
+              <span class="text-lg font-heading font-bold"
+                >Greenhouse Fitness</span
+              >
+            </div>
+            <p class="text-primary-200 mb-4">
+              Tu tienda de confianza para suplementos naturales y equipos de
+              fitness de calidad premium.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="javascript:void(0)"
+                class="text-primary-200 hover:text-white transition-micro"
+                >📘</a
+              >
+              <a
+                href="javascript:void(0)"
+                class="text-primary-200 hover:text-white transition-micro"
+                >📷</a
+              >
+              <a
+                href="javascript:void(0)"
+                class="text-primary-200 hover:text-white transition-micro"
+                >🐦</a
+              >
+              <a
+                href="javascript:void(0)"
+                class="text-primary-200 hover:text-white transition-micro"
+                >📺</a
+              >
+            </div>
+          </div>
+
+          <!-- Quick Links -->
+          <div>
+            <h3 class="font-heading font-semibold mb-4">Enlaces Rápidos</h3>
+            <ul class="space-y-2">
+              <li>
+                <a
+                  href="homepage.html"
+                  class="text-primary-200 hover:text-white transition-micro"
+                  >Inicio</a
+                >
+              </li>
+              <li>
+                <a
+                  href="product_catalog.html"
+                  class="text-primary-200 hover:text-white transition-micro"
+                  >Productos</a
+                >
+              </li>
+              <li>
+                <a
+                  href="product_catalog.html?category=supplements"
+                  class="text-primary-200 hover:text-white transition-micro"
+                  >Suplementos</a
+                >
+              </li>
+              <li>
+                <a
+                  href="shopping_cart.html"
+                  class="text-primary-200 hover:text-white transition-micro"
+                  >Carrito</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Categories -->
+          <div>
+            <h3 class="font-heading font-semibold mb-4">Categorías</h3>
+            <ul class="space-y-2">
+              <li>
+                <a
+                  href="product_catalog.html?category=gym"
+                  class="text-primary-200 hover:text-white transition-micro"
+                  >🏋️ Gimnasio</a
+                >
+              </li>
+              <li>
+                <a
+                  href="product_catalog.html?category=pilates"
+                  class="text-primary-200 hover:text-white transition-micro"
+                  >🧘 Pilates</a
+                >
+              </li>
+              <li>
+                <a
+                  href="product_catalog.html?category=cardio"
+                  class="text-primary-200 hover:text-white transition-micro"
+                  >🏃 Cardio</a
+                >
+              </li>
+              <li>
+                <a
+                  href="product_catalog.html?category=accessories"
+                  class="text-primary-200 hover:text-white transition-micro"
+                  >🎯 Accesorios</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Contact -->
+          <div>
+            <h3 class="font-heading font-semibold mb-4">Contacto</h3>
+            <ul class="space-y-2 text-primary-200">
+              <li class="flex items-center space-x-2">
+                <span>📧</span>
+                <span>info@greenhousefitness.com</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <span>📞</span>
+                <span>+34 900 123 456</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <span>📍</span>
+                <span>Madrid, España</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <span>🕒</span>
+                <span>Lun-Vie: 9:00-18:00</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="border-t border-primary-700 mt-8 pt-8 text-center">
+          <p class="text-primary-200">
+            © 2025 Greenhouse Fitness. Todos los derechos reservados.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Success Notification -->
+    <div
+      id="success-notification"
+      class="fixed top-4 right-4 bg-success text-white px-6 py-3 rounded-lg shadow-lg transform translate-x-full transition-transform duration-300 z-50"
+    >
+      <div class="flex items-center space-x-2">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+          <path
+            fill-rule="evenodd"
+            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+            clip-rule="evenodd"
+          ></path>
+        </svg>
+        <span>Producto añadido al carrito</span>
+      </div>
+    </div>
+
+    <script>
+      // Mobile menu toggle
+      document
+        .getElementById("mobile-menu-button")
+        .addEventListener("click", function () {
+          const mobileMenu = document.getElementById("mobile-menu");
+          mobileMenu.classList.toggle("hidden");
+        });
+
+      // Filter functionality
+      const filterButtons = document.querySelectorAll(".filter-btn");
+      const specialFilterButtons = document.querySelectorAll(
+        ".special-filter-btn"
+      );
+      const productCards = document.querySelectorAll(".product-card");
+      const searchInput = document.getElementById("search-input");
+      const sortSelect = document.getElementById("sort-select");
+      const productCountElement = document.getElementById("product-count");
+      const noResultsElement = document.getElementById("no-results");
+      const productsGrid = document.getElementById("products-grid");
+
+      let currentFilters = {
+        category: "all",
+        special: null,
+        search: "",
+        sort: "relevance",
+      };
+
+      // Filter button styles
+      const filterBtnClass =
+        "px-4 py-2 rounded-lg text-sm font-medium transition-micro border";
+      const activeFilterClass = "bg-primary text-white border-primary";
+      const inactiveFilterClass =
+        "bg-white text-text-secondary border-border hover:bg-surface-100";
+
+      // Initialize filter buttons
+      filterButtons.forEach((btn) => {
+        btn.className = `filter-btn ${filterBtnClass} ${
+          btn.classList.contains("active")
+            ? activeFilterClass
+            : inactiveFilterClass
+        }`;
+      });
+
+      specialFilterButtons.forEach((btn) => {
+        btn.className = `special-filter-btn ${filterBtnClass} ${inactiveFilterClass}`;
+      });
+
+      // Category filter functionality
+      filterButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+          // Remove active class from all filter buttons
+          filterButtons.forEach((btn) => {
+            btn.className = `filter-btn ${filterBtnClass} ${inactiveFilterClass}`;
+          });
+
+          // Add active class to clicked button
+          this.className = `filter-btn ${filterBtnClass} ${activeFilterClass}`;
+
+          currentFilters.category = this.dataset.filter;
+          applyFilters();
+        });
+      });
+
+      // Special filter functionality
+      specialFilterButtons.forEach((button) => {
+        button.addEventListener("click", function () {
+          const isActive = this.classList.contains("bg-primary");
+
+          // Reset all special filters
+          specialFilterButtons.forEach((btn) => {
+            btn.className = `special-filter-btn ${filterBtnClass} ${inactiveFilterClass}`;
+          });
+
+          if (!isActive) {
+            this.className = `special-filter-btn ${filterBtnClass} ${activeFilterClass}`;
+            currentFilters.special = this.dataset.special;
+          } else {
+            currentFilters.special = null;
+          }
+
+          applyFilters();
+        });
+      });
+
+      // Search functionality
+      searchInput.addEventListener("input", function () {
+        currentFilters.search = this.value.toLowerCase();
+        applyFilters();
+      });
+
+      // Sort functionality
+      sortSelect.addEventListener("change", function () {
+        currentFilters.sort = this.value;
+        applyFilters();
+      });
+
+      // Apply filters function
+      function applyFilters() {
+        let visibleCards = [];
+
+        productCards.forEach((card) => {
+          let isVisible = true;
+
+          // Category filter
+          if (currentFilters.category !== "all") {
+            if (card.dataset.category !== currentFilters.category) {
+              isVisible = false;
+            }
+          }
+
+          // Special filter
+          if (currentFilters.special) {
+            if (!card.dataset[currentFilters.special]) {
+              isVisible = false;
+            }
+          }
+
+          // Search filter
+          if (currentFilters.search) {
+            const productName = card
+              .querySelector("h3")
+              .textContent.toLowerCase();
+            if (!productName.includes(currentFilters.search)) {
+              isVisible = false;
+            }
+          }
+
+          // Show/hide card
+          if (isVisible) {
+            card.style.display = "block";
+            visibleCards.push(card);
+          } else {
+            card.style.display = "none";
+          }
+        });
+
+        // Sort visible cards
+        if (currentFilters.sort !== "relevance") {
+          visibleCards.sort((a, b) => {
+            const priceA = parseFloat(
+              a.querySelector(".text-lg.font-bold").textContent.replace("€", "")
+            );
+            const priceB = parseFloat(
+              b.querySelector(".text-lg.font-bold").textContent.replace("€", "")
+            );
+
+            switch (currentFilters.sort) {
+              case "price-low":
+                return priceA - priceB;
+              case "price-high":
+                return priceB - priceA;
+              case "rating":
+                // Simple rating sort based on star count
+                const starsA = a.querySelectorAll("★").length;
+                const starsB = b.querySelectorAll("★").length;
+                return starsB - starsA;
+              case "newest":
+                // Prioritize products with "new" badge
+                const isNewA = a.dataset.new === "true";
+                const isNewB = b.dataset.new === "true";
+                return isNewB - isNewA;
+              default:
+                return 0;
+            }
+          });
+
+          // Reorder DOM elements
+          visibleCards.forEach((card) => {
+            productsGrid.appendChild(card);
+          });
+        }
+
+        // Update product count
+        productCountElement.textContent = visibleCards.length;
+
+        // Show/hide no results message
+        if (visibleCards.length === 0) {
+          noResultsElement.classList.remove("hidden");
+          productsGrid.classList.add("hidden");
+        } else {
+          noResultsElement.classList.add("hidden");
+          productsGrid.classList.remove("hidden");
+        }
+      }
+
+      // Reset filters functionality
+      document
+        .getElementById("reset-filters")
+        .addEventListener("click", function () {
+          // Reset all filters
+          currentFilters = {
+            category: "all",
+            special: null,
+            search: "",
+            sort: "relevance",
+          };
+
+          // Reset UI
+          filterButtons.forEach((btn) => {
+            btn.className = `filter-btn ${filterBtnClass} ${
+              btn.dataset.filter === "all"
+                ? activeFilterClass
+                : inactiveFilterClass
+            }`;
+          });
+
+          specialFilterButtons.forEach((btn) => {
+            btn.className = `special-filter-btn ${filterBtnClass} ${inactiveFilterClass}`;
+          });
+
+          searchInput.value = "";
+          sortSelect.value = "relevance";
+
+          applyFilters();
+        });
+
+      document
+        .getElementById("clear-all-filters")
+        .addEventListener("click", function () {
+          document.getElementById("reset-filters").click();
+        });
+
+      // Add to cart functionality
+      let cartCount = 3; // Initial cart count
+
+      document.querySelectorAll(".add-to-cart-btn").forEach((button) => {
+        button.addEventListener("click", function () {
+          const productId = this.dataset.productId;
+
+          // Simulate adding to cart
+          cartCount++;
+          document.getElementById("cart-count").textContent = cartCount;
+
+          // Show success notification
+          showNotification();
+
+          // Add loading state
+          const originalText = this.textContent;
+          this.textContent = "Añadiendo...";
+          this.disabled = true;
+
+          setTimeout(() => {
+            this.textContent = originalText;
+            this.disabled = false;
+          }, 1000);
+        });
+      });
+
+      // Show notification function
+      function showNotification() {
+        const notification = document.getElementById("success-notification");
+        notification.classList.remove("translate-x-full");
+
+        setTimeout(() => {
+          notification.classList.add("translate-x-full");
+        }, 3000);
+      }
+
+      // Load more functionality
+      document
+        .getElementById("load-more-btn")
+        .addEventListener("click", function () {
+          const button = this;
+          const originalText = button.textContent;
+
+          button.textContent = "Cargando...";
+          button.disabled = true;
+
+          // Simulate loading more products
+          setTimeout(() => {
+            button.textContent = originalText;
+            button.disabled = false;
+
+            // In a real app, you would load more products here
+            alert("Función de cargar más productos - En desarrollo");
+          }, 2000);
+        });
+
+      // URL parameter handling
+      function handleURLParameters() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const category = urlParams.get("category");
+
+        if (category) {
+          currentFilters.category = category;
+
+          // Update active filter button
+          filterButtons.forEach((btn) => {
+            if (btn.dataset.filter === category) {
+              btn.className = `filter-btn ${filterBtnClass} ${activeFilterClass}`;
+            } else {
+              btn.className = `filter-btn ${filterBtnClass} ${inactiveFilterClass}`;
+            }
+          });
+
+          applyFilters();
+        }
+      }
+
+      // Initialize page
+      document.addEventListener("DOMContentLoaded", function () {
+        handleURLParameters();
+
+        // Add fade-in animation to product cards
+        const observerOptions = {
+          threshold: 0.1,
+          rootMargin: "0px 0px -50px 0px",
+        };
+
+        const observer = new IntersectionObserver(function (entries) {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.style.opacity = "1";
+              entry.target.style.transform = "translateY(0)";
+            }
+          });
+        }, observerOptions);
+
+        // Observe product cards for animation
+        productCards.forEach((card) => {
+          card.style.opacity = "0";
+          card.style.transform = "translateY(20px)";
+          card.style.transition =
+            "opacity 0.6s ease-out, transform 0.6s ease-out";
+          observer.observe(card);
+        });
+      });
+    </script>
+    <script
+      id="dhws-dataInjector"
+      src="../public/dhws-data-injector.js"
+    ></script>
+    <script src="../js/api.js"></script>
+  </body>
+</html>

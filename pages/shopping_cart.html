@@ -1,0 +1,1781 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🛒 Carrito de Compras - Greenhouse Fitness</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script
+      type="module"
+      async
+      src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fgreenhouse5266back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.9"
+    ></script>
+    <script
+      type="module"
+      defer
+      src="https://static.rocket.new/rocket-shot.js?v=0.0.1"
+    ></script>
+  </head>
+  <body class="bg-background font-body">
+    <!-- Navigation Header -->
+    <nav class="bg-white shadow-soft sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <!-- Logo -->
+          <div class="flex items-center">
+            <a href="homepage.html" class="flex items-center space-x-2">
+              <div
+                class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center"
+              >
+                <span class="text-white text-xl">🌿</span>
+              </div>
+              <span class="text-xl font-heading font-bold text-primary"
+                >Greenhouse Fitness</span
+              >
+            </a>
+          </div>
+
+          <!-- Desktop Navigation -->
+          <div class="hidden md:flex items-center space-x-8">
+            <a
+              href="homepage.html"
+              class="text-text-secondary hover:text-primary transition-micro"
+              >Inicio</a
+            >
+            <a
+              href="product_catalog.html"
+              class="text-text-secondary hover:text-primary transition-micro"
+              >Productos</a
+            >
+            <div class="relative group">
+              <button
+                class="text-text-secondary hover:text-primary transition-micro flex items-center"
+              >
+                Categorías
+                <svg
+                  class="w-4 h-4 ml-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  ></path>
+                </svg>
+              </button>
+              <div
+                class="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-medium opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-state"
+              >
+                <div class="py-2">
+                  <a
+                    href="product_catalog.html?category=gym"
+                    class="block px-4 py-2 text-sm text-text-secondary hover:bg-surface-100 hover:text-primary"
+                    >🏋️ Gimnasio</a
+                  >
+                  <a
+                    href="product_catalog.html?category=pilates"
+                    class="block px-4 py-2 text-sm text-text-secondary hover:bg-surface-100 hover:text-primary"
+                    >🧘 Pilates</a
+                  >
+                  <a
+                    href="product_catalog.html?category=cardio"
+                    class="block px-4 py-2 text-sm text-text-secondary hover:bg-surface-100 hover:text-primary"
+                    >🏃 Cardio</a
+                  >
+                  <a
+                    href="product_catalog.html?category=supplements"
+                    class="block px-4 py-2 text-sm text-text-secondary hover:bg-surface-100 hover:text-primary"
+                    >💊 Suplementos</a
+                  >
+                  <a
+                    href="product_catalog.html?category=accessories"
+                    class="block px-4 py-2 text-sm text-text-secondary hover:bg-surface-100 hover:text-primary"
+                    >🎯 Accesorios</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- User Actions -->
+          <div class="flex items-center space-x-4">
+            <button
+              class="p-2 text-text-secondary hover:text-primary transition-micro"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                ></path>
+              </svg>
+            </button>
+            <a
+              href="shopping_cart.html"
+              class="relative p-2 text-primary transition-micro"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 11-4 0v-6m4 0V9a2 2 0 10-4 0v4.01"
+                ></path>
+              </svg>
+              <span
+                class="absolute -top-1 -right-1 bg-accent text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
+                >3</span
+              >
+            </a>
+            <a href="user_login.html" class="btn-primary">Iniciar Sesión</a>
+
+            <!-- Mobile Menu Button -->
+            <button
+              class="md:hidden p-2 text-text-secondary hover:text-primary transition-micro"
+              id="mobile-menu-button"
+            >
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div class="md:hidden hidden" id="mobile-menu">
+        <div class="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-border">
+          <a
+            href="homepage.html"
+            class="block px-3 py-2 text-text-secondary hover:text-primary"
+            >Inicio</a
+          >
+          <a
+            href="product_catalog.html"
+            class="block px-3 py-2 text-text-secondary hover:text-primary"
+            >Productos</a
+          >
+          <a
+            href="product_catalog.html?category=gym"
+            class="block px-3 py-2 text-text-secondary hover:text-primary"
+            >🏋️ Gimnasio</a
+          >
+          <a
+            href="product_catalog.html?category=pilates"
+            class="block px-3 py-2 text-text-secondary hover:text-primary"
+            >🧘 Pilates</a
+          >
+          <a
+            href="product_catalog.html?category=cardio"
+            class="block px-3 py-2 text-text-secondary hover:text-primary"
+            >🏃 Cardio</a
+          >
+          <a
+            href="product_catalog.html?category=supplements"
+            class="block px-3 py-2 text-text-secondary hover:text-primary"
+            >💊 Suplementos</a
+          >
+          <a
+            href="product_catalog.html?category=accessories"
+            class="block px-3 py-2 text-text-secondary hover:text-primary"
+            >🎯 Accesorios</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <section class="bg-surface-100 py-4">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <nav class="flex items-center space-x-2 text-sm">
+          <a
+            href="homepage.html"
+            class="text-text-secondary hover:text-primary transition-micro"
+            >Inicio</a
+          >
+          <svg
+            class="w-4 h-4 text-text-tertiary"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M9 5l7 7-7 7"
+            ></path>
+          </svg>
+          <span class="text-primary font-medium">Carrito de Compras</span>
+        </nav>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="py-8 min-h-screen">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Page Header -->
+        <div class="mb-8">
+          <h1
+            class="text-3xl lg:text-4xl font-heading font-bold text-primary mb-2"
+          >
+            Tu Carrito de Compras
+          </h1>
+          <p class="text-text-secondary">
+            Revisa tus productos antes de proceder al checkout
+          </p>
+        </div>
+
+        <!-- Cart Content -->
+        <div class="grid lg:grid-cols-3 gap-8" id="cart-content">
+          <!-- Cart Items -->
+          <div class="lg:col-span-2">
+            <!-- Cart Items List -->
+            <div class="space-y-4" id="cart-items">
+              <!-- Cart Item 1 -->
+              <div class="card p-6 cart-item" data-product-id="1">
+                <div class="flex flex-col sm:flex-row gap-4">
+                  <!-- Product Image -->
+                  <div class="flex-shrink-0">
+                    <div
+                      class="w-24 h-24 sm:w-32 sm:h-32 rounded-lg overflow-hidden"
+                    >
+                      <img
+                        src="https://images.unsplash.com/photo-1558601069-5433c2baf2df"
+                        alt="Proteína Whey Natural - Suplemento orgánico para desarrollo muscular"
+                        class="w-full h-full object-cover"
+                        loading="lazy"
+                        onerror="this.src='https://images.unsplash.com/photo-1593095948071-474c5cc2989d?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;"
+                      />
+                    </div>
+                  </div>
+
+                  <!-- Product Details -->
+                  <div class="flex-1">
+                    <div
+                      class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4"
+                    >
+                      <div class="flex-1">
+                        <h3
+                          class="font-heading font-semibold text-primary mb-1"
+                        >
+                          <a
+                            href="product_details.html?id=1"
+                            class="hover:text-primary-600 transition-micro"
+                          >
+                            Proteína Whey Natural
+                          </a>
+                        </h3>
+                        <p class="text-sm text-text-secondary mb-2">
+                          Sabor: Vainilla | Tamaño: 2kg
+                        </p>
+                        <div class="flex items-center space-x-2 mb-3">
+                          <span class="badge-success">En Stock</span>
+                          <span class="text-sm text-text-tertiary"
+                            >Envío gratis</span
+                          >
+                        </div>
+
+                        <!-- Mobile Price -->
+                        <div
+                          class="sm:hidden flex items-center justify-between mb-3"
+                        >
+                          <div class="flex items-center space-x-2">
+                            <span class="text-lg font-bold text-primary"
+                              >€32.99</span
+                            >
+                            <span
+                              class="text-sm text-text-tertiary line-through"
+                              >€41.24</span
+                            >
+                          </div>
+                          <span class="text-sm text-success font-medium"
+                            >Ahorro: €8.25</span
+                          >
+                        </div>
+                      </div>
+
+                      <!-- Desktop Price -->
+                      <div class="hidden sm:block text-right">
+                        <div class="flex flex-col items-end space-y-1">
+                          <span class="text-lg font-bold text-primary"
+                            >€32.99</span
+                          >
+                          <span class="text-sm text-text-tertiary line-through"
+                            >€41.24</span
+                          >
+                          <span class="text-sm text-success font-medium"
+                            >Ahorro: €8.25</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Quantity and Actions -->
+                    <div
+                      class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mt-4"
+                    >
+                      <!-- Quantity Controls -->
+                      <div class="flex items-center space-x-3">
+                        <span class="text-sm text-text-secondary"
+                          >Cantidad:</span
+                        >
+                        <div
+                          class="flex items-center border border-border rounded-lg"
+                        >
+                          <button
+                            class="p-2 hover:bg-surface-100 transition-micro quantity-decrease"
+                            data-product-id="1"
+                          >
+                            <svg
+                              class="w-4 h-4"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M20 12H4"
+                              ></path>
+                            </svg>
+                          </button>
+                          <input
+                            type="number"
+                            value="2"
+                            min="1"
+                            max="10"
+                            class="w-16 text-center border-0 focus:outline-none quantity-input"
+                            data-product-id="1"
+                          />
+                          <button
+                            class="p-2 hover:bg-surface-100 transition-micro quantity-increase"
+                            data-product-id="1"
+                          >
+                            <svg
+                              class="w-4 h-4"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                              ></path>
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+
+                      <!-- Actions -->
+                      <div class="flex items-center space-x-4">
+                        <button
+                          class="text-text-secondary hover:text-primary transition-micro save-later"
+                          data-product-id="1"
+                        >
+                          <svg
+                            class="w-5 h-5 inline mr-1"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                            ></path>
+                          </svg>
+                          Guardar
+                        </button>
+                        <button
+                          class="text-error hover:text-error-600 transition-micro remove-item"
+                          data-product-id="1"
+                        >
+                          <svg
+                            class="w-5 h-5 inline mr-1"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                            ></path>
+                          </svg>
+                          Eliminar
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- Item Total -->
+                    <div class="mt-4 pt-4 border-t border-border">
+                      <div class="flex justify-between items-center">
+                        <span class="text-text-secondary"
+                          >Subtotal (2 unidades):</span
+                        >
+                        <span class="text-lg font-bold text-primary item-total"
+                          >€65.98</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Cart Item 2 -->
+              <div class="card p-6 cart-item" data-product-id="2">
+                <div class="flex flex-col sm:flex-row gap-4">
+                  <!-- Product Image -->
+                  <div class="flex-shrink-0">
+                    <div
+                      class="w-24 h-24 sm:w-32 sm:h-32 rounded-lg overflow-hidden"
+                    >
+                      <img
+                        src="https://images.unsplash.com/photo-1632994970656-f29ecae249f0"
+                        alt="Mancuernas Ajustables - Equipo de gimnasio profesional para entrenamiento en casa"
+                        class="w-full h-full object-cover"
+                        loading="lazy"
+                        onerror="this.src='https://images.unsplash.com/photo-1584827386985-3b695ee3d957'; this.onerror=null;"
+                      />
+                    </div>
+                  </div>
+
+                  <!-- Product Details -->
+                  <div class="flex-1">
+                    <div
+                      class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4"
+                    >
+                      <div class="flex-1">
+                        <h3
+                          class="font-heading font-semibold text-primary mb-1"
+                        >
+                          <a
+                            href="product_details.html?id=2"
+                            class="hover:text-primary-600 transition-micro"
+                          >
+                            Mancuernas Ajustables
+                          </a>
+                        </h3>
+                        <p class="text-sm text-text-secondary mb-2">
+                          Peso: 5-25kg | Color: Negro
+                        </p>
+                        <div class="flex items-center space-x-2 mb-3">
+                          <span class="badge-warning">Últimas 3 unidades</span>
+                          <span class="text-sm text-text-tertiary"
+                            >Envío gratis</span
+                          >
+                        </div>
+
+                        <!-- Mobile Price -->
+                        <div
+                          class="sm:hidden flex items-center justify-between mb-3"
+                        >
+                          <div class="flex items-center space-x-2">
+                            <span class="text-lg font-bold text-primary"
+                              >€149.99</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Desktop Price -->
+                      <div class="hidden sm:block text-right">
+                        <div class="flex flex-col items-end space-y-1">
+                          <span class="text-lg font-bold text-primary"
+                            >€149.99</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Quantity and Actions -->
+                    <div
+                      class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mt-4"
+                    >
+                      <!-- Quantity Controls -->
+                      <div class="flex items-center space-x-3">
+                        <span class="text-sm text-text-secondary"
+                          >Cantidad:</span
+                        >
+                        <div
+                          class="flex items-center border border-border rounded-lg"
+                        >
+                          <button
+                            class="p-2 hover:bg-surface-100 transition-micro quantity-decrease"
+                            data-product-id="2"
+                          >
+                            <svg
+                              class="w-4 h-4"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M20 12H4"
+                              ></path>
+                            </svg>
+                          </button>
+                          <input
+                            type="number"
+                            value="1"
+                            min="1"
+                            max="3"
+                            class="w-16 text-center border-0 focus:outline-none quantity-input"
+                            data-product-id="2"
+                          />
+                          <button
+                            class="p-2 hover:bg-surface-100 transition-micro quantity-increase"
+                            data-product-id="2"
+                          >
+                            <svg
+                              class="w-4 h-4"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                              ></path>
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+
+                      <!-- Actions -->
+                      <div class="flex items-center space-x-4">
+                        <button
+                          class="text-text-secondary hover:text-primary transition-micro save-later"
+                          data-product-id="2"
+                        >
+                          <svg
+                            class="w-5 h-5 inline mr-1"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                            ></path>
+                          </svg>
+                          Guardar
+                        </button>
+                        <button
+                          class="text-error hover:text-error-600 transition-micro remove-item"
+                          data-product-id="2"
+                        >
+                          <svg
+                            class="w-5 h-5 inline mr-1"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                            ></path>
+                          </svg>
+                          Eliminar
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- Item Total -->
+                    <div class="mt-4 pt-4 border-t border-border">
+                      <div class="flex justify-between items-center">
+                        <span class="text-text-secondary"
+                          >Subtotal (1 unidad):</span
+                        >
+                        <span class="text-lg font-bold text-primary item-total"
+                          >€149.99</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Cart Item 3 -->
+              <div class="card p-6 cart-item" data-product-id="3">
+                <div class="flex flex-col sm:flex-row gap-4">
+                  <!-- Product Image -->
+                  <div class="flex-shrink-0">
+                    <div
+                      class="w-24 h-24 sm:w-32 sm:h-32 rounded-lg overflow-hidden"
+                    >
+                      <img
+                        src="https://images.unsplash.com/photo-1591801617543-016a9a0c6ba5"
+                        alt="Esterilla de Yoga Eco - Esterilla antideslizante hecha con materiales naturales"
+                        class="w-full h-full object-cover"
+                        loading="lazy"
+                        onerror="this.src='https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;"
+                      />
+                    </div>
+                  </div>
+
+                  <!-- Product Details -->
+                  <div class="flex-1">
+                    <div
+                      class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4"
+                    >
+                      <div class="flex-1">
+                        <h3
+                          class="font-heading font-semibold text-primary mb-1"
+                        >
+                          <a
+                            href="product_details.html?id=3"
+                            class="hover:text-primary-600 transition-micro"
+                          >
+                            Esterilla de Yoga Eco
+                          </a>
+                        </h3>
+                        <p class="text-sm text-text-secondary mb-2">
+                          Material: Corcho natural | Grosor: 6mm
+                        </p>
+                        <div class="flex items-center space-x-2 mb-3">
+                          <span class="badge-success">En Stock</span>
+                          <span class="text-sm text-text-tertiary"
+                            >Envío gratis</span
+                          >
+                        </div>
+
+                        <!-- Mobile Price -->
+                        <div
+                          class="sm:hidden flex items-center justify-between mb-3"
+                        >
+                          <div class="flex items-center space-x-2">
+                            <span class="text-lg font-bold text-primary"
+                              >€45.99</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Desktop Price -->
+                      <div class="hidden sm:block text-right">
+                        <div class="flex flex-col items-end space-y-1">
+                          <span class="text-lg font-bold text-primary"
+                            >€45.99</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Quantity and Actions -->
+                    <div
+                      class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mt-4"
+                    >
+                      <!-- Quantity Controls -->
+                      <div class="flex items-center space-x-3">
+                        <span class="text-sm text-text-secondary"
+                          >Cantidad:</span
+                        >
+                        <div
+                          class="flex items-center border border-border rounded-lg"
+                        >
+                          <button
+                            class="p-2 hover:bg-surface-100 transition-micro quantity-decrease"
+                            data-product-id="3"
+                          >
+                            <svg
+                              class="w-4 h-4"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M20 12H4"
+                              ></path>
+                            </svg>
+                          </button>
+                          <input
+                            type="number"
+                            value="1"
+                            min="1"
+                            max="10"
+                            class="w-16 text-center border-0 focus:outline-none quantity-input"
+                            data-product-id="3"
+                          />
+                          <button
+                            class="p-2 hover:bg-surface-100 transition-micro quantity-increase"
+                            data-product-id="3"
+                          >
+                            <svg
+                              class="w-4 h-4"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                              ></path>
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+
+                      <!-- Actions -->
+                      <div class="flex items-center space-x-4">
+                        <button
+                          class="text-text-secondary hover:text-primary transition-micro save-later"
+                          data-product-id="3"
+                        >
+                          <svg
+                            class="w-5 h-5 inline mr-1"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                            ></path>
+                          </svg>
+                          Guardar
+                        </button>
+                        <button
+                          class="text-error hover:text-error-600 transition-micro remove-item"
+                          data-product-id="3"
+                        >
+                          <svg
+                            class="w-5 h-5 inline mr-1"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                            ></path>
+                          </svg>
+                          Eliminar
+                        </button>
+                      </div>
+                    </div>
+
+                    <!-- Item Total -->
+                    <div class="mt-4 pt-4 border-t border-border">
+                      <div class="flex justify-between items-center">
+                        <span class="text-text-secondary"
+                          >Subtotal (1 unidad):</span
+                        >
+                        <span class="text-lg font-bold text-primary item-total"
+                          >€45.99</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Continue Shopping -->
+            <div class="mt-8">
+              <a
+                href="product_catalog.html"
+                class="inline-flex items-center text-primary hover:text-primary-600 transition-micro"
+              >
+                <svg
+                  class="w-5 h-5 mr-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                  ></path>
+                </svg>
+                Continuar Comprando
+              </a>
+            </div>
+          </div>
+
+          <!-- Order Summary -->
+          <div class="lg:col-span-1">
+            <div class="sticky top-24">
+              <!-- Summary Card -->
+              <div class="card p-6 mb-6">
+                <h2 class="text-xl font-heading font-bold text-primary mb-6">
+                  Resumen del Pedido
+                </h2>
+
+                <!-- Discount Code -->
+                <div class="mb-6">
+                  <label
+                    class="block text-sm font-medium text-text-secondary mb-2"
+                    >Código de Descuento</label
+                  >
+                  <div class="flex gap-2">
+                    <input
+                      type="text"
+                      placeholder="Ingresa tu código"
+                      class="flex-1 input-field"
+                      id="discount-code"
+                    />
+                    <button
+                      class="bg-secondary text-white px-4 py-2 rounded-lg font-medium hover:bg-secondary-600 transition-micro"
+                      id="apply-discount"
+                    >
+                      Aplicar
+                    </button>
+                  </div>
+                  <div class="mt-2 hidden" id="discount-message">
+                    <p class="text-sm text-success">
+                      ✓ Código aplicado: 10% de descuento
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Price Breakdown -->
+                <div class="space-y-3 mb-6">
+                  <div class="flex justify-between">
+                    <span class="text-text-secondary"
+                      >Subtotal (4 productos)</span
+                    >
+                    <span class="font-medium" id="subtotal">€261.96</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-text-secondary">Descuento</span>
+                    <span class="text-success font-medium" id="discount"
+                      >-€8.25</span
+                    >
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-text-secondary">Envío</span>
+                    <span class="text-success font-medium">Gratis</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-text-secondary">IVA (21%)</span>
+                    <span class="font-medium" id="tax">€53.28</span>
+                  </div>
+                  <div class="border-t border-border pt-3">
+                    <div class="flex justify-between items-center">
+                      <span class="text-lg font-heading font-bold text-primary"
+                        >Total</span
+                      >
+                      <span
+                        class="text-2xl font-heading font-bold text-primary"
+                        id="total"
+                        >€306.99</span
+                      >
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Checkout Button -->
+                <button class="w-full btn-primary mb-4" id="checkout-btn">
+                  <svg
+                    class="w-5 h-5 inline mr-2"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                    ></path>
+                  </svg>
+                  Proceder al Checkout
+                </button>
+
+                <!-- Security Badges -->
+                <div class="text-center">
+                  <div class="flex justify-center items-center space-x-4 mb-3">
+                    <div class="flex items-center space-x-1">
+                      <svg
+                        class="w-4 h-4 text-success"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                          clip-rule="evenodd"
+                        ></path>
+                      </svg>
+                      <span class="text-xs text-text-secondary"
+                        >Pago Seguro</span
+                      >
+                    </div>
+                    <div class="flex items-center space-x-1">
+                      <svg
+                        class="w-4 h-4 text-success"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                          clip-rule="evenodd"
+                        ></path>
+                      </svg>
+                      <span class="text-xs text-text-secondary"
+                        >SSL Certificado</span
+                      >
+                    </div>
+                  </div>
+                  <p class="text-xs text-text-tertiary">
+                    Tus datos están protegidos con encriptación de 256 bits
+                  </p>
+                </div>
+              </div>
+
+              <!-- Shipping Info -->
+              <div class="card p-6 mb-6">
+                <h3 class="font-heading font-semibold text-primary mb-4">
+                  Información de Envío
+                </h3>
+                <div class="space-y-3">
+                  <div class="flex items-center space-x-3">
+                    <div
+                      class="w-8 h-8 bg-success-100 rounded-full flex items-center justify-center"
+                    >
+                      <svg
+                        class="w-4 h-4 text-success"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                          clip-rule="evenodd"
+                        ></path>
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="text-sm font-medium text-primary">
+                        Envío Gratis
+                      </p>
+                      <p class="text-xs text-text-secondary">
+                        En pedidos superiores a €50
+                      </p>
+                    </div>
+                  </div>
+                  <div class="flex items-center space-x-3">
+                    <div
+                      class="w-8 h-8 bg-primary-100 rounded-full flex items-center justify-center"
+                    >
+                      <svg
+                        class="w-4 h-4 text-primary"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                        ></path>
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="text-sm font-medium text-primary">
+                        Entrega Rápida
+                      </p>
+                      <p class="text-xs text-text-secondary">
+                        2-3 días laborables
+                      </p>
+                    </div>
+                  </div>
+                  <div class="flex items-center space-x-3">
+                    <div
+                      class="w-8 h-8 bg-accent-100 rounded-full flex items-center justify-center"
+                    >
+                      <svg
+                        class="w-4 h-4 text-accent"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                        ></path>
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="text-sm font-medium text-primary">Garantía</p>
+                      <p class="text-xs text-text-secondary">
+                        30 días devolución
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Payment Methods -->
+              <div class="card p-6">
+                <h3 class="font-heading font-semibold text-primary mb-4">
+                  Métodos de Pago
+                </h3>
+                <div class="grid grid-cols-4 gap-3">
+                  <div
+                    class="aspect-square bg-surface-100 rounded-lg flex items-center justify-center"
+                  >
+                    <span class="text-2xl">💳</span>
+                  </div>
+                  <div
+                    class="aspect-square bg-surface-100 rounded-lg flex items-center justify-center"
+                  >
+                    <span class="text-2xl">🏦</span>
+                  </div>
+                  <div
+                    class="aspect-square bg-surface-100 rounded-lg flex items-center justify-center"
+                  >
+                    <span class="text-2xl">📱</span>
+                  </div>
+                  <div
+                    class="aspect-square bg-surface-100 rounded-lg flex items-center justify-center"
+                  >
+                    <span class="text-2xl">💰</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Empty Cart State (Hidden by default) -->
+        <div class="hidden text-center py-16" id="empty-cart">
+          <div class="max-w-md mx-auto">
+            <div
+              class="w-24 h-24 bg-surface-100 rounded-full flex items-center justify-center mx-auto mb-6"
+            >
+              <svg
+                class="w-12 h-12 text-text-tertiary"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 11-4 0v-6m4 0V9a2 2 0 10-4 0v4.01"
+                ></path>
+              </svg>
+            </div>
+            <h2 class="text-2xl font-heading font-bold text-primary mb-4">
+              Tu carrito está vacío
+            </h2>
+            <p class="text-text-secondary mb-8">
+              Descubre nuestros productos naturales y equipos de fitness para
+              comenzar tu rutina saludable.
+            </p>
+            <a href="product_catalog.html" class="btn-primary">
+              Explorar Productos
+            </a>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Related Products Section -->
+    <section class="py-16 bg-surface-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2
+            class="text-3xl lg:text-4xl font-heading font-bold text-primary mb-4"
+          >
+            También Te Puede Interesar
+          </h2>
+          <p class="text-lg text-text-secondary max-w-2xl mx-auto">
+            Productos recomendados basados en tu carrito
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Related Product 1 -->
+          <div class="card group hover:shadow-organic-hover transition-state">
+            <div class="relative overflow-hidden rounded-t-lg">
+              <img
+                src="https://images.unsplash.com/photo-1683394380757-4f02e66185ee"
+                alt="Creatina Natural - Suplemento puro para mejorar rendimiento deportivo"
+                class="w-full h-48 object-cover group-hover:scale-105 transition-state"
+                loading="lazy"
+                onerror="this.src='https://images.unsplash.com/photo-1593095948071-474c5cc2989d?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;"
+              />
+              <div class="absolute top-2 left-2">
+                <span class="badge-success">Orgánico</span>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-heading font-semibold text-primary mb-2">
+                Creatina Natural
+              </h3>
+              <div class="flex items-center mb-2">
+                <div class="flex text-accent text-sm">★★★★☆</div>
+                <span class="text-xs text-text-tertiary ml-2"
+                  >(156 reseñas)</span
+                >
+              </div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center space-x-2">
+                  <span class="text-lg font-bold text-primary">€24.99</span>
+                </div>
+              </div>
+              <button
+                class="w-full bg-primary text-white py-2 px-4 rounded-lg font-medium hover:bg-primary-600 transition-micro add-to-cart"
+                data-product-id="4"
+              >
+                Añadir al Carrito
+              </button>
+            </div>
+          </div>
+
+          <!-- Related Product 2 -->
+          <div class="card group hover:shadow-organic-hover transition-state">
+            <div class="relative overflow-hidden rounded-t-lg">
+              <img
+                src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt="Banda Elástica de Resistencia - Accesorio versátil para entrenamiento funcional"
+                class="w-full h-48 object-cover group-hover:scale-105 transition-state"
+                loading="lazy"
+                onerror="this.src='https://images.pexels.com/photos/416717/pexels-photo-416717.jpeg?auto=compress&cs=tinysrgb&w=800'; this.onerror=null;"
+              />
+              <div class="absolute top-2 left-2">
+                <span class="badge-warning">Popular</span>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-heading font-semibold text-primary mb-2">
+                Banda Elástica
+              </h3>
+              <div class="flex items-center mb-2">
+                <div class="flex text-accent text-sm">★★★★★</div>
+                <span class="text-xs text-text-tertiary ml-2"
+                  >(89 reseñas)</span
+                >
+              </div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center space-x-2">
+                  <span class="text-lg font-bold text-primary">€19.99</span>
+                </div>
+              </div>
+              <button
+                class="w-full bg-primary text-white py-2 px-4 rounded-lg font-medium hover:bg-primary-600 transition-micro add-to-cart"
+                data-product-id="5"
+              >
+                Añadir al Carrito
+              </button>
+            </div>
+          </div>
+
+          <!-- Related Product 3 -->
+          <div class="card group hover:shadow-organic-hover transition-state">
+            <div class="relative overflow-hidden rounded-t-lg">
+              <img
+                src="https://images.unsplash.com/photo-1683889842940-ed1e5233e291"
+                alt="Barra Olímpica - Barra profesional de 20kg para levantamiento de pesas"
+                class="w-full h-48 object-cover group-hover:scale-105 transition-state"
+                loading="lazy"
+                onerror="this.src='https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;"
+              />
+              <div class="absolute top-2 left-2">
+                <span class="badge-success">Profesional</span>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-heading font-semibold text-primary mb-2">
+                Barra Olímpica
+              </h3>
+              <div class="flex items-center mb-2">
+                <div class="flex text-accent text-sm">★★★★★</div>
+                <span class="text-xs text-text-tertiary ml-2"
+                  >(67 reseñas)</span
+                >
+              </div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center space-x-2">
+                  <span class="text-lg font-bold text-primary">€89.99</span>
+                </div>
+              </div>
+              <button
+                class="w-full bg-primary text-white py-2 px-4 rounded-lg font-medium hover:bg-primary-600 transition-micro add-to-cart"
+                data-product-id="6"
+              >
+                Añadir al Carrito
+              </button>
+            </div>
+          </div>
+
+          <!-- Related Product 4 -->
+          <div class="card group hover:shadow-organic-hover transition-state">
+            <div class="relative overflow-hidden rounded-t-lg">
+              <img
+                src="https://images.unsplash.com/photo-1590789330911-fd4248f14111"
+                alt="Shaker Proteína - Botella mezcladora con compartimentos para suplementos"
+                class="w-full h-48 object-cover group-hover:scale-105 transition-state"
+                loading="lazy"
+                onerror="this.src='https://images.unsplash.com/photo-1593095948071-474c5cc2989d?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;"
+              />
+              <div class="absolute top-2 left-2">
+                <span class="badge-success">Eco</span>
+              </div>
+            </div>
+            <div class="p-4">
+              <h3 class="font-heading font-semibold text-primary mb-2">
+                Shaker Proteína
+              </h3>
+              <div class="flex items-center mb-2">
+                <div class="flex text-accent text-sm">★★★★☆</div>
+                <span class="text-xs text-text-tertiary ml-2"
+                  >(124 reseñas)</span
+                >
+              </div>
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center space-x-2">
+                  <span class="text-lg font-bold text-primary">€12.99</span>
+                </div>
+              </div>
+              <button
+                class="w-full bg-primary text-white py-2 px-4 rounded-lg font-medium hover:bg-primary-600 transition-micro add-to-cart"
+                data-product-id="7"
+              >
+                Añadir al Carrito
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary-800 text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Company Info -->
+          <div>
+            <div class="flex items-center space-x-2 mb-4">
+              <div
+                class="w-8 h-8 bg-accent rounded-lg flex items-center justify-center"
+              >
+                <span class="text-white text-lg">🌿</span>
+              </div>
+              <span class="text-lg font-heading font-bold"
+                >Greenhouse Fitness</span
+              >
+            </div>
+            <p class="text-primary-200 mb-4">
+              Tu tienda de confianza para suplementos naturales y equipos de
+              fitness de calidad premium.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="javascript:void(0)"
+                class="text-primary-200 hover:text-white transition-micro"
+                >📘</a
+              >
+              <a
+                href="javascript:void(0)"
+                class="text-primary-200 hover:text-white transition-micro"
+                >📷</a
+              >
+              <a
+                href="javascript:void(0)"
+                class="text-primary-200 hover:text-white transition-micro"
+                >🐦</a
+              >
+              <a
+                href="javascript:void(0)"
+                class="text-primary-200 hover:text-white transition-micro"
+                >📺</a
+              >
+            </div>
+          </div>
+
+          <!-- Quick Links -->
+          <div>
+            <h3 class="font-heading font-semibold mb-4">Enlaces Rápidos</h3>
+            <ul class="space-y-2">
+              <li>
+                <a
+                  href="homepage.html"
+                  class="text-primary-200 hover:text-white transition-micro"
+                  >Inicio</a
+                >
+              </li>
+              <li>
+                <a
+                  href="product_catalog.html"
+                  class="text-primary-200 hover:text-white transition-micro"
+                  >Productos</a
+                >
+              </li>
+              <li>
+                <a
+                  href="product_catalog.html?category=supplements"
+                  class="text-primary-200 hover:text-white transition-micro"
+                  >Suplementos</a
+                >
+              </li>
+              <li>
+                <a
+                  href="shopping_cart.html"
+                  class="text-primary-200 hover:text-white transition-micro"
+                  >Carrito</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Categories -->
+          <div>
+            <h3 class="font-heading font-semibold mb-4">Categorías</h3>
+            <ul class="space-y-2">
+              <li>
+                <a
+                  href="product_catalog.html?category=gym"
+                  class="text-primary-200 hover:text-white transition-micro"
+                  >🏋️ Gimnasio</a
+                >
+              </li>
+              <li>
+                <a
+                  href="product_catalog.html?category=pilates"
+                  class="text-primary-200 hover:text-white transition-micro"
+                  >🧘 Pilates</a
+                >
+              </li>
+              <li>
+                <a
+                  href="product_catalog.html?category=cardio"
+                  class="text-primary-200 hover:text-white transition-micro"
+                  >🏃 Cardio</a
+                >
+              </li>
+              <li>
+                <a
+                  href="product_catalog.html?category=accessories"
+                  class="text-primary-200 hover:text-white transition-micro"
+                  >🎯 Accesorios</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Contact -->
+          <div>
+            <h3 class="font-heading font-semibold mb-4">Contacto</h3>
+            <ul class="space-y-2 text-primary-200">
+              <li class="flex items-center space-x-2">
+                <span>📧</span>
+                <span>info@greenhousefitness.com</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <span>📞</span>
+                <span>+34 900 123 456</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <span>📍</span>
+                <span>Madrid, España</span>
+              </li>
+              <li class="flex items-center space-x-2">
+                <span>🕒</span>
+                <span>Lun-Vie: 9:00-18:00</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="border-t border-primary-700 mt-8 pt-8 text-center">
+          <p class="text-primary-200">
+            © 2025 Greenhouse Fitness. Todos los derechos reservados.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Confirmation Modal -->
+    <div
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+      id="confirmation-modal"
+    >
+      <div class="bg-white rounded-lg p-6 max-w-md mx-4">
+        <div class="text-center">
+          <div
+            class="w-16 h-16 bg-error-100 rounded-full flex items-center justify-center mx-auto mb-4"
+          >
+            <svg
+              class="w-8 h-8 text-error"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-heading font-semibold text-primary mb-2">
+            Confirmar Eliminación
+          </h3>
+          <p class="text-text-secondary mb-6">
+            ¿Estás seguro de que quieres eliminar este producto del carrito?
+          </p>
+          <div class="flex space-x-3">
+            <button
+              class="flex-1 bg-surface-200 text-text-secondary py-2 px-4 rounded-lg font-medium hover:bg-surface-300 transition-micro"
+              id="cancel-remove"
+            >
+              Cancelar
+            </button>
+            <button
+              class="flex-1 bg-error text-white py-2 px-4 rounded-lg font-medium hover:bg-error-600 transition-micro"
+              id="confirm-remove"
+            >
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+      // Mobile menu toggle
+      document
+        .getElementById("mobile-menu-button")
+        .addEventListener("click", function () {
+          const mobileMenu = document.getElementById("mobile-menu");
+          mobileMenu.classList.toggle("hidden");
+        });
+
+      // Cart functionality
+      let cartData = {
+        items: [
+          {
+            id: 1,
+            name: "Proteína Whey Natural",
+            price: 32.99,
+            originalPrice: 41.24,
+            quantity: 2,
+            image:
+              "https://images.pixabay.com/photo/2017/05/12/11/28/whey-protein-2307618_1280.jpg",
+          },
+          {
+            id: 2,
+            name: "Mancuernas Ajustables",
+            price: 149.99,
+            quantity: 1,
+            image:
+              "https://images.pexels.com/photos/416717/pexels-photo-416717.jpeg?auto=compress&cs=tinysrgb&w=800",
+          },
+          {
+            id: 3,
+            name: "Esterilla de Yoga Eco",
+            price: 45.99,
+            quantity: 1,
+            image:
+              "https://images.pixabay.com/photo/2017/08/25/15/10/yoga-2680045_1280.jpg",
+          },
+        ],
+        discount: 8.25,
+        taxRate: 0.21,
+      };
+
+      // Update cart totals
+      function updateCartTotals() {
+        const subtotal = cartData.items.reduce(
+          (sum, item) => sum + item.price * item.quantity,
+          0
+        );
+        const tax = subtotal * cartData.taxRate;
+        const total = subtotal - cartData.discount + tax;
+
+        document.getElementById("subtotal").textContent = `€${subtotal.toFixed(
+          2
+        )}`;
+        document.getElementById(
+          "discount"
+        ).textContent = `-€${cartData.discount.toFixed(2)}`;
+        document.getElementById("tax").textContent = `€${tax.toFixed(2)}`;
+        document.getElementById("total").textContent = `€${total.toFixed(2)}`;
+
+        // Update cart count in navigation
+        const totalItems = cartData.items.reduce(
+          (sum, item) => sum + item.quantity,
+          0
+        );
+        document.querySelector(".bg-accent").textContent = totalItems;
+      }
+
+      // Quantity controls
+      document.querySelectorAll(".quantity-increase").forEach((button) => {
+        button.addEventListener("click", function () {
+          const productId = parseInt(this.dataset.productId);
+          const input = document.querySelector(
+            `.quantity-input[data-product-id="${productId}"]`
+          );
+          const currentValue = parseInt(input.value);
+          const maxValue = parseInt(input.max);
+
+          if (currentValue < maxValue) {
+            input.value = currentValue + 1;
+            updateItemQuantity(productId, currentValue + 1);
+          }
+        });
+      });
+
+      document.querySelectorAll(".quantity-decrease").forEach((button) => {
+        button.addEventListener("click", function () {
+          const productId = parseInt(this.dataset.productId);
+          const input = document.querySelector(
+            `.quantity-input[data-product-id="${productId}"]`
+          );
+          const currentValue = parseInt(input.value);
+
+          if (currentValue > 1) {
+            input.value = currentValue - 1;
+            updateItemQuantity(productId, currentValue - 1);
+          }
+        });
+      });
+
+      document.querySelectorAll(".quantity-input").forEach((input) => {
+        input.addEventListener("change", function () {
+          const productId = parseInt(this.dataset.productId);
+          const newQuantity = parseInt(this.value);
+          updateItemQuantity(productId, newQuantity);
+        });
+      });
+
+      function updateItemQuantity(productId, newQuantity) {
+        const item = cartData.items.find((item) => item.id === productId);
+        if (item) {
+          item.quantity = newQuantity;
+
+          // Update item total display
+          const itemTotal = item.price * newQuantity;
+          const cartItem = document.querySelector(
+            `.cart-item[data-product-id="${productId}"]`
+          );
+          cartItem.querySelector(
+            ".item-total"
+          ).textContent = `€${itemTotal.toFixed(2)}`;
+
+          // Update subtotal text
+          const subtotalText = cartItem.querySelector(".text-text-secondary");
+          subtotalText.textContent = `Subtotal (${newQuantity} ${
+            newQuantity === 1 ? "unidad" : "unidades"
+          }):`;
+
+          updateCartTotals();
+        }
+      }
+
+      // Remove item functionality
+      let itemToRemove = null;
+
+      document.querySelectorAll(".remove-item").forEach((button) => {
+        button.addEventListener("click", function () {
+          itemToRemove = parseInt(this.dataset.productId);
+          document
+            .getElementById("confirmation-modal")
+            .classList.remove("hidden");
+        });
+      });
+
+      document
+        .getElementById("cancel-remove")
+        .addEventListener("click", function () {
+          document.getElementById("confirmation-modal").classList.add("hidden");
+          itemToRemove = null;
+        });
+
+      document
+        .getElementById("confirm-remove")
+        .addEventListener("click", function () {
+          if (itemToRemove) {
+            cartData.items = cartData.items.filter(
+              (item) => item.id !== itemToRemove
+            );
+            document
+              .querySelector(`.cart-item[data-product-id="${itemToRemove}"]`)
+              .remove();
+            updateCartTotals();
+
+            // Check if cart is empty
+            if (cartData.items.length === 0) {
+              document.getElementById("cart-content").classList.add("hidden");
+              document.getElementById("empty-cart").classList.remove("hidden");
+            }
+          }
+          document.getElementById("confirmation-modal").classList.add("hidden");
+          itemToRemove = null;
+        });
+
+      // Save for later functionality
+      document.querySelectorAll(".save-later").forEach((button) => {
+        button.addEventListener("click", function () {
+          const productId = parseInt(this.dataset.productId);
+          // Here you would typically save to localStorage or send to server
+          alert("Producto guardado para más tarde");
+        });
+      });
+
+      // Discount code functionality
+      document
+        .getElementById("apply-discount")
+        .addEventListener("click", function () {
+          const discountCode = document
+            .getElementById("discount-code")
+            .value.trim();
+          const discountMessage = document.getElementById("discount-message");
+
+          if (discountCode.toLowerCase() === "fitness10") {
+            discountMessage.classList.remove("hidden");
+            cartData.discount = 26.2; // 10% discount
+            updateCartTotals();
+          } else if (discountCode) {
+            discountMessage.innerHTML =
+              '<p class="text-sm text-error">✗ Código no válido</p>';
+            discountMessage.classList.remove("hidden");
+          }
+        });
+
+      // Add to cart from related products
+      document.querySelectorAll(".add-to-cart").forEach((button) => {
+        button.addEventListener("click", function () {
+          const productId = parseInt(this.dataset.productId);
+          // Here you would typically add the product to cart
+          this.textContent = "Añadido ✓";
+          this.classList.add("bg-success");
+          this.classList.remove("bg-primary", "hover:bg-primary-600");
+
+          setTimeout(() => {
+            this.textContent = "Añadir al Carrito";
+            this.classList.remove("bg-success");
+            this.classList.add("bg-primary", "hover:bg-primary-600");
+          }, 2000);
+        });
+      });
+
+      // Checkout functionality
+      document
+        .getElementById("checkout-btn")
+        .addEventListener("click", function () {
+          this.innerHTML =
+            '<svg class="w-5 h-5 inline mr-2 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>Procesando...';
+          this.disabled = true;
+
+          // Simulate checkout process
+          setTimeout(() => {
+            alert("Redirigiendo al checkout seguro...");
+            this.innerHTML =
+              '<svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>Proceder al Checkout';
+            this.disabled = false;
+          }, 2000);
+        });
+
+      // Initialize cart totals
+      updateCartTotals();
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute("href"));
+          if (target) {
+            target.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
+      });
+
+      // Add fade-in animation on scroll
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      };
+
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = "1";
+            entry.target.style.transform = "translateY(0)";
+          }
+        });
+      }, observerOptions);
+
+      // Observe cart items for animation
+      document.querySelectorAll(".cart-item").forEach((item) => {
+        item.style.opacity = "0";
+        item.style.transform = "translateY(20px)";
+        item.style.transition =
+          "opacity 0.6s ease-out, transform 0.6s ease-out";
+        observer.observe(item);
+      });
+    </script>
+    <script
+      id="dhws-dataInjector"
+      src="../public/dhws-data-injector.js"
+    ></script>
+    <script src="../js/api.js"></script>
+  </body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestión de Categorías - Admin Panel</title>
+    <link rel="stylesheet" href="../css/admin.css" />
+  </head>
+  <body>
+    <div class="admin-layout">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <a href="dashboard.html" class="sidebar-logo">
+            <div class="sidebar-logo-icon">🌿</div>
+            <span>Admin Panel</span>
+          </a>
+        </div>
+
+        <nav class="sidebar-nav">
+          <div class="nav-section">
+            <div class="nav-section-title">General</div>
+            <a href="dashboard.html" class="nav-link">
+              <span class="nav-link-icon">📊</span>
+              <span>Dashboard</span>
+            </a>
+          </div>
+
+          <div class="nav-section">
+            <div class="nav-section-title">Gestión</div>
+            <a href="products.html" class="nav-link">
+              <span class="nav-link-icon">📦</span>
+              <span>Productos</span>
+            </a>
+            <a href="categories.html" class="nav-link active">
+              <span class="nav-link-icon">🏷️</span>
+              <span>Categorías</span>
+            </a>
+            <a href="users.html" class="nav-link">
+              <span class="nav-link-icon">👥</span>
+              <span>Usuarios</span>
+            </a>
+            <a href="discounts.html" class="nav-link">
+              <span class="nav-link-icon">🎫</span>
+              <span>Descuentos</span>
+            </a>
+          </div>
+
+          <div class="nav-section">
+            <div class="nav-section-title">Sistema</div>
+            <a href="../../frontend/pages/homepage.html" class="nav-link">
+              <span class="nav-link-icon">🏠</span>
+              <span>Ver Tienda</span>
+            </a>
+            <a href="#" class="nav-link" onclick="logout()">
+              <span class="nav-link-icon">🚪</span>
+              <span>Cerrar Sesión</span>
+            </a>
+          </div>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Gestión de Categorías</h1>
+            <p class="page-description">
+              Administra las categorías de productos
+            </p>
+          </div>
+          <button class="btn btn-primary" onclick="openCategoryModal()">
+            <span>➕</span>
+            <span>Nueva Categoría</span>
+          </button>
+        </div>
+
+        <!-- Categories Grid -->
+        <div class="stats-grid" id="categories-grid">
+          <div class="stat-card" style="text-align: center">
+            <div class="loading"></div>
+            <div style="margin-top: 1rem">Cargando categorías...</div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Category Modal -->
+    <div class="modal" id="category-modal">
+      <div class="modal-content" style="max-width: 500px">
+        <div class="modal-header">
+          <h2 class="modal-title" id="modal-title">Nueva Categoría</h2>
+          <button class="modal-close" onclick="closeCategoryModal()">✕</button>
+        </div>
+        <div class="modal-body">
+          <form id="category-form">
+            <input type="hidden" id="category-id" />
+
+            <div class="form-group">
+              <label class="form-label">Nombre de la Categoría *</label>
+              <input
+                type="text"
+                id="category-name"
+                class="form-input"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Descripción</label>
+              <textarea
+                id="category-description"
+                class="form-textarea"
+                rows="3"
+              ></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" onclick="closeCategoryModal()">
+            Cancelar
+          </button>
+          <button class="btn btn-primary" onclick="saveCategory()">
+            <span id="save-btn-text">Guardar Categoría</span>
+            <div class="loading" id="save-loading" style="display: none"></div>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal" id="delete-modal">
+      <div class="modal-content" style="max-width: 400px">
+        <div class="modal-header">
+          <h2 class="modal-title">Confirmar Eliminación</h2>
+          <button class="modal-close" onclick="closeDeleteModal()">✕</button>
+        </div>
+        <div class="modal-body">
+          <p>¿Estás seguro de que deseas eliminar esta categoría?</p>
+          <p
+            style="color: var(--error); font-size: 0.875rem; margin-top: 0.5rem"
+          >
+            ⚠️ Los productos asociados perderán su categoría.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" onclick="closeDeleteModal()">
+            Cancelar
+          </button>
+          <button class="btn btn-danger" onclick="confirmDelete()">
+            Eliminar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+      <span id="notification-text"></span>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/categories.js"></script>
+  </body>
+</html>

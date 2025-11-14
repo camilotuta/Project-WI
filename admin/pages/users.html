@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestión de Usuarios - Admin Panel</title>
+    <link rel="stylesheet" href="../css/admin.css" />
+  </head>
+  <body>
+    <div class="admin-layout">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <a href="dashboard.html" class="sidebar-logo">
+            <div class="sidebar-logo-icon">🌿</div>
+            <span>Admin Panel</span>
+          </a>
+        </div>
+
+        <nav class="sidebar-nav">
+          <div class="nav-section">
+            <div class="nav-section-title">General</div>
+            <a href="dashboard.html" class="nav-link">
+              <span class="nav-link-icon">📊</span>
+              <span>Dashboard</span>
+            </a>
+          </div>
+
+          <div class="nav-section">
+            <div class="nav-section-title">Gestión</div>
+            <a href="products.html" class="nav-link">
+              <span class="nav-link-icon">📦</span>
+              <span>Productos</span>
+            </a>
+            <a href="categories.html" class="nav-link">
+              <span class="nav-link-icon">🏷️</span>
+              <span>Categorías</span>
+            </a>
+            <a href="users.html" class="nav-link active">
+              <span class="nav-link-icon">👥</span>
+              <span>Usuarios</span>
+            </a>
+            <a href="discounts.html" class="nav-link">
+              <span class="nav-link-icon">🎫</span>
+              <span>Descuentos</span>
+            </a>
+          </div>
+
+          <div class="nav-section">
+            <div class="nav-section-title">Sistema</div>
+            <a href="../../frontend/pages/homepage.html" class="nav-link">
+              <span class="nav-link-icon">🏠</span>
+              <span>Ver Tienda</span>
+            </a>
+            <a href="#" class="nav-link" onclick="logout()">
+              <span class="nav-link-icon">🚪</span>
+              <span>Cerrar Sesión</span>
+            </a>
+          </div>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Gestión de Usuarios</h1>
+            <p class="page-description">Administra los usuarios registrados</p>
+          </div>
+          <button class="btn btn-primary" onclick="openUserModal()">
+            <span>➕</span>
+            <span>Nuevo Usuario</span>
+          </button>
+        </div>
+
+        <!-- Filters -->
+        <div class="card">
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap">
+            <div
+              class="form-group"
+              style="flex: 1; min-width: 250px; margin-bottom: 0"
+            >
+              <input
+                type="text"
+                id="search-input"
+                class="form-input"
+                placeholder="Buscar por nombre o email..."
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Users Table -->
+        <div class="card">
+          <div class="table-container">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nombre</th>
+                  <th>Email</th>
+                  <th>Teléfono</th>
+                  <th>Ciudad</th>
+                  <th>Fecha Registro</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody id="users-table">
+                <tr>
+                  <td colspan="7" style="text-align: center; padding: 3rem">
+                    <div class="loading"></div>
+                    <div style="margin-top: 1rem">Cargando usuarios...</div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- User Modal -->
+    <div class="modal" id="user-modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title" id="modal-title">Nuevo Usuario</h2>
+          <button class="modal-close" onclick="closeUserModal()">✕</button>
+        </div>
+        <div class="modal-body">
+          <form id="user-form">
+            <input type="hidden" id="user-id" />
+
+            <div
+              style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem"
+            >
+              <div class="form-group">
+                <label class="form-label">Nombre *</label>
+                <input
+                  type="text"
+                  id="user-nombre"
+                  class="form-input"
+                  required
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Apellido</label>
+                <input type="text" id="user-apellido" class="form-input" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Email *</label>
+              <input type="email" id="user-email" class="form-input" required />
+            </div>
+
+            <div class="form-group" id="password-group">
+              <label class="form-label">Contraseña *</label>
+              <input
+                type="password"
+                id="user-password"
+                class="form-input"
+                required
+              />
+              <small style="color: var(--text-secondary); font-size: 0.875rem">
+                Mínimo 8 caracteres
+              </small>
+            </div>
+
+            <div
+              style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem"
+            >
+              <div class="form-group">
+                <label class="form-label">Teléfono</label>
+                <input type="tel" id="user-telefono" class="form-input" />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Fecha de Nacimiento</label>
+                <input
+                  type="date"
+                  id="user-fecha-nacimiento"
+                  class="form-input"
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Dirección</label>
+              <input type="text" id="user-direccion" class="form-input" />
+            </div>
+
+            <div
+              style="display: grid; grid-template-columns: 2fr 1fr; gap: 1rem"
+            >
+              <div class="form-group">
+                <label class="form-label">Ciudad</label>
+                <input type="text" id="user-ciudad" class="form-input" />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Código Postal</label>
+                <input type="text" id="user-codigo-postal" class="form-input" />
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" onclick="closeUserModal()">
+            Cancelar
+          </button>
+          <button class="btn btn-primary" onclick="saveUser()">
+            <span id="save-btn-text">Guardar Usuario</span>
+            <div class="loading" id="save-loading" style="display: none"></div>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal" id="delete-modal">
+      <div class="modal-content" style="max-width: 400px">
+        <div class="modal-header">
+          <h2 class="modal-title">Confirmar Eliminación</h2>
+          <button class="modal-close" onclick="closeDeleteModal()">✕</button>
+        </div>
+        <div class="modal-body">
+          <p>¿Estás seguro de que deseas eliminar este usuario?</p>
+          <p
+            style="
+              color: var(--text-secondary);
+              font-size: 0.875rem;
+              margin-top: 0.5rem;
+            "
+          >
+            Esta acción no se puede deshacer.
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" onclick="closeDeleteModal()">
+            Cancelar
+          </button>
+          <button class="btn btn-danger" onclick="confirmDelete()">
+            Eliminar
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+      <span id="notification-text"></span>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/users.js"></script>
+  </body>
+</html>

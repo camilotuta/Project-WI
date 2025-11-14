@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mi Perfil - 🌿 Greenhouse Fitness</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
+  <body class="bg-background font-body">
+    <!-- Navigation Header -->
+    <nav class="bg-white shadow-soft sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <!-- Logo -->
+          <div class="flex items-center">
+            <a href="homepage.html" class="flex items-center space-x-2">
+              <div
+                class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center"
+              >
+                <span class="text-white text-xl">🌿</span>
+              </div>
+              <span class="text-xl font-heading font-bold text-primary"
+                >Greenhouse Fitness</span
+              >
+            </a>
+          </div>
+
+          <!-- Desktop Navigation -->
+          <div class="hidden md:flex items-center space-x-8">
+            <a
+              href="homepage.html"
+              class="text-text-secondary hover:text-primary transition-micro"
+              >Inicio</a
+            >
+            <a
+              href="product_catalog.html"
+              class="text-text-secondary hover:text-primary transition-micro"
+              >Productos</a
+            >
+            <div class="relative group">
+              <button
+                class="text-text-secondary hover:text-primary transition-micro flex items-center"
+              >
+                Categorías
+                <svg
+                  class="w-4 h-4 ml-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 9l-7 7-7-7"
+                  ></path>
+                </svg>
+              </button>
+              <div
+                class="absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-medium opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-state"
+              >
+                <div class="py-2">
+                  <a
+                    href="product_catalog.html?category=gym"
+                    class="block px-4 py-2 text-sm text-text-secondary hover:bg-surface-100 hover:text-primary"
+                    >🏋️ Gimnasio</a
+                  >
+                  <a
+                    href="product_catalog.html?category=pilates"
+                    class="block px-4 py-2 text-sm text-text-secondary hover:bg-surface-100 hover:text-primary"
+                    >🧘 Pilates</a
+                  >
+                  <a
+                    href="product_catalog.html?category=cardio"
+                    class="block px-4 py-2 text-sm text-text-secondary hover:bg-surface-100 hover:text-primary"
+                    >🏃 Cardio</a
+                  >
+                  <a
+                    href="product_catalog.html?category=supplements"
+                    class="block px-4 py-2 text-sm text-text-secondary hover:bg-surface-100 hover:text-primary"
+                    >💊 Suplementos</a
+                  >
+                  <a
+                    href="product_catalog.html?category=accessories"
+                    class="block px-4 py-2 text-sm text-text-secondary hover:bg-surface-100 hover:text-primary"
+                    >🎯 Accesorios</a
+                  >
+                </div>
+              </div>
+            </div>
+            <a
+              href="user_profile.html"
+              class="text-primary font-medium hover:text-primary-600 transition-micro"
+              >Mi Perfil</a
+            >
+          </div>
+
+          <!-- User Actions -->
+          <div class="flex items-center space-x-4">
+            <a
+              href="shopping_cart.html"
+              class="relative p-2 text-text-secondary hover:text-primary transition-micro"
+            >
+              <svg
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 11-4 0v-6m4 0V9a2 2 0 10-4 0v4.01"
+                ></path>
+              </svg>
+              <span
+                class="absolute -top-1 -right-1 bg-accent text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
+                data-cart-count
+                >0</span
+              >
+            </a>
+            <button onclick="window.logout()" class="btn-secondary">
+              Cerrar Sesión
+            </button>
+
+            <!-- Mobile Menu Button -->
+            <button
+              class="md:hidden p-2 text-text-secondary hover:text-primary transition-micro"
+              id="mobile-menu-button"
+            >
+              <svg
+                class="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div class="md:hidden hidden" id="mobile-menu">
+        <div class="px-2 pt-2 pb-3 space-y-1 bg-white border-t border-border">
+          <a
+            href="homepage.html"
+            class="block px-3 py-2 text-text-secondary hover:text-primary"
+            >Inicio</a
+          >
+          <a
+            href="product_catalog.html"
+            class="block px-3 py-2 text-text-secondary hover:text-primary"
+            >Productos</a
+          >
+          <a
+            href="user_profile.html"
+            class="block px-3 py-2 text-primary font-medium"
+            >Mi Perfil</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="max-w-4xl mx-auto">
+        <!-- Page Header -->
+        <div class="mb-8">
+          <h1 class="text-4xl font-heading font-bold text-text-primary mb-2">
+            Mi Perfil
+          </h1>
+          <p class="text-text-secondary">
+            Administra tu información personal y preferencias
+          </p>
+        </div>
+
+        <!-- Profile Card -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <!-- Sidebar - Avatar & Quick Info -->
+          <div class="lg:col-span-1">
+            <div class="card p-6 text-center">
+              <!-- Avatar -->
+              <div class="mb-4 flex justify-center">
+                <div
+                  class="bg-primary rounded-full flex items-center justify-center shadow-organic"
+                  style="
+                    width: 8rem;
+                    height: 8rem;
+                    min-width: 8rem;
+                    min-height: 8rem;
+                  "
+                >
+                  <span
+                    class="text-white font-bold"
+                    style="font-size: 3.5rem"
+                    id="profile-avatar-initial"
+                    >U</span
+                  >
+                </div>
+              </div>
+
+              <!-- User Name -->
+              <h2
+                class="text-2xl font-heading font-bold text-text-primary mb-1"
+                id="profile-user-name"
+              >
+                Cargando...
+              </h2>
+              <p
+                class="text-text-secondary text-sm mb-4"
+                id="profile-user-email"
+              >
+                email@example.com
+              </p>
+
+              <!-- Stats -->
+              <div class="border-t border-border pt-4 mt-4">
+                <div class="space-y-3">
+                  <div class="flex justify-between items-center">
+                    <span class="text-text-secondary text-sm">Compras</span>
+                    <span class="font-medium text-text-primary">0</span>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <span class="text-text-secondary text-sm"
+                      >Miembro desde</span
+                    >
+                    <span
+                      class="font-medium text-text-primary text-sm"
+                      id="profile-member-since"
+                      >2025</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main Profile Form -->
+          <div class="lg:col-span-2">
+            <div class="card p-8">
+              <!-- Success/Error Messages -->
+              <div
+                id="profile-success"
+                class="hidden bg-success-50 border border-success-200 rounded-lg p-4 mb-6"
+              >
+                <div class="flex items-center space-x-2">
+                  <svg
+                    class="w-5 h-5 text-success"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                  <p
+                    class="text-sm font-medium text-success-700"
+                    id="profile-success-message"
+                  >
+                    Perfil actualizado exitosamente
+                  </p>
+                </div>
+              </div>
+
+              <div
+                id="profile-error"
+                class="hidden bg-error-50 border border-error-200 rounded-lg p-4 mb-6"
+              >
+                <div class="flex items-center space-x-2">
+                  <svg
+                    class="w-5 h-5 text-error"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                  <p class="text-sm text-error-700" id="profile-error-message">
+                    Error al actualizar perfil
+                  </p>
+                </div>
+              </div>
+
+              <!-- Edit Mode Toggle -->
+              <div class="flex justify-between items-center mb-6">
+                <h3 class="text-xl font-heading font-bold text-text-primary">
+                  Información Personal
+                </h3>
+                <button
+                  type="button"
+                  id="edit-toggle-btn"
+                  class="btn-secondary"
+                  onclick="toggleEditMode()"
+                >
+                  ✏️ Editar Perfil
+                </button>
+              </div>
+
+              <!-- Profile Form -->
+              <form id="profileForm" class="space-y-6">
+                <!-- Nombre -->
+                <div>
+                  <label
+                    for="nombre"
+                    class="block text-sm font-medium text-text-primary mb-2"
+                  >
+                    Nombre
+                  </label>
+                  <input
+                    type="text"
+                    id="nombre"
+                    name="nombre"
+                    class="input-field"
+                    placeholder="Tu nombre"
+                    disabled
+                  />
+                </div>
+
+                <!-- Email -->
+                <div>
+                  <label
+                    for="email"
+                    class="block text-sm font-medium text-text-primary mb-2"
+                  >
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    class="input-field bg-surface-100"
+                    placeholder="tu@email.com"
+                    disabled
+                    readonly
+                  />
+                  <p class="text-xs text-text-tertiary mt-1">
+                    El email no se puede modificar
+                  </p>
+                </div>
+
+                <!-- Teléfono -->
+                <div>
+                  <label
+                    for="telefono"
+                    class="block text-sm font-medium text-text-primary mb-2"
+                  >
+                    Teléfono
+                  </label>
+                  <input
+                    type="tel"
+                    id="telefono"
+                    name="telefono"
+                    class="input-field"
+                    placeholder="+34 600 000 000"
+                    disabled
+                  />
+                </div>
+
+                <!-- Shipping Information Section -->
+                <div class="border-t border-border pt-6">
+                  <h4
+                    class="text-lg font-heading font-bold text-text-primary mb-4"
+                  >
+                    Información de Envío
+                  </h4>
+
+                  <!-- Address -->
+                  <div class="mb-4">
+                    <label
+                      for="direccion"
+                      class="block text-sm font-medium text-text-primary mb-2"
+                    >
+                      Dirección
+                    </label>
+                    <input
+                      type="text"
+                      id="direccion"
+                      name="direccion"
+                      class="input-field"
+                      placeholder="Calle, número, piso, puerta..."
+                      disabled
+                    />
+                  </div>
+
+                  <!-- City and Postal Code -->
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                    <div>
+                      <label
+                        for="ciudad"
+                        class="block text-sm font-medium text-text-primary mb-2"
+                      >
+                        Ciudad
+                      </label>
+                      <input
+                        type="text"
+                        id="ciudad"
+                        name="ciudad"
+                        class="input-field"
+                        placeholder="Madrid"
+                        disabled
+                      />
+                    </div>
+                    <div>
+                      <label
+                        for="codigo_postal"
+                        class="block text-sm font-medium text-text-primary mb-2"
+                      >
+                        Código Postal
+                      </label>
+                      <input
+                        type="text"
+                        id="codigo_postal"
+                        name="codigo_postal"
+                        class="input-field"
+                        placeholder="28001"
+                        maxlength="5"
+                        disabled
+                      />
+                    </div>
+                  </div>
+
+                  <!-- Birth Date -->
+                  <div>
+                    <label
+                      for="fecha_nacimiento"
+                      class="block text-sm font-medium text-text-primary mb-2"
+                    >
+                      Fecha de Nacimiento
+                    </label>
+                    <input
+                      type="date"
+                      id="fecha_nacimiento"
+                      name="fecha_nacimiento"
+                      class="input-field"
+                      disabled
+                    />
+                  </div>
+                </div>
+
+                <!-- Password Section -->
+                <div class="border-t border-border pt-6">
+                  <h4
+                    class="text-lg font-heading font-bold text-text-primary mb-4"
+                  >
+                    Cambiar Contraseña
+                  </h4>
+
+                  <div class="space-y-4">
+                    <!-- New Password -->
+                    <div>
+                      <label
+                        for="newPassword"
+                        class="block text-sm font-medium text-text-primary mb-2"
+                      >
+                        Nueva Contraseña
+                      </label>
+                      <input
+                        type="password"
+                        id="newPassword"
+                        name="newPassword"
+                        class="input-field"
+                        placeholder="Dejar vacío para no cambiar"
+                        disabled
+                      />
+                    </div>
+
+                    <!-- Confirm Password -->
+                    <div>
+                      <label
+                        for="confirmPassword"
+                        class="block text-sm font-medium text-text-primary mb-2"
+                      >
+                        Confirmar Contraseña
+                      </label>
+                      <input
+                        type="password"
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        class="input-field"
+                        placeholder="Confirma tu nueva contraseña"
+                        disabled
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Action Buttons (Hidden by default) -->
+                <div id="form-actions" class="hidden pt-6 flex space-x-4">
+                  <button
+                    type="submit"
+                    class="btn-primary flex-1 flex items-center justify-center space-x-2"
+                    id="save-button"
+                  >
+                    <span id="save-button-text">💾 Guardar Cambios</span>
+                    <div
+                      class="hidden animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full"
+                      id="save-spinner"
+                    ></div>
+                  </button>
+                  <button
+                    type="button"
+                    class="btn-secondary flex-1"
+                    onclick="cancelEdit()"
+                  >
+                    ❌ Cancelar
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white mt-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="text-center">
+          <p class="text-primary-200">
+            © 2025 Greenhouse Fitness. Todos los derechos reservados.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+      // Mobile menu toggle
+      document
+        .getElementById("mobile-menu-button")
+        .addEventListener("click", function () {
+          const mobileMenu = document.getElementById("mobile-menu");
+          mobileMenu.classList.toggle("hidden");
+        });
+    </script>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/user-profile.js"></script>
+  </body>
+</html>

@@ -1,11 +1,12 @@
-const express = require("express");
+import express from "express";
+import SuplementosController from "../controllers/suplementos.controller.js";
+
 const router = express.Router();
-const SuplementoController = require("../controllers/suplementos.controller");
 
-router.get("/", SuplementoController.getAll);
-router.get("/:id", SuplementoController.getById);
-router.post("/", SuplementoController.create);
-router.put("/:id", SuplementoController.update);
-router.delete("/:id", SuplementoController.delete);
+router.get("/", SuplementosController.getAll);
+router.post("/", SuplementosController.create);
+router.get("/:id", SuplementosController.getById);
+router.put("/:id", SuplementosController.update);
+router.delete("/:id", SuplementosController.delete);
 
-module.exports = router;
+export default router;

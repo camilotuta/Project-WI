@@ -1,123 +1,199 @@
+import CarritoModel from "../models/carrito.model.js";
 
-const CarritoModel = require('../models/carrito.model');
-
-class CarritoController {
-  
-  // GET /api/carrito/:id_usuario
-  static async getCart(req, res, next) {
+const CarritoController = {
+  // Obtener carrito del usuario
+  async getCart(req, res) {
     try {
       const { id_usuario } = req.params;
-      
-      const items = await CarritoModel.getByUserId(id_usuario);
-      const totales = await CarritoModel.getCartTotal(id_usuario);
 
-      res.json({
-        success: true,
-        data: {
-          items,
-          totales
-        }
-      });
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  // POST /api/carrito
-  static async addToCart(req, res, next) {
-    try {
-      const { id_usuario, id_producto, cantidad } = req.body;
-
-      if (!id_usuario || !id_producto) {
+      if (!id_usuario) {
         return res.status(400).json({
           success: false,
-          message: 'id_usuario e id_producto son requeridos'
+          message: "ID de usuario requerido",
         });
       }
 
-      const item = await CarritoModel.addItem(id_usuario, id_producto, cantidad || 1);
+      const carrito = await CarritoModel.getByUserId(id_usuario);
 
-      res.status(201).json({
+      res.json({
         success: true,
-        message: 'Producto agregado al carrito',
-        data: item
+        message: "Carrito obtenido exitosamente",
+        data: carrito,
       });
     } catch (error) {
-      next(error);
+      console.error("Error en getCart:", error);
+      res.status(500).json({
+        success: false,
+        message: "Error al obtener carrito",
+        error: error.message,
+      });
     }
-  }
+  },
 
-  // PUT /api/carrito/:id_carrito
-  static async updateCartItem(req, res, next) {
+  // Agregar producto al carrito
+  async addToCart(req, res) {
+    try {
+      const { id_usuario, id_producto, cantidad } = req.body;
+
+      // Validar que todos los parámetros estén presentes
+      if (!id_usuario || !id_producto || !cantidad) {
+        return res.status(400).json({
+          success: false,
+          message: "Faltan parámetros: id_usuario, id_producto, cantidad",
+        });
+      }
+
+      console.log(
+        `📦 Agregando al carrito - Usuario: ${id_usuario}, Producto: ${id_producto}, Cantidad: ${cantidad}`
+      );
+
+      // Verificar si el producto ya existe en el carrito
+      const existingItem = await CarritoModel.getByUserAndProduct(
+        id_usuario,
+        id_producto
+      );
+
+      if (existingItem) {
+        // Si existe, actualizar la cantidad
+        const newQuantity = existingItem.cantidad + cantidad;
+        const updated = await CarritoModel.update(
+          existingItem.id_carrito,
+          newQuantity
+        );
+
+        console.log(`✅ Cantidad actualizada: ${newQuantity}`);
+
+        return res.json({
+          success: true,
+          message: "Producto actualizado en el carrito",
+          data: updated,
+        });
+      }
+
+      // Si no existe, crear nuevo item
+      const newItem = await CarritoModel.create(
+        id_usuario,
+        id_producto,
+        cantidad
+      );
+
+      console.log(`✅ Producto agregado al carrito:`, newItem);
+
+      res.json({
+        success: true,
+        message: "Producto agregado al carrito",
+        data: newItem,
+      });
+    } catch (error) {
+      console.error("Error en addToCart:", error);
+      res.status(500).json({
+        success: false,
+        message: "Error al agregar producto al carrito",
+        error: error.message,
+      });
+    }
+  },
+
+  // Actualizar cantidad de producto en el carrito
+  async updateCartItem(req, res) {
     try {
       const { id_carrito } = req.params;
       const { cantidad } = req.body;
 
-      if (!cantidad || cantidad < 1) {
+      if (!id_carrito || !cantidad) {
         return res.status(400).json({
           success: false,
-          message: 'Cantidad debe ser mayor a 0'
+          message: "Faltan parámetros: id_carrito, cantidad",
         });
       }
 
-      const item = await CarritoModel.updateQuantity(id_carrito, cantidad);
-
-      if (!item) {
-        return res.status(404).json({
+      if (cantidad <= 0) {
+        return res.status(400).json({
           success: false,
-          message: 'Item del carrito no encontrado'
+          message: "La cantidad debe ser mayor a 0",
         });
       }
+
+      console.log(
+        `📝 Actualizando carrito ${id_carrito} - Nueva cantidad: ${cantidad}`
+      );
+
+      const updated = await CarritoModel.update(id_carrito, cantidad);
 
       res.json({
         success: true,
-        message: 'Cantidad actualizada',
-        data: item
+        message: "Cantidad actualizada",
+        data: updated,
       });
     } catch (error) {
-      next(error);
+      console.error("Error en updateCartItem:", error);
+      res.status(500).json({
+        success: false,
+        message: "Error al actualizar el carrito",
+        error: error.message,
+      });
     }
-  }
+  },
 
-  // DELETE /api/carrito/:id_carrito
-  static async removeFromCart(req, res, next) {
+  // Eliminar producto del carrito
+  async removeFromCart(req, res) {
     try {
       const { id_carrito } = req.params;
 
-      const item = await CarritoModel.removeItem(id_carrito);
-
-      if (!item) {
-        return res.status(404).json({
+      if (!id_carrito) {
+        return res.status(400).json({
           success: false,
-          message: 'Item del carrito no encontrado'
+          message: "ID de carrito requerido",
         });
       }
 
+      console.log(`🗑️ Eliminando del carrito: ${id_carrito}`);
+
+      await CarritoModel.delete(id_carrito);
+
       res.json({
         success: true,
-        message: 'Producto eliminado del carrito',
-        data: item
+        message: "Producto eliminado del carrito",
       });
     } catch (error) {
-      next(error);
+      console.error("Error en removeFromCart:", error);
+      res.status(500).json({
+        success: false,
+        message: "Error al eliminar del carrito",
+        error: error.message,
+      });
     }
-  }
+  },
 
-  // DELETE /api/carrito/clear/:id_usuario
-  static async clearCart(req, res, next) {
+  // Vaciar carrito del usuario
+  async clearCart(req, res) {
     try {
       const { id_usuario } = req.params;
 
-      await CarritoModel.clearCart(id_usuario);
+      if (!id_usuario) {
+        return res.status(400).json({
+          success: false,
+          message: "ID de usuario requerido",
+        });
+      }
+
+      console.log(`🗑️ Vaciando carrito del usuario: ${id_usuario}`);
+
+      await CarritoModel.deleteByUserId(id_usuario);
 
       res.json({
         success: true,
-        message: 'Carrito vaciado exitosamente'
+        message: "Carrito vaciado",
       });
     } catch (error) {
-      next(error);
+      console.error("Error en clearCart:", error);
+      res.status(500).json({
+        success: false,
+        message: "Error al vaciar el carrito",
+        error: error.message,
+      });
     }
-  }
-}
+  },
+};
 
-module.exports = CarritoController;
+export default CarritoController;

@@ -1,70 +1,74 @@
-const { query } = require("../config/database");
+import db from "../config/database.js";
 
-class CategoriaModel {
-  // Obtener todas las categorías
-  static async getAll() {
-    const result = await query(
-      `SELECT * FROM categorias WHERE activo = true ORDER BY id_categoria ASC`
-    );
-    return result.rows;
-  }
-
-  // Obtener categoría por ID
-  static async getById(id) {
-    const result = await query(
-      `SELECT * FROM categorias WHERE id_categoria = $1`,
-      [id]
-    );
-    return result.rows[0];
-  }
-
-  // Crear nueva categoría
-  static async create({ nombre, descripcion, imagen_url }) {
-    const result = await query(
-      `INSERT INTO categorias (nombre, descripcion, imagen_url)
-       VALUES ($1, $2, $3)
-       RETURNING *`,
-      [nombre, descripcion, imagen_url]
-    );
-    return result.rows[0];
-  }
-
-  // Actualizar categoría
-  static async update(id, data) {
-    const fields = [];
-    const values = [];
-    let paramCount = 1;
-
-    for (const [key, value] of Object.entries(data)) {
-      if (value !== undefined) {
-        fields.push(`${key} = $${paramCount}`);
-        values.push(value);
-        paramCount++;
-      }
+const CategoriasModel = {
+  async getAll() {
+    try {
+      const query = `SELECT * FROM categorias`;
+      const result = await db.query(query);
+      return result.rows;
+    } catch (error) {
+      console.error("Error en getAll:", error);
+      throw error;
     }
+  },
 
-    if (fields.length === 0) throw new Error("No hay campos para actualizar");
+  async getById(id) {
+    try {
+      const query = `SELECT * FROM categorias WHERE id_categoria = $1`;
+      const result = await db.query(query, [id]);
+      return result.rows[0] || null;
+    } catch (error) {
+      console.error("Error en getById:", error);
+      throw error;
+    }
+  },
 
-    values.push(id);
+  async create(data) {
+    try {
+      const { nombre, descripcion } = data;
+      const query = `
+        INSERT INTO categorias (nombre, descripcion)
+        VALUES ($1, $2)
+        RETURNING *
+      `;
+      const result = await db.query(query, [nombre, descripcion]);
+      return result.rows[0];
+    } catch (error) {
+      console.error("Error en create:", error);
+      throw error;
+    }
+  },
 
-    const result = await query(
-      `UPDATE categorias SET ${fields.join(
-        ", "
-      )} WHERE id_categoria = $${paramCount} RETURNING *`,
-      values
-    );
+  async update(id, data) {
+    try {
+      const fields = Object.keys(data);
+      const values = Object.values(data);
+      const setClause = fields
+        .map((field, i) => `${field} = $${i + 1}`)
+        .join(", ");
 
-    return result.rows[0];
-  }
+      const query = `UPDATE categorias SET ${setClause} WHERE id_categoria = $${
+        fields.length + 1
+      } RETURNING *`;
+      const result = await db.query(query, [...values, id]);
 
-  // Eliminar (soft delete)
-  static async delete(id) {
-    const result = await query(
-      `UPDATE categorias SET activo = false WHERE id_categoria = $1 RETURNING *`,
-      [id]
-    );
-    return result.rows[0];
-  }
-}
+      return result.rows[0];
+    } catch (error) {
+      console.error("Error en update:", error);
+      throw error;
+    }
+  },
 
-module.exports = CategoriaModel;
+  async delete(id) {
+    try {
+      const query = `DELETE FROM categorias WHERE id_categoria = $1 RETURNING *`;
+      const result = await db.query(query, [id]);
+      return result.rows[0];
+    } catch (error) {
+      console.error("Error en delete:", error);
+      throw error;
+    }
+  },
+};
+
+export default CategoriasModel;

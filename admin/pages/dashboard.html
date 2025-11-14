@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Greenhouse Fitness</title>
+    <link rel="stylesheet" href="../css/admin.css" />
+  </head>
+  <body>
+    <div class="admin-layout">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <a href="dashboard.html" class="sidebar-logo">
+            <div class="sidebar-logo-icon">🌿</div>
+            <span>Admin Panel</span>
+          </a>
+        </div>
+
+        <nav class="sidebar-nav">
+          <div class="nav-section">
+            <div class="nav-section-title">General</div>
+            <a href="dashboard.html" class="nav-link active">
+              <span class="nav-link-icon">📊</span>
+              <span>Dashboard</span>
+            </a>
+          </div>
+
+          <div class="nav-section">
+            <div class="nav-section-title">Gestión</div>
+            <a href="products.html" class="nav-link">
+              <span class="nav-link-icon">📦</span>
+              <span>Productos</span>
+            </a>
+            <a href="categories.html" class="nav-link">
+              <span class="nav-link-icon">🏷️</span>
+              <span>Categorías</span>
+            </a>
+            <a href="users.html" class="nav-link">
+              <span class="nav-link-icon">👥</span>
+              <span>Usuarios</span>
+            </a>
+            <a href="discounts.html" class="nav-link">
+              <span class="nav-link-icon">🎫</span>
+              <span>Descuentos</span>
+            </a>
+          </div>
+
+          <div class="nav-section">
+            <div class="nav-section-title">Sistema</div>
+            <a href="../../frontend/pages/homepage.html" class="nav-link">
+              <span class="nav-link-icon">🏠</span>
+              <span>Ver Tienda</span>
+            </a>
+            <a href="#" class="nav-link" onclick="logout()">
+              <span class="nav-link-icon">🚪</span>
+              <span>Cerrar Sesión</span>
+            </a>
+          </div>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <div class="page-header">
+          <h1 class="page-title">Dashboard</h1>
+          <p class="page-description">
+            Bienvenido al panel de administración de Greenhouse Fitness
+          </p>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <span class="stat-card-title">Total Productos</span>
+              <div
+                class="stat-card-icon"
+                style="background: rgba(45, 106, 79, 0.1); color: #2d6a4f"
+              >
+                📦
+              </div>
+            </div>
+            <div class="stat-card-value" id="stat-products">0</div>
+            <div class="stat-card-change positive">
+              <span>↗</span>
+              <span>En stock</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <span class="stat-card-title">Total Usuarios</span>
+              <div
+                class="stat-card-icon"
+                style="background: rgba(59, 130, 246, 0.1); color: #3b82f6"
+              >
+                👥
+              </div>
+            </div>
+            <div class="stat-card-value" id="stat-users">0</div>
+            <div class="stat-card-change positive">
+              <span>↗</span>
+              <span>Registrados</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <span class="stat-card-title">Categorías</span>
+              <div
+                class="stat-card-icon"
+                style="background: rgba(245, 158, 11, 0.1); color: #f59e0b"
+              >
+                🏷️
+              </div>
+            </div>
+            <div class="stat-card-value" id="stat-categories">0</div>
+            <div class="stat-card-change">
+              <span>Activas</span>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <span class="stat-card-title">Descuentos Activos</span>
+              <div
+                class="stat-card-icon"
+                style="background: rgba(239, 68, 68, 0.1); color: #ef4444"
+              >
+                🎫
+              </div>
+            </div>
+            <div class="stat-card-value" id="stat-discounts">0</div>
+            <div class="stat-card-change">
+              <span>Disponibles</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Products -->
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Productos Recientes</h2>
+            <a href="products.html" class="btn btn-primary btn-sm">Ver Todos</a>
+          </div>
+          <div class="table-container">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Imagen</th>
+                  <th>Nombre</th>
+                  <th>Categoría</th>
+                  <th>Precio</th>
+                  <th>Stock</th>
+                  <th>Destacado</th>
+                </tr>
+              </thead>
+              <tbody id="recent-products">
+                <tr>
+                  <td colspan="6" style="text-align: center; padding: 2rem">
+                    <div class="loading"></div>
+                    <div>Cargando productos...</div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Recent Users -->
+        <div class="card">
+          <div class="card-header">
+            <h2 class="card-title">Usuarios Recientes</h2>
+            <a href="users.html" class="btn btn-primary btn-sm">Ver Todos</a>
+          </div>
+          <div class="table-container">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Email</th>
+                  <th>Teléfono</th>
+                  <th>Fecha Registro</th>
+                </tr>
+              </thead>
+              <tbody id="recent-users">
+                <tr>
+                  <td colspan="4" style="text-align: center; padding: 2rem">
+                    <div class="loading"></div>
+                    <div>Cargando usuarios...</div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+      <span id="notification-text"></span>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/dashboard.js"></script>
+  </body>
+</html>

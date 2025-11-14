@@ -1,227 +1,197 @@
-const { query } = require('../config/database');
+import db from "../config/database.js";
 
-class ProductoModel {
-  
-  // Obtener todos los productos con filtros
-  static async getAll(filters = {}) {
-    const { 
-      categoria, 
-      destacado, 
-      nuevo, 
-      oferta, 
-      limit = 50, 
-      offset = 0,
-      search 
-    } = filters;
-
-    let queryText = `
-      SELECT 
-        p.*,
-        c.nombre as nombre_categoria,
-        COALESCE(AVG(v.puntuacion), 0) as valoracion_promedio,
-        COUNT(DISTINCT v.id_valoracion) as total_valoraciones
-      FROM productos p
-      LEFT JOIN categorias c ON p.id_categoria = c.id_categoria
-      LEFT JOIN valoraciones v ON p.id_producto = v.id_producto
-      WHERE p.activo = true
-    `;
-
-    const queryParams = [];
-    let paramCount = 1;
-
-    if (categoria) {
-      queryText += ` AND p.id_categoria = $${paramCount}`;
-      queryParams.push(categoria);
-      paramCount++;
+const ProductosModel = {
+  async getAll() {
+    try {
+      const query = `
+        SELECT 
+          p.*,
+          c.nombre as categoria_nombre
+        FROM productos p
+        LEFT JOIN categorias c ON p.id_categoria = c.id_categoria
+        ORDER BY p.id_producto
+      `;
+      const result = await db.query(query);
+      return result.rows;
+    } catch (error) {
+      console.error("Error en getAll:", error);
+      throw error;
     }
+  },
 
-    if (destacado !== undefined) {
-      queryText += ` AND p.destacado = $${paramCount}`;
-      queryParams.push(destacado);
-      paramCount++;
+  async getByCategory(categoryName) {
+    try {
+      const query = `
+        SELECT 
+          p.*,
+          c.nombre as categoria_nombre
+        FROM productos p
+        JOIN categorias c ON p.id_categoria = c.id_categoria
+        WHERE LOWER(c.nombre) = LOWER($1)
+        ORDER BY p.id_producto
+      `;
+      const result = await db.query(query, [categoryName]);
+      return result.rows;
+    } catch (error) {
+      console.error("Error en getByCategory:", error);
+      throw error;
     }
+  },
 
-    if (nuevo !== undefined) {
-      queryText += ` AND p.nuevo = $${paramCount}`;
-      queryParams.push(nuevo);
-      paramCount++;
+  async getById(id) {
+    try {
+      const query = `
+        SELECT 
+          p.*,
+          c.nombre as categoria_nombre
+        FROM productos p
+        LEFT JOIN categorias c ON p.id_categoria = c.id_categoria
+        WHERE p.id_producto = $1
+      `;
+      const result = await db.query(query, [id]);
+      return result.rows[0] || null;
+    } catch (error) {
+      console.error("Error en getById:", error);
+      throw error;
     }
+  },
 
-    if (oferta !== undefined) {
-      queryText += ` AND p.oferta = $${paramCount}`;
-      queryParams.push(oferta);
-      paramCount++;
+  async getRelated(id, limit = 5) {
+    try {
+      const query = `
+        SELECT 
+          p2.*,
+          c.nombre as categoria_nombre
+        FROM productos p1
+        JOIN productos p2 ON p1.id_categoria = p2.id_categoria
+        LEFT JOIN categorias c ON p2.id_categoria = c.id_categoria
+        WHERE p1.id_producto = $1 
+          AND p2.id_producto != $1
+        ORDER BY RANDOM()
+        LIMIT $2
+      `;
+      const result = await db.query(query, [id, limit]);
+      return result.rows;
+    } catch (error) {
+      console.error("Error en getRelated:", error);
+      throw error;
     }
+  },
 
-    if (search) {
-      queryText += ` AND (p.nombre ILIKE $${paramCount} OR p.descripcion ILIKE $${paramCount})`;
-      queryParams.push(`%${search}%`);
-      paramCount++;
+  async create(data) {
+    try {
+      const { nombre, descripcion, precio, categoria, stock } = data;
+      const query = `
+        INSERT INTO productos (nombre, descripcion, precio, categoria, stock)
+        VALUES ($1, $2, $3, $4, $5)
+        RETURNING *
+      `;
+      const result = await db.query(query, [
+        nombre,
+        descripcion,
+        precio,
+        categoria,
+        stock || 0,
+      ]);
+      return result.rows[0];
+    } catch (error) {
+      console.error("Error en create:", error);
+      throw error;
     }
+  },
 
-    queryText += `
-      GROUP BY p.id_producto, c.nombre
-      ORDER BY p.fecha_creacion DESC
-      LIMIT $${paramCount} OFFSET $${paramCount + 1}
-    `;
-    
-    queryParams.push(limit, offset);
+  async update(id, data) {
+    try {
+      const fields = Object.keys(data);
+      const values = Object.values(data);
+      const setClause = fields
+        .map((field, i) => `${field} = $${i + 1}`)
+        .join(", ");
 
-    const result = await query(queryText, queryParams);
-    return result.rows;
-  }
+      const query = `UPDATE productos SET ${setClause} WHERE id_producto = $${
+        fields.length + 1
+      } RETURNING *`;
+      const result = await db.query(query, [...values, id]);
 
-  // Obtener un producto por ID
-  static async getById(id) {
-    const queryText = `
-      SELECT 
-        p.*,
-        c.nombre as nombre_categoria,
-        COALESCE(AVG(v.puntuacion), 0) as valoracion_promedio,
-        COUNT(DISTINCT v.id_valoracion) as total_valoraciones
-      FROM productos p
-      LEFT JOIN categorias c ON p.id_categoria = c.id_categoria
-      LEFT JOIN valoraciones v ON p.id_producto = v.id_producto
-      WHERE p.id_producto = $1 AND p.activo = true
-      GROUP BY p.id_producto, c.nombre
-    `;
-
-    const result = await query(queryText, [id]);
-    return result.rows[0];
-  }
-
-  // Crear un nuevo producto
-  static async create(productoData) {
-    const {
-      nombre,
-      descripcion,
-      precio,
-      precio_original,
-      id_categoria,
-      imagen_url,
-      stock,
-      destacado,
-      nuevo,
-      oferta
-    } = productoData;
-
-    const queryText = `
-      INSERT INTO productos (
-        nombre, descripcion, precio, precio_original, 
-        id_categoria, imagen_url, stock, destacado, nuevo, oferta
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
-      RETURNING *
-    `;
-
-    const values = [
-      nombre,
-      descripcion,
-      precio,
-      precio_original || null,
-      id_categoria,
-      imagen_url || null,
-      stock || 0,
-      destacado || false,
-      nuevo || false,
-      oferta || false
-    ];
-
-    const result = await query(queryText, values);
-    return result.rows[0];
-  }
-
-  // Actualizar un producto
-  static async update(id, productoData) {
-    const fields = [];
-    const values = [];
-    let paramCount = 1;
-
-    Object.keys(productoData).forEach(key => {
-      if (productoData[key] !== undefined) {
-        fields.push(`${key} = $${paramCount}`);
-        values.push(productoData[key]);
-        paramCount++;
-      }
-    });
-
-    if (fields.length === 0) {
-      throw new Error('No hay campos para actualizar');
+      return result.rows[0];
+    } catch (error) {
+      console.error("Error en update:", error);
+      throw error;
     }
+  },
 
-    values.push(id);
+  async getRandom(limit = 4) {
+    try {
+      const query = `
+        SELECT * FROM productos 
+        ORDER BY RANDOM() 
+        LIMIT $1
+      `;
+      const result = await db.query(query, [limit]);
+      return result.rows;
+    } catch (error) {
+      console.error("Error en getRandom:", error);
+      throw error;
+    }
+  },
 
-    const queryText = `
-      UPDATE productos 
-      SET ${fields.join(', ')}
-      WHERE id_producto = $${paramCount}
-      RETURNING *
-    `;
+  async getFeatured(limit = 8) {
+    try {
+      const query = `
+        SELECT * FROM productos 
+        WHERE destacado = TRUE 
+        ORDER BY RANDOM() 
+        LIMIT $1
+      `;
+      const result = await db.query(query, [limit]);
+      return result.rows;
+    } catch (error) {
+      console.error("Error en getFeatured:", error);
+      throw error;
+    }
+  },
 
-    const result = await query(queryText, values);
-    return result.rows[0];
-  }
+  async getOffers(limit = 12) {
+    try {
+      const query = `
+        SELECT * FROM productos 
+        WHERE oferta IS NOT NULL AND oferta > 0
+        ORDER BY oferta DESC 
+        LIMIT $1
+      `;
+      const result = await db.query(query, [limit]);
+      return result.rows;
+    } catch (error) {
+      console.error("Error en getOffers:", error);
+      throw error;
+    }
+  },
 
-  // Eliminar (soft delete) un producto
-  static async delete(id) {
-    const queryText = `
-      UPDATE productos 
-      SET activo = false 
-      WHERE id_producto = $1
-      RETURNING *
-    `;
+  async getNew(limit = 12) {
+    try {
+      const query = `
+        SELECT * FROM productos 
+        ORDER BY id_producto DESC 
+        LIMIT $1
+      `;
+      const result = await db.query(query, [limit]);
+      return result.rows;
+    } catch (error) {
+      console.error("Error en getNew:", error);
+      throw error;
+    }
+  },
 
-    const result = await query(queryText, [id]);
-    return result.rows[0];
-  }
+  async delete(id) {
+    try {
+      const query = `DELETE FROM productos WHERE id_producto = $1 RETURNING *`;
+      const result = await db.query(query, [id]);
+      return result.rows[0];
+    } catch (error) {
+      console.error("Error en delete:", error);
+      throw error;
+    }
+  },
+};
 
-  // Actualizar stock
-  static async updateStock(id, cantidad) {
-    const queryText = `
-      UPDATE productos 
-      SET stock = stock + $1
-      WHERE id_producto = $2
-      RETURNING *
-    `;
-
-    const result = await query(queryText, [cantidad, id]);
-    return result.rows[0];
-  }
-
-  // Verificar disponibilidad de stock
-  static async checkStock(id, cantidad) {
-    const queryText = `
-      SELECT stock FROM productos WHERE id_producto = $1
-    `;
-
-    const result = await query(queryText, [id]);
-    if (!result.rows[0]) return false;
-    
-    return result.rows[0].stock >= cantidad;
-  }
-
-  // Obtener productos relacionados (por categoría)
-  static async getRelated(id_producto, limit = 4) {
-    const queryText = `
-      SELECT 
-        p.*,
-        c.nombre as nombre_categoria,
-        COALESCE(AVG(v.puntuacion), 0) as valoracion_promedio
-      FROM productos p
-      LEFT JOIN categorias c ON p.id_categoria = c.id_categoria
-      LEFT JOIN valoraciones v ON p.id_producto = v.id_producto
-      WHERE p.id_categoria = (
-        SELECT id_categoria FROM productos WHERE id_producto = $1
-      )
-      AND p.id_producto != $1
-      AND p.activo = true
-      GROUP BY p.id_producto, c.nombre
-      ORDER BY RANDOM()
-      LIMIT $2
-    `;
-
-    const result = await query(queryText, [id_producto, limit]);
-    return result.rows;
-  }
-}
-
-module.exports = ProductoModel;
+export default ProductosModel;

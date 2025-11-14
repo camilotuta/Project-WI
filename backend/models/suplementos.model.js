@@ -1,101 +1,74 @@
-const { query } = require("../config/database");
+import db from "../config/database.js";
 
-class SuplementoModel {
-  // Obtener todos los suplementos con su producto
-  static async getAll() {
-    const result = await query(`
-      SELECT s.*, p.nombre AS nombre_producto, p.precio, p.descripcion AS descripcion_producto, p.imagen_url
-      FROM suplementos s
-      JOIN productos p ON s.id_producto = p.id_producto
-      ORDER BY s.id_suplemento ASC
-    `);
-    return result.rows;
-  }
-
-  // Obtener un suplemento por ID
-  static async getById(id) {
-    const result = await query(
-      `
-      SELECT s.*, p.nombre AS nombre_producto, p.precio, p.descripcion AS descripcion_producto, p.imagen_url
-      FROM suplementos s
-      JOIN productos p ON s.id_producto = p.id_producto
-      WHERE s.id_suplemento = $1
-    `,
-      [id]
-    );
-    return result.rows[0];
-  }
-
-  // Crear un nuevo suplemento
-  static async create(data) {
-    const {
-      id_producto,
-      tipo,
-      ingredientes,
-      dosis_recomendada,
-      beneficios,
-      advertencias,
-      certificaciones,
-    } = data;
-    const result = await query(
-      `
-      INSERT INTO suplementos (id_producto, tipo, ingredientes, dosis_recomendada, beneficios, advertencias, certificaciones)
-      VALUES ($1, $2, $3, $4, $5, $6, $7)
-      RETURNING *
-    `,
-      [
-        id_producto,
-        tipo,
-        ingredientes,
-        dosis_recomendada,
-        beneficios,
-        advertencias,
-        certificaciones,
-      ]
-    );
-    return result.rows[0];
-  }
-
-  // Actualizar suplemento
-  static async update(id, data) {
-    const fields = [];
-    const values = [];
-    let paramCount = 1;
-
-    for (const [key, value] of Object.entries(data)) {
-      if (value !== undefined) {
-        fields.push(`${key} = $${paramCount}`);
-        values.push(value);
-        paramCount++;
-      }
+const SuplementosModel = {
+  async getAll() {
+    try {
+      const query = `SELECT * FROM suplementos`;
+      const result = await db.query(query);
+      return result.rows;
+    } catch (error) {
+      console.error("Error en getAll:", error);
+      throw error;
     }
+  },
 
-    if (fields.length === 0) throw new Error("No hay campos para actualizar");
+  async getById(id) {
+    try {
+      const query = `SELECT * FROM suplementos WHERE id_suplemento = $1`;
+      const result = await db.query(query, [id]);
+      return result.rows[0] || null;
+    } catch (error) {
+      console.error("Error en getById:", error);
+      throw error;
+    }
+  },
 
-    values.push(id);
+  async create(data) {
+    try {
+      const { nombre, descripcion, precio } = data;
+      const query = `
+        INSERT INTO suplementos (nombre, descripcion, precio)
+        VALUES ($1, $2, $3)
+        RETURNING *
+      `;
+      const result = await db.query(query, [nombre, descripcion, precio]);
+      return result.rows[0];
+    } catch (error) {
+      console.error("Error en create:", error);
+      throw error;
+    }
+  },
 
-    const result = await query(
-      `
-      UPDATE suplementos
-      SET ${fields.join(", ")}
-      WHERE id_suplemento = $${paramCount}
-      RETURNING *
-    `,
-      values
-    );
-    return result.rows[0];
-  }
+  async update(id, data) {
+    try {
+      const fields = Object.keys(data);
+      const values = Object.values(data);
+      const setClause = fields
+        .map((field, i) => `${field} = $${i + 1}`)
+        .join(", ");
 
-  // Eliminar suplemento (borrado real)
-  static async delete(id) {
-    const result = await query(
-      `
-      DELETE FROM suplementos WHERE id_suplemento = $1 RETURNING *
-    `,
-      [id]
-    );
-    return result.rows[0];
-  }
-}
+      const query = `UPDATE suplementos SET ${setClause} WHERE id_suplemento = $${
+        fields.length + 1
+      } RETURNING *`;
+      const result = await db.query(query, [...values, id]);
 
-module.exports = SuplementoModel;
+      return result.rows[0];
+    } catch (error) {
+      console.error("Error en update:", error);
+      throw error;
+    }
+  },
+
+  async delete(id) {
+    try {
+      const query = `DELETE FROM suplementos WHERE id_suplemento = $1 RETURNING *`;
+      const result = await db.query(query, [id]);
+      return result.rows[0];
+    } catch (error) {
+      console.error("Error en delete:", error);
+      throw error;
+    }
+  },
+};
+
+export default SuplementosModel;

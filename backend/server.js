@@ -1,8 +1,27 @@
-const express = require("express");
-const cors = require("cors");
-require("dotenv").config();
+// ==============================================
+// IMPORTACIONES
+// ==============================================
+import express from "express";
+import cors from "cors";
+import dotenv from "dotenv";
+import { fileURLToPath } from "url";
+import { dirname, join } from "path";
 
-const { testConnection } = require("./config/database");
+// Importar rutas
+import productosRoutes from "./routes/productos.routes.js";
+import categoriasRoutes from "./routes/categorias.routes.js";
+import suplementosRoutes from "./routes/suplementos.routes.js";
+import usuariosRoutes from "./routes/usuarios.routes.js";
+import carritoRoutes from "./routes/carrito.routes.js";
+import descuentosRoutes from "./routes/descuentos.routes.js";
+import favoritosRoutes from "./routes/favoritos.routes.js";
+import emailRoutes from "./routes/email.routes.js";
+import uploadRoutes from "./routes/upload.routes.js";
+
+dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -11,9 +30,14 @@ const PORT = process.env.PORT || 3000;
 // MIDDLEWARES
 // ==============================================
 
+// CORS mejorado para desarrollo
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN?.split(",") || "*",
+    origin: [
+      "http://localhost:3000",
+      "http://127.0.0.1:5500",
+      "http://localhost:5500",
+    ],
     credentials: true,
   })
 );
@@ -21,66 +45,40 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Servir archivos estáticos desde la carpeta frontend
+app.use('/assets', express.static(join(__dirname, '../frontend/assets')));
+
+// Logger de requests en desarrollo
+if (process.env.NODE_ENV === "development") {
+  app.use((req, res, next) => {
+    const timestamp = new Date().toISOString();
+    console.log(`${timestamp} - ${req.method} ${req.path}`);
+    next();
+  });
+}
+
 // ==============================================
 // RUTAS
 // ==============================================
 
-// Ruta de prueba
 app.get("/", (req, res) => {
-  res.json({
-    message: "🌿 Greenhouse Fitness API",
-    version: "1.0.0",
-    status: "active",
-    endpoints: {
-      productos: "/api/productos",
-      categorias: "/api/categorias",
-      suplementos: "/api/suplementos",
-      usuarios: "/api/usuarios",
-      carrito: "/api/carrito",
-    },
-  });
+  res.json({ message: "✅ Servidor funcionando correctamente" });
 });
 
-// Cargar rutas con manejo de errores
-try {
-  const productosRoutes = require("./routes/productos.routes");
-  app.use("/api/productos", productosRoutes);
-  console.log("✅ Rutas de productos cargadas");
-} catch (e) {
-  console.log("⚠️ Rutas de productos no disponibles:", e.message);
-}
+app.get("/health", (req, res) => {
+  res.json({ status: "✅ OK" });
+});
 
-try {
-  const categoriasRoutes = require("./routes/categorias.routes");
-  app.use("/api/categorias", categoriasRoutes);
-  console.log("✅ Rutas de categorías cargadas");
-} catch (e) {
-  console.log("⚠️ Rutas de categorías no disponibles:", e.message);
-}
-
-try {
-  const suplementosRoutes = require("./routes/suplementos.routes");
-  app.use("/api/suplementos", suplementosRoutes);
-  console.log("✅ Rutas de suplementos cargadas");
-} catch (e) {
-  console.log("⚠️ Rutas de suplementos no disponibles:", e.message);
-}
-
-try {
-  const usuariosRoutes = require("./routes/usuarios.routes");
-  app.use("/api/usuarios", usuariosRoutes);
-  console.log("✅ Rutas de usuarios cargadas");
-} catch (e) {
-  console.log("⚠️ Rutas de usuarios no disponibles:", e.message);
-}
-
-try {
-  const carritoRoutes = require("./routes/carrito.routes");
-  app.use("/api/carrito", carritoRoutes);
-  console.log("✅ Rutas de carrito cargadas");
-} catch (e) {
-  console.log("⚠️ Rutas de carrito no disponibles:", e.message);
-}
+// Registrar rutas con /api prefix
+app.use("/api/carrito", carritoRoutes);
+app.use("/api/productos", productosRoutes);
+app.use("/api/categorias", categoriasRoutes);
+app.use("/api/suplementos", suplementosRoutes);
+app.use("/api/usuarios", usuariosRoutes);
+app.use("/api/descuentos", descuentosRoutes);
+app.use("/api/favoritos", favoritosRoutes);
+app.use("/api/email", emailRoutes);
+app.use("/api/upload", uploadRoutes);
 
 // ==============================================
 // MANEJO DE ERRORES
@@ -91,75 +89,25 @@ app.use((req, res) => {
   res.status(404).json({
     success: false,
     message: "Ruta no encontrada",
+    path: req.path,
   });
 });
 
-// Error handler global
+// Manejo de errores global
 app.use((err, req, res, next) => {
-  console.error("Error:", err.stack);
-
+  console.error("❌ Error:", err);
   res.status(err.status || 500).json({
     success: false,
     message: err.message || "Error interno del servidor",
-    ...(process.env.NODE_ENV === "development" && { stack: err.stack }),
+    error: process.env.NODE_ENV === "development" ? err : {},
   });
 });
 
 // ==============================================
-// INICIO DEL SERVIDOR
+// INICIAR SERVIDOR
 // ==============================================
 
-const startServer = async () => {
-  try {
-    // Verificar conexión a la base de datos
-    const connected = await testConnection();
-
-    if (!connected) {
-      console.error("❌ No se pudo conectar a la base de datos");
-      console.log("💡 Verifica:");
-      console.log("   1. PostgreSQL está corriendo");
-      console.log("   2. Credenciales en .env son correctas");
-      console.log("   3. Base de datos existe");
-      process.exit(1);
-    }
-
-    // Iniciar servidor
-    app.listen(PORT, () => {
-      console.log(`
-╔════════════════════════════════════════════╗
-║   🌿 GREENHOUSE FITNESS API               ║
-║                                            ║
-║   🚀 Servidor corriendo en puerto ${PORT}    ║
-║   🌍 http://localhost:${PORT}               ║
-║   📝 Modo: ${process.env.NODE_ENV || "development"}          ║
-╚════════════════════════════════════════════╝
-      `);
-
-      console.log("\n📍 Endpoints disponibles:");
-      console.log(`   - http://localhost:${PORT}/api/productos`);
-      console.log(`   - http://localhost:${PORT}/api/categorias`);
-      console.log(`   - http://localhost:${PORT}/api/suplementos`);
-      console.log(`   - http://localhost:${PORT}/api/usuarios`);
-      console.log(`   - http://localhost:${PORT}/api/carrito`);
-      console.log("\n");
-    });
-  } catch (error) {
-    console.error("❌ Error al iniciar el servidor:", error);
-    process.exit(1);
-  }
-};
-
-// Manejo de errores no capturados
-process.on("unhandledRejection", (err) => {
-  console.error("❌ Unhandled Rejection:", err);
-  process.exit(1);
+app.listen(PORT, () => {
+  console.log(`🚀 Servidor escuchando en http://localhost:${PORT}`);
+  console.log(`📌 Ambiente: ${process.env.NODE_ENV || "development"}`);
 });
-
-process.on("SIGTERM", () => {
-  console.log("👋 SIGTERM recibido. Cerrando servidor...");
-  process.exit(0);
-});
-
-startServer();
-
-module.exports = app;

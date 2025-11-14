@@ -1,79 +1,120 @@
-const CategoriaModel = require("../models/categorias.model");
+import CategoriasModel from "../models/categorias.model.js";
 
-class CategoriaController {
-  static async getAll(req, res) {
+const CategoriasController = {
+  async getAll(req, res) {
     try {
-      const categorias = await CategoriaModel.getAll();
-      res.json(categorias);
-    } catch (error) {
-      res
-        .status(500)
-        .json({
-          success: false,
-          message: "Error al obtener categorías",
-          error: error.message,
-        });
-    }
-  }
-
-  static async getById(req, res) {
-    try {
-      const categoria = await CategoriaModel.getById(req.params.id);
-      if (!categoria)
-        return res
-          .status(404)
-          .json({ success: false, message: "Categoría no encontrada" });
-      res.json(categoria);
-    } catch (error) {
-      res
-        .status(500)
-        .json({ success: false, message: "Error al obtener la categoría" });
-    }
-  }
-
-  static async create(req, res) {
-    try {
-      const categoria = await CategoriaModel.create(req.body);
-      res.status(201).json(categoria);
-    } catch (error) {
-      res
-        .status(500)
-        .json({ success: false, message: "Error al crear la categoría" });
-    }
-  }
-
-  static async update(req, res) {
-    try {
-      const categoria = await CategoriaModel.update(req.params.id, req.body);
-      if (!categoria)
-        return res
-          .status(404)
-          .json({ success: false, message: "Categoría no encontrada" });
-      res.json(categoria);
-    } catch (error) {
-      res
-        .status(500)
-        .json({ success: false, message: "Error al actualizar la categoría" });
-    }
-  }
-
-  static async delete(req, res) {
-    try {
-      const categoria = await CategoriaModel.delete(req.params.id);
-      if (!categoria)
-        return res
-          .status(404)
-          .json({ success: false, message: "Categoría no encontrada" });
+      const categorias = await CategoriasModel.getAll();
       res.json({
         success: true,
-        message: "Categoría desactivada correctamente",
+        message: "Categorías obtenidas",
+        data: categorias,
       });
     } catch (error) {
-      res
-        .status(500)
-        .json({ success: false, message: "Error al eliminar la categoría" });
+      console.error("Error en getAll:", error);
+      res.status(500).json({
+        success: false,
+        message: "Error al obtener categorías",
+        error: error.message,
+      });
     }
-  }
-}
+  },
 
-module.exports = CategoriaController;
+  async getById(req, res) {
+    try {
+      const { id } = req.params;
+      const categoria = await CategoriasModel.getById(id);
+
+      if (!categoria) {
+        return res.status(404).json({
+          success: false,
+          message: "Categoría no encontrada",
+        });
+      }
+
+      res.json({
+        success: true,
+        message: "Categoría obtenida",
+        data: categoria,
+      });
+    } catch (error) {
+      console.error("Error en getById:", error);
+      res.status(500).json({
+        success: false,
+        message: "Error al obtener categoría",
+        error: error.message,
+      });
+    }
+  },
+
+  async create(req, res) {
+    try {
+      const { nombre, descripcion } = req.body;
+
+      if (!nombre) {
+        return res.status(400).json({
+          success: false,
+          message: "El nombre es requerido",
+        });
+      }
+
+      const categoria = await CategoriasModel.create({ nombre, descripcion });
+
+      res.json({
+        success: true,
+        message: "Categoría creada",
+        data: categoria,
+      });
+    } catch (error) {
+      console.error("Error en create:", error);
+      res.status(500).json({
+        success: false,
+        message: "Error al crear categoría",
+        error: error.message,
+      });
+    }
+  },
+
+  async update(req, res) {
+    try {
+      const { id } = req.params;
+      const datos = req.body;
+
+      const categoria = await CategoriasModel.update(id, datos);
+
+      res.json({
+        success: true,
+        message: "Categoría actualizada",
+        data: categoria,
+      });
+    } catch (error) {
+      console.error("Error en update:", error);
+      res.status(500).json({
+        success: false,
+        message: "Error al actualizar categoría",
+        error: error.message,
+      });
+    }
+  },
+
+  async delete(req, res) {
+    try {
+      const { id } = req.params;
+
+      await CategoriasModel.delete(id);
+
+      res.json({
+        success: true,
+        message: "Categoría eliminada",
+      });
+    } catch (error) {
+      console.error("Error en delete:", error);
+      res.status(500).json({
+        success: false,
+        message: "Error al eliminar categoría",
+        error: error.message,
+      });
+    }
+  },
+};
+
+export default CategoriasController;

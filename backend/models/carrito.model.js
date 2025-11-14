@@ -1,117 +1,164 @@
+import db from "../config/database.js";
 
-const { query } = require('../config/database');
-
-class CarritoModel {
-  
-  // Obtener carrito de un usuario
-  static async getByUserId(id_usuario) {
-    const queryText = `
-      SELECT 
-        c.id_carrito,
-        c.id_usuario,
-        c.id_producto,
-        c.cantidad,
-        c.fecha_agregado,
-        p.nombre,
-        p.descripcion,
-        p.precio,
-        p.imagen_url,
-        p.stock,
-        (p.precio * c.cantidad) as subtotal
-      FROM carrito c
-      INNER JOIN productos p ON c.id_producto = p.id_producto
-      WHERE c.id_usuario = $1 AND p.activo = true
-      ORDER BY c.fecha_agregado DESC
-    `;
-
-    const result = await query(queryText, [id_usuario]);
-    return result.rows;
-  }
-
-  // Agregar producto al carrito
-  static async addItem(id_usuario, id_producto, cantidad = 1) {
-    // Verificar si el producto ya está en el carrito
-    const checkQuery = `
-      SELECT id_carrito, cantidad FROM carrito 
-      WHERE id_usuario = $1 AND id_producto = $2
-    `;
-    
-    const existing = await query(checkQuery, [id_usuario, id_producto]);
-
-    if (existing.rows.length > 0) {
-      // Si existe, actualizar cantidad
-      const updateQuery = `
-        UPDATE carrito 
-        SET cantidad = cantidad + $1
-        WHERE id_carrito = $2
-        RETURNING *
+const CarritoModel = {
+  // Obtener carrito del usuario
+  async getByUserId(id_usuario) {
+    try {
+      const query = `
+        SELECT 
+          c.id_carrito,
+          c.id_usuario,
+          c.id_producto,
+          c.cantidad,
+          p.nombre,
+          p.precio,
+          p.descripcion,
+          p.imagen_url
+        FROM carrito c
+        JOIN productos p ON c.id_producto = p.id_producto
+        WHERE c.id_usuario = $1
+        ORDER BY c.fecha_agregado DESC
       `;
-      const result = await query(updateQuery, [cantidad, existing.rows[0].id_carrito]);
-      return result.rows[0];
-    } else {
-      // Si no existe, crear nuevo item
-      const insertQuery = `
+
+      const result = await db.query(query, [id_usuario]);
+      console.log(
+        `📦 Carrito obtenido para usuario ${id_usuario}:`,
+        result.rows
+      );
+      return result.rows;
+    } catch (error) {
+      console.error("Error en getByUserId:", error);
+      throw error;
+    }
+  },
+
+  // Obtener item específico del carrito
+  async getByUserAndProduct(id_usuario, id_producto) {
+    try {
+      const query = `
+        SELECT * FROM carrito
+        WHERE id_usuario = $1 AND id_producto = $2
+        LIMIT 1
+      `;
+
+      const result = await db.query(query, [id_usuario, id_producto]);
+      return result.rows[0] || null;
+    } catch (error) {
+      console.error("Error en getByUserAndProduct:", error);
+      throw error;
+    }
+  },
+
+  // Crear item en el carrito
+  async create(id_usuario, id_producto, cantidad) {
+    try {
+      const query = `
         INSERT INTO carrito (id_usuario, id_producto, cantidad)
         VALUES ($1, $2, $3)
         RETURNING *
       `;
-      const result = await query(insertQuery, [id_usuario, id_producto, cantidad]);
+
+      const result = await db.query(query, [id_usuario, id_producto, cantidad]);
+
+      console.log(`✅ Item creado en carrito:`, result.rows[0]);
+
       return result.rows[0];
+    } catch (error) {
+      console.error("Error en create:", error);
+      throw error;
     }
-  }
+  },
 
-  // Actualizar cantidad de un item
-  static async updateQuantity(id_carrito, cantidad) {
-    const queryText = `
-      UPDATE carrito 
-      SET cantidad = $1
-      WHERE id_carrito = $2
-      RETURNING *
-    `;
+  // Actualizar cantidad
+  async update(id_carrito, cantidad) {
+    try {
+      const query = `
+        UPDATE carrito
+        SET cantidad = $1
+        WHERE id_carrito = $2
+        RETURNING *
+      `;
 
-    const result = await query(queryText, [cantidad, id_carrito]);
-    return result.rows[0];
-  }
+      const result = await db.query(query, [cantidad, id_carrito]);
+
+      console.log(`✅ Carrito actualizado:`, result.rows[0]);
+
+      return result.rows[0];
+    } catch (error) {
+      console.error("Error en update:", error);
+      throw error;
+    }
+  },
 
   // Eliminar item del carrito
-  static async removeItem(id_carrito) {
-    const queryText = `
-      DELETE FROM carrito 
-      WHERE id_carrito = $1
-      RETURNING *
-    `;
+  async delete(id_carrito) {
+    try {
+      const query = `DELETE FROM carrito WHERE id_carrito = $1 RETURNING *`;
 
-    const result = await query(queryText, [id_carrito]);
-    return result.rows[0];
-  }
+      const result = await db.query(query, [id_carrito]);
 
-  // Vaciar carrito de un usuario
-  static async clearCart(id_usuario) {
-    const queryText = `
-      DELETE FROM carrito 
-      WHERE id_usuario = $1
-      RETURNING *
-    `;
+      console.log(`✅ Item eliminado del carrito:`, result.rows[0]);
 
-    const result = await query(queryText, [id_usuario]);
-    return result.rows;
-  }
+      return result.rows[0];
+    } catch (error) {
+      console.error("Error en delete:", error);
+      throw error;
+    }
+  },
 
-  // Obtener total del carrito
-  static async getCartTotal(id_usuario) {
-    const queryText = `
-      SELECT 
-        COUNT(c.id_carrito) as total_items,
-        SUM(c.cantidad) as total_productos,
-        SUM(p.precio * c.cantidad) as total
-      FROM carrito c
-      INNER JOIN productos p ON c.id_producto = p.id_producto
-      WHERE c.id_usuario = $1 AND p.activo = true
-    `;
+  // Eliminar todo el carrito del usuario
+  async deleteByUserId(id_usuario) {
+    try {
+      const query = `DELETE FROM carrito WHERE id_usuario = $1 RETURNING *`;
 
-    const result = await query(queryText, [id_usuario]);
-    return result.rows[0];
-  }
-}
+      const result = await db.query(query, [id_usuario]);
 
-module.exports = CarritoModel;
+      console.log(
+        `✅ Carrito eliminado para usuario ${id_usuario}:`,
+        result.rows
+      );
+
+      return result.rows;
+    } catch (error) {
+      console.error("Error en deleteByUserId:", error);
+      throw error;
+    }
+  },
+
+  // Obtener cantidad total de items
+  async getTotalItems(id_usuario) {
+    try {
+      const query = `
+        SELECT SUM(cantidad) as total
+        FROM carrito
+        WHERE id_usuario = $1
+      `;
+
+      const result = await db.query(query, [id_usuario]);
+      return result.rows[0]?.total || 0;
+    } catch (error) {
+      console.error("Error en getTotalItems:", error);
+      throw error;
+    }
+  },
+
+  // Obtener total de precio
+  async getTotalPrice(id_usuario) {
+    try {
+      const query = `
+        SELECT SUM(p.precio * c.cantidad) as total
+        FROM carrito c
+        JOIN productos p ON c.id_producto = p.id_producto
+        WHERE c.id_usuario = $1
+      `;
+
+      const result = await db.query(query, [id_usuario]);
+      return result.rows[0]?.total || 0;
+    } catch (error) {
+      console.error("Error en getTotalPrice:", error);
+      throw error;
+    }
+  },
+};
+
+export default CarritoModel;

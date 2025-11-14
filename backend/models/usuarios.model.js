@@ -1,160 +1,149 @@
+import db from "../config/database.js";
 
-const { query } = require('../config/database');
-const bcrypt = require('bcryptjs');
-
-class UsuarioModel {
-  
-  static async getAll() {
-    const queryText = `
-      SELECT 
-        id_usuario, nombre, apellido, email, telefono, 
-        direccion, ciudad, codigo_postal, fecha_nacimiento,
-        activo, fecha_registro
-      FROM usuarios
-      WHERE activo = true
-      ORDER BY fecha_registro DESC
-    `;
-
-    const result = await query(queryText);
-    return result.rows;
-  }
-
-  static async getById(id) {
-    const queryText = `
-      SELECT 
-        id_usuario, nombre, apellido, email, telefono, 
-        direccion, ciudad, codigo_postal, fecha_nacimiento,
-        activo, fecha_registro
-      FROM usuarios
-      WHERE id_usuario = $1 AND activo = true
-    `;
-
-    const result = await query(queryText, [id]);
-    return result.rows[0];
-  }
-
-  static async getByEmail(email) {
-    const queryText = `
-      SELECT * FROM usuarios 
-      WHERE email = $1 AND activo = true
-    `;
-
-    const result = await query(queryText, [email]);
-    return result.rows[0];
-  }
-
-  static async create(usuarioData) {
-    const {
-      nombre,
-      apellido,
-      email,
-      password,
-      telefono,
-      direccion,
-      ciudad,
-      codigo_postal,
-      fecha_nacimiento
-    } = usuarioData;
-
-    // Hash de la contraseña
-    const salt = await bcrypt.genSalt(10);
-    const password_hash = await bcrypt.hash(password, salt);
-
-    const queryText = `
-      INSERT INTO usuarios (
-        nombre, apellido, email, password_hash, telefono,
-        direccion, ciudad, codigo_postal, fecha_nacimiento
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-      RETURNING id_usuario, nombre, apellido, email, telefono, 
-                direccion, ciudad, codigo_postal, fecha_registro
-    `;
-
-    const result = await query(queryText, [
-      nombre,
-      apellido,
-      email,
-      password_hash,
-      telefono || null,
-      direccion || null,
-      ciudad || null,
-      codigo_postal || null,
-      fecha_nacimiento || null
-    ]);
-
-    return result.rows[0];
-  }
-
-  static async update(id, usuarioData) {
-    const fields = [];
-    const values = [];
-    let paramCount = 1;
-
-    // Si se incluye password, hashearlo
-    if (usuarioData.password) {
-      const salt = await bcrypt.genSalt(10);
-      usuarioData.password_hash = await bcrypt.hash(usuarioData.password, salt);
-      delete usuarioData.password;
+const UsuariosModel = {
+  async getAll() {
+    try {
+      const query = `SELECT id_usuario, nombre, email, telefono, fecha_registro FROM usuarios`;
+      const result = await db.query(query);
+      return result.rows;
+    } catch (error) {
+      console.error("Error en getAll:", error);
+      throw error;
     }
+  },
 
-    Object.keys(usuarioData).forEach(key => {
-      if (usuarioData[key] !== undefined && key !== 'email') { // Email no se puede cambiar
-        fields.push(`${key} = $${paramCount}`);
-        values.push(usuarioData[key]);
-        paramCount++;
+  async getById(id) {
+    try {
+      const query = `SELECT id_usuario, nombre, apellido, email, telefono, direccion, ciudad, codigo_postal, fecha_nacimiento, fecha_registro FROM usuarios WHERE id_usuario = $1`;
+      const result = await db.query(query, [id]);
+
+      const usuario = result.rows[0] || null;
+
+      // Combine nombre and apellido for frontend
+      if (usuario && usuario.apellido) {
+        usuario.nombre = `${usuario.nombre} ${usuario.apellido}`;
       }
-    });
 
-    if (fields.length === 0) {
-      throw new Error('No hay campos para actualizar');
+      return usuario;
+    } catch (error) {
+      console.error("Error en getById:", error);
+      throw error;
     }
+  },
 
-    values.push(id);
+  async findByEmail(email) {
+    try {
+      const query = `SELECT * FROM usuarios WHERE email = $1`;
+      const result = await db.query(query, [email]);
+      return result.rows[0] || null;
+    } catch (error) {
+      console.error("Error en findByEmail:", error);
+      throw error;
+    }
+  },
 
-    const queryText = `
-      UPDATE usuarios 
-      SET ${fields.join(', ')}
-      WHERE id_usuario = $${paramCount}
-      RETURNING id_usuario, nombre, apellido, email, telefono, 
-                direccion, ciudad, codigo_postal, fecha_registro
-    `;
+  async create(data) {
+    try {
+      let {
+        nombre,
+        email,
+        password,
+        telefono,
+        direccion,
+        ciudad,
+        codigo_postal,
+        fecha_nacimiento,
+      } = data;
 
-    const result = await query(queryText, values);
-    return result.rows[0];
-  }
+      // If frontend sends a full name in `nombre`, try to split into nombre / apellido
+      let apellido = "";
+      if (nombre && nombre.includes(" ")) {
+        const parts = nombre.trim().split(/\s+/);
+        nombre = parts.shift();
+        apellido = parts.join(" ");
+      }
 
-  static async delete(id) {
-    const queryText = `
-      UPDATE usuarios 
-      SET activo = false 
-      WHERE id_usuario = $1
-      RETURNING id_usuario, nombre, email
-    `;
+      // Ensure we also populate password_hash column (some DB schemas require it)
+      const query = `
+        INSERT INTO usuarios (nombre, apellido, email, password, password_hash, telefono, direccion, ciudad, codigo_postal, fecha_nacimiento)
+        VALUES ($1, $2, $3, $4, $4, $5, $6, $7, $8, $9)
+        RETURNING id_usuario, nombre, apellido, email, telefono, direccion, ciudad, codigo_postal, fecha_nacimiento, fecha_registro
+      `;
+      const result = await db.query(query, [
+        nombre,
+        apellido,
+        email,
+        password,
+        telefono || "",
+        direccion || "",
+        ciudad || "",
+        codigo_postal || "",
+        fecha_nacimiento || null,
+      ]);
 
-    const result = await query(queryText, [id]);
-    return result.rows[0];
-  }
+      const usuario = result.rows[0];
 
-  static async validatePassword(plainPassword, hashedPassword) {
-    return await bcrypt.compare(plainPassword, hashedPassword);
-  }
+      // Combine nombre and apellido for frontend
+      if (usuario && usuario.apellido) {
+        usuario.nombre = `${usuario.nombre} ${usuario.apellido}`;
+      }
 
-  // Obtener estadísticas del usuario
-  static async getUserStats(id) {
-    const queryText = `
-      SELECT 
-        COUNT(DISTINCT pe.id_pedido) as total_pedidos,
-        COALESCE(SUM(pe.total), 0) as total_gastado,
-        COUNT(DISTINCT v.id_valoracion) as total_valoraciones
-      FROM usuarios u
-      LEFT JOIN pedidos pe ON u.id_usuario = pe.id_usuario
-      LEFT JOIN valoraciones v ON u.id_usuario = v.id_usuario
-      WHERE u.id_usuario = $1
-      GROUP BY u.id_usuario
-    `;
+      return usuario;
+    } catch (error) {
+      console.error("Error en create:", error);
+      throw error;
+    }
+  },
 
-    const result = await query(queryText, [id]);
-    return result.rows[0];
-  }
-}
+  async update(id, data) {
+    try {
+      // If updating nombre, split into nombre/apellido if needed
+      if (data.nombre && data.nombre.includes(" ") && !data.apellido) {
+        const parts = data.nombre.trim().split(/\s+/);
+        data.nombre = parts.shift();
+        data.apellido = parts.join(" ");
+      }
 
-module.exports = UsuarioModel;
+      // If password is being updated, also update password_hash
+      if (data.password) {
+        data.password_hash = data.password;
+      }
+
+      const fields = Object.keys(data);
+      const values = Object.values(data);
+      const setClause = fields
+        .map((field, i) => `${field} = $${i + 1}`)
+        .join(", ");
+
+      const query = `UPDATE usuarios SET ${setClause} WHERE id_usuario = $${
+        fields.length + 1
+      } RETURNING id_usuario, nombre, apellido, email, telefono, direccion, ciudad, codigo_postal, fecha_nacimiento, fecha_registro`;
+      const result = await db.query(query, [...values, id]);
+
+      const usuario = result.rows[0];
+
+      // Combine nombre and apellido for frontend
+      if (usuario && usuario.apellido) {
+        usuario.nombre = `${usuario.nombre} ${usuario.apellido}`;
+      }
+
+      return usuario;
+    } catch (error) {
+      console.error("Error en update:", error);
+      throw error;
+    }
+  },
+
+  async delete(id) {
+    try {
+      const query = `DELETE FROM usuarios WHERE id_usuario = $1 RETURNING *`;
+      const result = await db.query(query, [id]);
+      return result.rows[0];
+    } catch (error) {
+      console.error("Error en delete:", error);
+      throw error;
+    }
+  },
+};
+
+export default UsuariosModel;

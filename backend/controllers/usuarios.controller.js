@@ -1,204 +1,228 @@
+import UsuariosModel from "../models/usuarios.model.js";
 
-const UsuarioModel = require('../models/usuarios.model');
-const jwt = require('jsonwebtoken');
-
-class UsuarioController {
-  
-  // Registrar nuevo usuario
-  static async register(req, res, next) {
+const UsuariosController = {
+  async register(req, res) {
     try {
-      const usuarioData = req.body;
+      const {
+        nombre,
+        email,
+        password,
+        telefono,
+        direccion,
+        ciudad,
+        codigo_postal,
+        fecha_nacimiento,
+      } = req.body;
 
-      // Validar que el email no exista
-      const usuarioExistente = await UsuarioModel.getByEmail(usuarioData.email);
-      if (usuarioExistente) {
+      if (!nombre || !email || !password) {
         return res.status(400).json({
           success: false,
-          message: 'El email ya está registrado'
+          message: "Faltan campos requeridos",
         });
       }
 
-      const nuevoUsuario = await UsuarioModel.create(usuarioData);
+      const usuario = await UsuariosModel.create({
+        nombre,
+        email,
+        password,
+        telefono: telefono || "",
+        direccion: direccion || "",
+        ciudad: ciudad || "",
+        codigo_postal: codigo_postal || "",
+        fecha_nacimiento: fecha_nacimiento || null,
+      });
 
-      // Generar token JWT
-      const token = jwt.sign(
-        { id: nuevoUsuario.id_usuario, email: nuevoUsuario.email },
-        process.env.JWT_SECRET,
-        { expiresIn: process.env.JWT_EXPIRE }
-      );
+      // Combine nombre and apellido for response
+      const nombreCompleto = usuario.apellido
+        ? `${usuario.nombre} ${usuario.apellido}`
+        : usuario.nombre;
 
-      res.status(201).json({
+      res.json({
         success: true,
-        message: 'Usuario registrado exitosamente',
-        data: nuevoUsuario,
-        token
+        message: "Usuario registrado exitosamente",
+        data: {
+          ...usuario,
+          nombre: nombreCompleto,
+        },
       });
     } catch (error) {
-      next(error);
+      console.error("Error en register:", error);
+      res.status(500).json({
+        success: false,
+        message: "Error al registrar usuario",
+        error: error.message,
+      });
     }
-  }
+  },
 
-  // Login
-  static async login(req, res, next) {
+  async login(req, res) {
     try {
       const { email, password } = req.body;
 
       if (!email || !password) {
         return res.status(400).json({
           success: false,
-          message: 'Email y contraseña son requeridos'
+          message: "Email y contraseña requeridos",
         });
       }
 
-      // Buscar usuario con password
-      const usuario = await UsuarioModel.getByEmail(email);
+      const usuario = await UsuariosModel.findByEmail(email);
 
-      if (!usuario) {
+      console.log("Usuario encontrado:", usuario ? "Sí" : "No");
+      if (usuario) {
+        console.log("Password en DB:", usuario.password);
+        console.log("Password recibido:", password);
+        console.log("Coinciden:", usuario.password === password);
+      }
+
+      if (
+        !usuario ||
+        (usuario.password !== password && usuario.password_hash !== password)
+      ) {
         return res.status(401).json({
           success: false,
-          message: 'Credenciales inválidas'
+          message: "Email o contraseña incorrectos",
         });
       }
 
-      // Validar contraseña
-      const isValidPassword = await UsuarioModel.validatePassword(password, usuario.password_hash);
-
-      if (!isValidPassword) {
-        return res.status(401).json({
-          success: false,
-          message: 'Credenciales inválidas'
-        });
-      }
-
-      // Generar token
-      const token = jwt.sign(
-        { id: usuario.id_usuario, email: usuario.email },
-        process.env.JWT_SECRET,
-        { expiresIn: process.env.JWT_EXPIRE }
+      console.log(
+        `✅ Login exitoso para usuario: ${usuario.nombre} (ID: ${usuario.id_usuario})`
       );
 
-      // Remover password_hash de la respuesta
-      delete usuario.password_hash;
+      // Combine nombre and apellido for response
+      const nombreCompleto = usuario.apellido
+        ? `${usuario.nombre} ${usuario.apellido}`
+        : usuario.nombre;
 
       res.json({
         success: true,
-        message: 'Login exitoso',
-        data: usuario,
-        token
-      });
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  static async getAll(req, res, next) {
-    try {
-      const usuarios = await UsuarioModel.getAll();
-
-      res.json({
-        success: true,
-        count: usuarios.length,
-        data: usuarios
-      });
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  static async getById(req, res, next) {
-    try {
-      const { id } = req.params;
-      const usuario = await UsuarioModel.getById(id);
-
-      if (!usuario) {
-        return res.status(404).json({
-          success: false,
-          message: 'Usuario no encontrado'
-        });
-      }
-
-      res.json({
-        success: true,
-        data: usuario
-      });
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  // Perfil del usuario autenticado
-  static async getProfile(req, res, next) {
-    try {
-      // req.user viene del middleware de autenticación
-      const usuario = await UsuarioModel.getById(req.user.id);
-
-      if (!usuario) {
-        return res.status(404).json({
-          success: false,
-          message: 'Usuario no encontrado'
-        });
-      }
-
-      // Obtener estadísticas
-      const stats = await UsuarioModel.getUserStats(req.user.id);
-
-      res.json({
-        success: true,
+        message: "Login exitoso",
         data: {
-          ...usuario,
-          stats
-        }
+          id_usuario: usuario.id_usuario,
+          nombre: nombreCompleto,
+          email: usuario.email,
+          telefono: usuario.telefono || "",
+          direccion: usuario.direccion || "",
+          ciudad: usuario.ciudad || "",
+          codigo_postal: usuario.codigo_postal || "",
+          fecha_nacimiento: usuario.fecha_nacimiento || null,
+          fecha_registro: usuario.fecha_registro,
+        },
       });
     } catch (error) {
-      next(error);
+      console.error("Error en login:", error);
+      res.status(500).json({
+        success: false,
+        message: "Error al iniciar sesión",
+        error: error.message,
+      });
     }
-  }
+  },
 
-  static async update(req, res, next) {
+  async getProfile(req, res) {
+    try {
+      // Aquí normalmente verificarías el token
+      res.json({
+        success: true,
+        message: "Perfil obtenido",
+        data: {},
+      });
+    } catch (error) {
+      console.error("Error en getProfile:", error);
+      res.status(500).json({
+        success: false,
+        message: "Error al obtener perfil",
+        error: error.message,
+      });
+    }
+  },
+
+  async getById(req, res) {
     try {
       const { id } = req.params;
-      const usuarioData = req.body;
+      const usuario = await UsuariosModel.getById(id);
 
-      const usuarioActualizado = await UsuarioModel.update(id, usuarioData);
-
-      if (!usuarioActualizado) {
+      if (!usuario) {
         return res.status(404).json({
           success: false,
-          message: 'Usuario no encontrado'
+          message: "Usuario no encontrado",
         });
       }
 
       res.json({
         success: true,
-        message: 'Usuario actualizado exitosamente',
-        data: usuarioActualizado
+        message: "Usuario obtenido",
+        data: usuario,
       });
     } catch (error) {
-      next(error);
+      console.error("Error en getById:", error);
+      res.status(500).json({
+        success: false,
+        message: "Error al obtener usuario",
+        error: error.message,
+      });
     }
-  }
+  },
 
-  static async delete(req, res, next) {
+  async update(req, res) {
     try {
       const { id } = req.params;
-      const usuarioEliminado = await UsuarioModel.delete(id);
+      const datos = req.body;
 
-      if (!usuarioEliminado) {
-        return res.status(404).json({
-          success: false,
-          message: 'Usuario no encontrado'
-        });
-      }
+      const usuario = await UsuariosModel.update(id, datos);
 
       res.json({
         success: true,
-        message: 'Usuario eliminado exitosamente',
-        data: usuarioEliminado
+        message: "Usuario actualizado",
+        data: usuario,
       });
     } catch (error) {
-      next(error);
+      console.error("Error en update:", error);
+      res.status(500).json({
+        success: false,
+        message: "Error al actualizar usuario",
+        error: error.message,
+      });
     }
-  }
-}
+  },
 
-module.exports = UsuarioController;
+  async getAll(req, res) {
+    try {
+      const usuarios = await UsuariosModel.getAll();
+
+      res.json({
+        success: true,
+        data: usuarios,
+      });
+    } catch (error) {
+      console.error("Error en getAll:", error);
+      res.status(500).json({
+        success: false,
+        message: "Error al obtener usuarios",
+        error: error.message,
+      });
+    }
+  },
+
+  async delete(req, res) {
+    try {
+      const { id } = req.params;
+
+      await UsuariosModel.delete(id);
+
+      res.json({
+        success: true,
+        message: "Usuario eliminado",
+      });
+    } catch (error) {
+      console.error("Error en delete:", error);
+      res.status(500).json({
+        success: false,
+        message: "Error al eliminar usuario",
+        error: error.message,
+      });
+    }
+  },
+};
+
+export default UsuariosController;

@@ -3,6 +3,7 @@
 ## 📋 Instalación
 
 1. **Instalar dependencias:**
+
    ```bash
    cd react-components
    npm install
@@ -23,8 +24,14 @@ Agregar al final de cualquier página HTML (antes del `</body>`):
 <div id="fitness-assistant-root"></div>
 
 <!-- React y ReactDOM desde CDN -->
-<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script
+  crossorigin
+  src="https://unpkg.com/react@18/umd/react.production.min.js"
+></script>
+<script
+  crossorigin
+  src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"
+></script>
 
 <!-- Bundle del asistente -->
 <script src="../js/fitness-assistant.bundle.js"></script>
@@ -47,6 +54,7 @@ Agregar al final de cualquier página HTML (antes del `</body>`):
 ## 🎨 Temas cubiertos
 
 El asistente puede responder sobre:
+
 - Cómo bajar de peso
 - Cómo ganar masa muscular
 - Rutinas de entrenamiento
@@ -61,6 +69,7 @@ El asistente puede responder sobre:
 ## 🔧 Desarrollo
 
 Para desarrollo con auto-reload:
+
 ```bash
 npm run dev
 ```
@@ -68,6 +77,7 @@ npm run dev
 ## 📝 Personalización
 
 Editar `FitnessAssistant.jsx` para:
+
 - Agregar más keywords y respuestas en `knowledgeBase`
 - Cambiar respuestas rápidas en `quickReplies`
 - Modificar estilos y colores

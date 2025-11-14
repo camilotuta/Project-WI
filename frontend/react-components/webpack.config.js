@@ -1,10 +1,10 @@
-const path = require('path');
+const path = require("path");
 
 module.exports = {
-  entry: './index.jsx',
+  entry: "./index.jsx",
   output: {
-    path: path.resolve(__dirname, '../js'),
-    filename: 'fitness-assistant.bundle.js',
+    path: path.resolve(__dirname, "../js"),
+    filename: "fitness-assistant.bundle.js",
   },
   module: {
     rules: [
@@ -12,15 +12,15 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader',
+          loader: "babel-loader",
           options: {
-            presets: ['@babel/preset-react']
-          }
-        }
-      }
-    ]
+            presets: ["@babel/preset-react"],
+          },
+        },
+      },
+    ],
   },
   resolve: {
-    extensions: ['.js', '.jsx']
-  }
+    extensions: [".js", ".jsx"],
+  },
 };

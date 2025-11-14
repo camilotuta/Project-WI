@@ -46,7 +46,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Servir archivos estáticos desde la carpeta frontend
-app.use('/assets', express.static(join(__dirname, '../frontend/assets')));
+app.use("/assets", express.static(join(__dirname, "../frontend/assets")));
 
 // Logger de requests en desarrollo
 if (process.env.NODE_ENV === "development") {

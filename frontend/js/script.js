@@ -129,7 +129,7 @@ function updateCartCount() {
 }
 
 // Inicializar carrito
-if (typeof updateCartCount === 'function') {
+if (typeof updateCartCount === "function") {
   updateCartCount();
 }
 

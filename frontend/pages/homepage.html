@@ -1203,6 +1203,9 @@
       });
     </script>
 
+    <!-- Asistente Virtual React - Debe ir antes de los scripts -->
+    <div id="fitness-assistant-root"></div>
+
     <!-- Scripts en orden correcto - antes de <script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
 </body> -->
     <script src="../js/api.js"></script>
@@ -1210,5 +1213,10 @@
     <script src="../js/navbar.js"></script>
     <script src="../js/home.js"></script>
     <script src="../js/script.js"></script>
+
+    <!-- React CDN y Asistente -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="../js/fitness-assistant.js"></script>
   </body>
 </html>

@@ -57,26 +57,29 @@ async function loadProducts(filters = {}) {
   try {
     console.log("🔄 Cargando productos con filtros:", filters);
 
-    const response = await window.API.Productos.getAll();
+    // Filtrado de categoría delegado al backend
+    const categoriaSlug =
+      filters.category && filters.category !== "all" ? filters.category : null;
+
+    const response = await window.API.Productos.getAll(categoriaSlug);
 
     console.log("✅ Productos obtenidos de la API:", response);
 
     let productos = response.data || response || [];
 
-    console.log("📊 Productos recibidos:", productos);
+    console.log("📊 Productos recibidos:", productos.length);
 
     if (!Array.isArray(productos) || productos.length === 0) {
       console.warn("⚠️ No se obtuvieron productos");
-      showError("No hay productos disponibles en este momento");
+      showError("No hay productos disponibles en esta categoría");
       return;
     }
 
-    productos = applyFilters(productos, filters);
+    // Aplicar filtros restantes (precio, stock, búsqueda, orden) — la categoría ya viene filtrada del servidor
+    productos = applyFilters(productos, { ...filters, category: null });
     renderProducts(productos);
 
-    console.log(
-      `📊 Filtros aplicados. Productos mostrados: ${productos.length}`
-    );
+    console.log(`📊 Productos mostrados: ${productos.length}`);
   } catch (error) {
     console.error("❌ Error loading products:", error);
     showError("Error al cargar productos. Por favor, intenta de nuevo.");
@@ -98,6 +101,10 @@ function renderProducts(productos) {
   console.log("✅ Container encontrado");
 
   container.innerHTML = "";
+
+  // Actualizar contador de productos
+  const countEl = document.getElementById("product-count");
+  if (countEl) countEl.textContent = productos ? productos.length : 0;
 
   if (!productos || productos.length === 0) {
     container.innerHTML =
@@ -135,13 +142,13 @@ function createProductCard(product) {
       </div>
       ${
         product.oferta && product.oferta > 0
-          ? `<span class="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded text-sm">-${product.oferta}%</span>`
+          ? `<span class="absolute top-2 right-2 bg-error text-white px-2 py-1 rounded-full text-xs font-bold tracking-wide">-${product.oferta}%</span>`
           : ""
       }
     </div>
 
     <div class="p-4">
-      <h3 class="font-semibold text-sm text-gray-800 mb-2 line-clamp-2">${
+      <h3 class="font-semibold text-base text-gray-800 mb-2 line-clamp-2" style="letter-spacing: 0.06em; line-height: 1.4">${
         product.nombre || "Sin nombre"
       }</h3>
       
@@ -151,7 +158,7 @@ function createProductCard(product) {
 
       <div class="flex items-center justify-between mb-3">
         <span class="text-lg font-bold text-primary">$${parseFloat(
-          product.precio || 0
+          product.precio || 0,
         ).toLocaleString("es-CO")} COP</span>
         ${
           product.stock && product.stock > 0
@@ -201,11 +208,12 @@ function applyFilters(productos, filters) {
 
       // Mapear nombres amigables a nombres de BD
       const categoryMap = {
-        gym: "gimnasio",
-        pilates: "pilates",
-        cardio: "cardio",
-        supplements: "suplementos",
-        accessories: "accesorios",
+        "gym-acc": "accesorios de gimnasio",
+        "pilates-yoga": "pilates y yoga",
+        "natural-supps": "suplementos naturales",
+        "sport-supps": "suplementos deportivos",
+        clothing: "ropa deportiva",
+        "home-gym": "home gym",
       };
 
       const mappedFilter = categoryMap[filterLower] || filterLower;
@@ -227,7 +235,7 @@ function applyFilters(productos, filters) {
     filtered = filtered.filter(
       (p) =>
         p.nombre.toLowerCase().includes(searchTerm) ||
-        (p.descripcion && p.descripcion.toLowerCase().includes(searchTerm))
+        (p.descripcion && p.descripcion.toLowerCase().includes(searchTerm)),
     );
   }
 
@@ -320,13 +328,13 @@ function setupCategoryFilters() {
   const categoryButtons = document.querySelectorAll(".filter-btn");
 
   categoryButtons.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      const filter = e.target.getAttribute("data-filter");
+    btn.addEventListener("click", () => {
+      const filter = btn.getAttribute("data-filter");
       console.log("📂 Filtro de categoría seleccionado:", filter);
 
       // Actualizar clase active
       categoryButtons.forEach((b) => b.classList.remove("active"));
-      e.target.classList.add("active");
+      btn.classList.add("active");
 
       // Actualizar filtros y recargar
       currentFilters.category = filter === "all" ? null : filter;
@@ -342,13 +350,13 @@ function setupSpecialFilters() {
   const specialButtons = document.querySelectorAll(".special-filter-btn");
 
   specialButtons.forEach((btn) => {
-    btn.addEventListener("click", async (e) => {
-      const special = e.target.getAttribute("data-special");
+    btn.addEventListener("click", async () => {
+      const special = btn.getAttribute("data-special");
       console.log("⭐ Filtro especial seleccionado:", special);
 
       // Actualizar clase active
       specialButtons.forEach((b) => b.classList.remove("active"));
-      e.target.classList.add("active");
+      btn.classList.add("active");
 
       // Cargar productos según filtro especial
       try {

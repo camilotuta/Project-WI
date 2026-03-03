@@ -3,7 +3,8 @@ import ProductosModel from "../models/productos.model.js";
 const ProductosController = {
   async getAll(req, res) {
     try {
-      const productos = await ProductosModel.getAll();
+      const categoriaSlug = req.query.categoria || null;
+      const productos = await ProductosModel.getAll(categoriaSlug);
       res.json({
         success: true,
         message: "Productos obtenidos",

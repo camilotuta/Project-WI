@@ -1,10 +1,14 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>🌿 Catálogo de Productos - Greenhouse Fitness</title>
+    <link rel="icon" type="image/png" href="../assets/images/icons/gmk.png" />
+    <link rel="apple-touch-icon" href="../assets/images/icons/gmk.png" />
+    <title>Catálogo de Productos - GYMARK.co</title>
     <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="../css/styles.css" />
+    <link rel="stylesheet" href="../css/components.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   </head>
@@ -16,13 +20,13 @@
           <!-- Logo -->
           <div class="flex items-center">
             <a href="homepage.html" class="flex items-center space-x-2">
-              <div
-                class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center"
-              >
-                <span class="text-white text-xl">🌿</span>
-              </div>
+              <img
+                src="../assets/images/icons/gmk.png"
+                alt="GYMARK.co"
+                class="w-10 h-10 rounded-lg object-cover"
+              />
               <span class="text-xl font-heading font-bold text-primary"
-                >Greenhouse Fitness</span
+                >GYMARK.co</span
               >
             </a>
           </div>
@@ -63,29 +67,123 @@
               >
                 <div class="py-2">
                   <a
-                    href="product_catalog.html?category=gym"
+                    href="product_catalog.html?category=gym-acc"
                     class="block px-4 py-2 text-sm text-text-secondary hover:bg-surface-100 hover:text-primary"
-                    >🏋️ Gimnasio</a
+                    ><svg
+                      class="w-4 h-4 inline-block align-middle mr-1 shrink-0"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <rect x="5" y="7" width="2" height="10" rx="0.5" />
+                      <rect x="17" y="7" width="2" height="10" rx="0.5" />
+                      <rect x="2" y="9" width="5" height="6" rx="0.5" />
+                      <rect x="17" y="9" width="5" height="6" rx="0.5" />
+                      <line x1="7" y1="12" x2="17" y2="12" />
+                    </svg>
+                    Acc. Gimnasio</a
                   >
                   <a
-                    href="product_catalog.html?category=pilates"
+                    href="product_catalog.html?category=pilates-yoga"
                     class="block px-4 py-2 text-sm text-text-secondary hover:bg-surface-100 hover:text-primary"
-                    >🧘 Pilates</a
+                    ><svg
+                      class="w-4 h-4 inline-block align-middle mr-1 shrink-0"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <circle cx="12" cy="4" r="2" />
+                      <path d="M5 18c0-4 3.1-7 7-7s7 3 7 7" />
+                      <path d="M5 18l4-4h6l4 4" />
+                    </svg>
+                    Pilates &amp; Yoga</a
                   >
                   <a
-                    href="product_catalog.html?category=cardio"
+                    href="product_catalog.html?category=natural-supps"
                     class="block px-4 py-2 text-sm text-text-secondary hover:bg-surface-100 hover:text-primary"
-                    >🏃 Cardio</a
+                    ><svg
+                      class="w-4 h-4 inline-block align-middle mr-1 shrink-0"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"
+                      />
+                      <path
+                        d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"
+                      />
+                    </svg>
+                    Sup. Naturales</a
                   >
                   <a
-                    href="product_catalog.html?category=supplements"
+                    href="product_catalog.html?category=sport-supps"
                     class="block px-4 py-2 text-sm text-text-secondary hover:bg-surface-100 hover:text-primary"
-                    >💊 Suplementos</a
+                    ><svg
+                      class="w-4 h-4 inline-block align-middle mr-1 shrink-0"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path d="M9 2h6v7l2 3v10H7V12l2-3V2z" />
+                      <line x1="7" y1="16" x2="17" y2="16" />
+                    </svg>
+                    Sup. Deportivos</a
                   >
                   <a
-                    href="product_catalog.html?category=accessories"
+                    href="product_catalog.html?category=clothing"
                     class="block px-4 py-2 text-sm text-text-secondary hover:bg-surface-100 hover:text-primary"
-                    >🎯 Accesorios</a
+                    ><svg
+                      class="w-4 h-4 inline-block align-middle mr-1 shrink-0"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.57a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.57a2 2 0 0 0-1.34-2.23z"
+                      />
+                    </svg>
+                    Ropa Deportiva</a
+                  >
+                  <a
+                    href="product_catalog.html?category=home-gym"
+                    class="block px-4 py-2 text-sm text-text-secondary hover:bg-surface-100 hover:text-primary"
+                    ><svg
+                      class="w-4 h-4 inline-block align-middle mr-1 shrink-0"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+                      />
+                      <polyline points="9,22 9,12 15,12 15,22" />
+                    </svg>
+                    Home Gym</a
                   >
                 </div>
               </div>
@@ -193,20 +291,63 @@
                       href="user_profile.html"
                       class="block px-4 py-2 text-sm text-text-secondary hover:bg-surface-100 hover:text-primary"
                     >
-                      👤 Mi Perfil
+                      <svg
+                        class="w-4 h-4 inline-block align-middle mr-1 shrink-0"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                        <circle cx="12" cy="7" r="4" />
+                      </svg>
+                      Mi Perfil
                     </a>
                     <a
                       href="shopping_cart.html"
                       class="block px-4 py-2 text-sm text-text-secondary hover:bg-surface-100 hover:text-primary"
                     >
-                      🛒 Mi Carrito
+                      <svg
+                        class="w-4 h-4 inline-block align-middle mr-1 shrink-0"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <circle cx="9" cy="21" r="1" />
+                        <circle cx="20" cy="21" r="1" />
+                        <path
+                          d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"
+                        />
+                      </svg>
+                      Mi Carrito
                     </a>
                     <hr class="my-2 border-border" />
                     <button
                       onclick="window.logout()"
                       class="w-full text-left px-4 py-2 text-sm text-error hover:bg-surface-100"
                     >
-                      🚪 Cerrar Sesión
+                      <svg
+                        class="w-4 h-4 inline-block align-middle mr-1 shrink-0"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                        <polyline points="16,17 21,12 16,7" />
+                        <line x1="21" y1="12" x2="9" y2="12" />
+                      </svg>
+                      Cerrar Sesión
                     </button>
                   </div>
                 </div>
@@ -250,29 +391,119 @@
             >Productos</a
           >
           <a
-            href="product_catalog.html?category=gym"
+            href="product_catalog.html?category=gym-acc"
             class="block px-3 py-2 text-text-secondary hover:text-primary"
-            >🏋️ Gimnasio</a
+            ><svg
+              class="w-4 h-4 inline-block align-middle mr-1 shrink-0"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <rect x="5" y="7" width="2" height="10" rx="0.5" />
+              <rect x="17" y="7" width="2" height="10" rx="0.5" />
+              <rect x="2" y="9" width="5" height="6" rx="0.5" />
+              <rect x="17" y="9" width="5" height="6" rx="0.5" />
+              <line x1="7" y1="12" x2="17" y2="12" />
+            </svg>
+            Acc. Gimnasio</a
           >
           <a
-            href="product_catalog.html?category=pilates"
+            href="product_catalog.html?category=pilates-yoga"
             class="block px-3 py-2 text-text-secondary hover:text-primary"
-            >🧘 Pilates</a
+            ><svg
+              class="w-4 h-4 inline-block align-middle mr-1 shrink-0"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="4" r="2" />
+              <path d="M5 18c0-4 3.1-7 7-7s7 3 7 7" />
+              <path d="M5 18l4-4h6l4 4" />
+            </svg>
+            Pilates &amp; Yoga</a
           >
           <a
-            href="product_catalog.html?category=cardio"
+            href="product_catalog.html?category=natural-supps"
             class="block px-3 py-2 text-text-secondary hover:text-primary"
-            >🏃 Cardio</a
+            ><svg
+              class="w-4 h-4 inline-block align-middle mr-1 shrink-0"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path
+                d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"
+              />
+              <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
+            </svg>
+            Sup. Naturales</a
           >
           <a
-            href="product_catalog.html?category=supplements"
+            href="product_catalog.html?category=sport-supps"
             class="block px-3 py-2 text-text-secondary hover:text-primary"
-            >💊 Suplementos</a
+            ><svg
+              class="w-4 h-4 inline-block align-middle mr-1 shrink-0"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M9 2h6v7l2 3v10H7V12l2-3V2z" />
+              <line x1="7" y1="16" x2="17" y2="16" />
+            </svg>
+            Sup. Deportivos</a
           >
           <a
-            href="product_catalog.html?category=accessories"
+            href="product_catalog.html?category=clothing"
             class="block px-3 py-2 text-text-secondary hover:text-primary"
-            >🎯 Accesorios</a
+            ><svg
+              class="w-4 h-4 inline-block align-middle mr-1 shrink-0"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path
+                d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.57a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.57a2 2 0 0 0-1.34-2.23z"
+              />
+            </svg>
+            Ropa Deportiva</a
+          >
+          <a
+            href="product_catalog.html?category=home-gym"
+            class="block px-3 py-2 text-text-secondary hover:text-primary"
+            ><svg
+              class="w-4 h-4 inline-block align-middle mr-1 shrink-0"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9,22 9,12 15,12 15,22" />
+            </svg>
+            Home Gym</a
           >
           <a
             href="user_profile.html"
@@ -284,7 +515,10 @@
     </nav>
 
     <!-- Page Header -->
-    <section class="bg-gradient-to-br from-primary-50 to-secondary-50 py-12">
+    <section
+      id="catalog-header"
+      class="bg-gradient-to-br from-primary-50 to-secondary-50 py-12"
+    >
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center">
           <h1
@@ -296,32 +530,21 @@
             Descubre nuestra amplia selección de suplementos naturales y equipos
             de fitness
           </p>
-          <div class="mt-6">
-            <span class="text-sm text-text-tertiary">
-              Mostrando <span id="product-count">24</span> productos
-            </span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Filter and Search Section -->
-    <section class="bg-white border-b border-border sticky top-16 z-40">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <!-- Search Bar -->
-        <div class="mb-4">
-          <div class="relative max-w-md mx-auto md:mx-0">
-            <input
-              type="text"
-              placeholder="Buscar productos..."
-              class="w-full pl-10 pr-4 py-3 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-              id="search-input"
-            />
+          <p class="mt-3 text-sm text-text-tertiary">
+            Mostrando
+            <span id="product-count" class="font-semibold text-text-secondary"
+              >24</span
+            >
+            productos
+          </p>
+          <!-- Search Bar -->
+          <div class="mt-8 mx-auto" style="max-width: 620px">
             <div
-              class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+              class="relative flex items-center bg-white rounded-full shadow-md border border-border overflow-hidden"
+              style="padding: 6px 6px 6px 20px"
             >
               <svg
-                class="w-5 h-5 text-text-tertiary"
+                class="w-5 h-5 shrink-0 text-text-tertiary mr-3"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -333,60 +556,26 @@
                   d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                 ></path>
               </svg>
-            </div>
-          </div>
-        </div>
-
-        <!-- Filter Controls -->
-        <div
-          class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4"
-        >
-          <!-- Category Filters -->
-          <div class="flex flex-wrap gap-2">
-            <button class="filter-btn active" data-filter="all">Todos</button>
-            <button class="filter-btn" data-filter="gym">🏋️ Gimnasio</button>
-            <button class="filter-btn" data-filter="pilates">🧘 Pilates</button>
-            <button class="filter-btn" data-filter="cardio">🏃 Cardio</button>
-            <button class="filter-btn" data-filter="supplements">
-              💊 Suplementos
-            </button>
-            <button class="filter-btn" data-filter="accessories">
-              🎯 Accesorios
-            </button>
-          </div>
-
-          <!-- Additional Filters and Sort -->
-          <div class="flex flex-wrap items-center gap-4">
-            <!-- Special Filters -->
-            <div class="flex gap-2">
-              <button class="special-filter-btn" data-special="featured">
-                ⭐ Destacados
-              </button>
-              <button class="special-filter-btn" data-special="new">
-                🆕 Nuevos
-              </button>
-              <button class="special-filter-btn" data-special="offers">
-                🏷️ Ofertas
-              </button>
-            </div>
-
-            <!-- Sort Dropdown -->
-            <div class="relative">
-              <select
-                class="appearance-none bg-white border border-border rounded-lg px-4 py-2 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-                id="sort-select"
-              >
-                <option value="relevance">Relevancia</option>
-                <option value="price-low">Precio: Menor a Mayor</option>
-                <option value="price-high">Precio: Mayor a Menor</option>
-                <option value="rating">Mejor Valorados</option>
-                <option value="newest">Más Nuevos</option>
-              </select>
-              <div
-                class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none"
+              <input
+                type="text"
+                placeholder="Buscar productos, suplementos, equipamiento..."
+                class="flex-1 bg-transparent text-text-primary focus:outline-none"
+                style="font-size: 1rem; padding: 8px 0"
+                id="search-input"
+              />
+              <button
+                class="text-text-tertiary hover:text-primary rounded-full shrink-0 transition-colors flex items-center gap-1"
+                style="padding: 8px 16px; font-size: 0.85rem"
+                onclick="
+                  const el = document.getElementById('search-input');
+                  el.value = '';
+                  el.dispatchEvent(new Event('input'));
+                  el.focus();
+                "
+                title="Limpiar búsqueda"
               >
                 <svg
-                  class="w-4 h-4 text-text-tertiary"
+                  class="w-4 h-4"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -395,45 +584,257 @@
                     stroke-linecap="round"
                     stroke-linejoin="round"
                     stroke-width="2"
-                    d="M19 9l-7 7-7-7"
-                  ></path>
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 </svg>
-              </div>
+                Limpiar
+              </button>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            <!-- Reset Filters -->
-            <button
-              class="text-sm text-text-secondary hover:text-primary transition-micro"
-              id="reset-filters"
-              data-clear-filters
+    <!-- Filter Controls -->
+    <div
+      id="filter-bar"
+      class="flex flex-wrap lg:flex-nowrap lg:flex-row lg:items-center lg:justify-between gap-2 bg-white border border-border rounded-xl px-3 sticky z-40 shadow-sm max-w-7xl mx-auto"
+      style="
+        top: 68px;
+        padding-top: 6px;
+        padding-bottom: 6px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      "
+    >
+      <!-- Category Filters -->
+      <div class="flex flex-wrap items-center gap-2">
+        <button class="filter-btn filter-btn-all active" data-filter="all">
+          Todos
+        </button>
+        <div class="filter-separator hidden sm:block"></div>
+        <button class="filter-btn" data-filter="gym-acc">
+          <span class="filter-icon">
+            <svg
+              class="w-4 h-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
             >
-              Limpiar Filtros
-            </button>
+              <rect x="5" y="7" width="2" height="10" rx="0.5" />
+              <rect x="17" y="7" width="2" height="10" rx="0.5" />
+              <rect x="2" y="9" width="5" height="6" rx="0.5" />
+              <rect x="17" y="9" width="5" height="6" rx="0.5" />
+              <line x1="7" y1="12" x2="17" y2="12" />
+            </svg>
+          </span>
+          <span class="filter-label">Acc. Gimnasio</span>
+        </button>
+        <button class="filter-btn" data-filter="pilates-yoga">
+          <span class="filter-icon">
+            <svg
+              class="w-4 h-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="4" r="2" />
+              <path d="M5 18c0-4 3.1-7 7-7s7 3 7 7" />
+              <path d="M5 18l4-4h6l4 4" />
+            </svg>
+          </span>
+          <span class="filter-label">Pilates &amp; Yoga</span>
+        </button>
+        <button class="filter-btn" data-filter="natural-supps">
+          <span class="filter-icon">
+            <svg
+              class="w-4 h-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path
+                d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"
+              />
+              <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
+            </svg>
+          </span>
+          <span class="filter-label">Sup. Naturales</span>
+        </button>
+        <button class="filter-btn" data-filter="sport-supps">
+          <span class="filter-icon">
+            <svg
+              class="w-4 h-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M9 2h6v7l2 3v10H7V12l2-3V2z" />
+              <line x1="7" y1="16" x2="17" y2="16" />
+            </svg>
+          </span>
+          <span class="filter-label">Sup. Deportivos</span>
+        </button>
+        <button class="filter-btn" data-filter="clothing">
+          <span class="filter-icon">
+            <svg
+              class="w-4 h-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path
+                d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.57a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.57a2 2 0 0 0-1.34-2.23z"
+              />
+            </svg>
+          </span>
+          <span class="filter-label">Ropa Deportiva</span>
+        </button>
+        <button class="filter-btn" data-filter="home-gym">
+          <span class="filter-icon">
+            <svg
+              class="w-4 h-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9,22 9,12 15,12 15,22" />
+            </svg>
+          </span>
+          <span class="filter-label">Home Gym</span>
+        </button>
+      </div>
+
+      <!-- Separator desktop -->
+      <div
+        class="hidden lg:block filter-separator"
+        style="min-height: 2rem"
+      ></div>
+
+      <!-- Additional Filters and Sort -->
+      <div class="flex flex-wrap items-center gap-3">
+        <!-- Special Filters -->
+        <div class="flex items-center gap-2">
+          <button class="special-filter-btn" data-special="featured">
+            <svg
+              class="w-4 h-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <polygon
+                points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"
+              />
+            </svg>
+            Destacados
+          </button>
+          <button class="special-filter-btn" data-special="new">
+            <svg
+              class="w-4 h-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path
+                d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"
+              />
+            </svg>
+            Nuevos
+          </button>
+          <button class="special-filter-btn" data-special="offers">
+            <svg
+              class="w-4 h-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path
+                d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"
+              />
+              <line x1="7" y1="7" x2="7.01" y2="7" />
+            </svg>
+            Ofertas
+          </button>
+        </div>
+
+        <!-- Sort Dropdown -->
+        <div class="relative">
+          <select
+            class="appearance-none bg-white border border-border rounded-lg px-4 py-2 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+            id="sort-select"
+          >
+            <option value="relevance">Relevancia</option>
+            <option value="price-low">Precio: Menor a Mayor</option>
+            <option value="price-high">Precio: Mayor a Menor</option>
+            <option value="rating">Mejor Valorados</option>
+            <option value="newest">Más Nuevos</option>
+          </select>
+          <div
+            class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none"
+          >
+            <svg
+              class="w-4 h-4 text-text-tertiary"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              ></path>
+            </svg>
           </div>
         </div>
 
-        <!-- Mobile Filter Toggle -->
+        <!-- Reset Filters -->
         <button
-          class="lg:hidden w-full mt-4 bg-surface-100 text-text-secondary px-4 py-2 rounded-lg flex items-center justify-center"
-          id="mobile-filter-toggle"
+          class="text-sm text-text-secondary hover:text-primary transition-micro"
+          id="reset-filters"
+          data-clear-filters
         >
-          <svg
-            class="w-5 h-5 mr-2"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.207A1 1 0 013 6.5V4z"
-            ></path>
-          </svg>
-          Filtros y Ordenar
+          Limpiar Filtros
         </button>
       </div>
-    </section>
+    </div>
 
     <!-- Products Grid Section -->
     <section class="py-8 bg-surface-50">
@@ -459,7 +860,21 @@
 
         <!-- No Results Message -->
         <div id="no-results" class="hidden text-center py-12">
-          <div class="text-6xl mb-4">🔍</div>
+          <div class="mb-4">
+            <svg
+              class="w-16 h-16 mx-auto text-text-tertiary"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+          </div>
           <h3 class="text-xl font-heading font-semibold text-primary mb-2">
             No se encontraron productos
           </h3>
@@ -480,14 +895,12 @@
           <!-- Company Info -->
           <div>
             <div class="flex items-center space-x-2 mb-4">
-              <div
-                class="w-8 h-8 bg-accent rounded-lg flex items-center justify-center"
-              >
-                <span class="text-white text-lg">🌿</span>
-              </div>
-              <span class="text-lg font-heading font-bold"
-                >Greenhouse Fitness</span
-              >
+              <img
+                src="../assets/images/icons/gmk.png"
+                alt="GYMARK.co"
+                class="w-8 h-8 rounded-lg object-cover"
+              />
+              <span class="text-lg font-heading font-bold">GYMARK.co</span>
             </div>
             <p class="text-primary-200 mb-4">
               Tu tienda de confianza para suplementos naturales y equipos de
@@ -495,25 +908,63 @@
             </p>
             <div class="flex space-x-4">
               <a
-                href="javascript:void(0)"
+                href="https://www.facebook.com/gymarkco"
+                target="_blank"
+                rel="noopener"
                 class="text-primary-200 hover:text-white transition-micro"
-                >📘</a
+                title="Facebook"
               >
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987H7.898v-2.89h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
+                  />
+                </svg>
+              </a>
               <a
-                href="javascript:void(0)"
+                href="https://www.instagram.com/gymarkco"
+                target="_blank"
+                rel="noopener"
                 class="text-primary-200 hover:text-white transition-micro"
-                >📷</a
+                title="Instagram"
               >
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+                  />
+                </svg>
+              </a>
               <a
-                href="javascript:void(0)"
+                href="https://www.tiktok.com/@gymarkco"
+                target="_blank"
+                rel="noopener"
                 class="text-primary-200 hover:text-white transition-micro"
-                >🐦</a
+                title="TikTok"
               >
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.19 8.19 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"
+                  />
+                </svg>
+              </a>
               <a
-                href="javascript:void(0)"
+                href="mailto:gymark.co@gmail.com"
                 class="text-primary-200 hover:text-white transition-micro"
-                >📺</a
+                title="Correo"
               >
+                <svg
+                  class="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  />
+                </svg>
+              </a>
             </div>
           </div>
 
@@ -537,7 +988,7 @@
               </li>
               <li>
                 <a
-                  href="product_catalog.html?category=supplements"
+                  href="product_catalog.html?category=sport-supps"
                   class="text-primary-200 hover:text-white transition-micro"
                   >Suplementos</a
                 >
@@ -555,33 +1006,134 @@
           <!-- Categories -->
           <div>
             <h3 class="font-heading font-semibold mb-4">Categorías</h3>
-            <ul class="space-y-2">
+            <ul class="grid grid-cols-2 gap-x-3 gap-y-2">
               <li>
                 <a
-                  href="product_catalog.html?category=gym"
+                  href="product_catalog.html?category=gym-acc"
                   class="text-primary-200 hover:text-white transition-micro"
-                  >🏋️ Gimnasio</a
+                  ><svg
+                    class="w-4 h-4 inline-block align-middle mr-1 shrink-0"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <rect x="5" y="7" width="2" height="10" rx="0.5" />
+                    <rect x="17" y="7" width="2" height="10" rx="0.5" />
+                    <rect x="2" y="9" width="5" height="6" rx="0.5" />
+                    <rect x="17" y="9" width="5" height="6" rx="0.5" />
+                    <line x1="7" y1="12" x2="17" y2="12" />
+                  </svg>
+                  Acc. Gimnasio</a
                 >
               </li>
               <li>
                 <a
-                  href="product_catalog.html?category=pilates"
+                  href="product_catalog.html?category=pilates-yoga"
                   class="text-primary-200 hover:text-white transition-micro"
-                  >🧘 Pilates</a
+                  ><svg
+                    class="w-4 h-4 inline-block align-middle mr-1 shrink-0"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <circle cx="12" cy="4" r="2" />
+                    <path d="M5 18c0-4 3.1-7 7-7s7 3 7 7" />
+                    <path d="M5 18l4-4h6l4 4" />
+                  </svg>
+                  Pilates &amp; Yoga</a
                 >
               </li>
               <li>
                 <a
-                  href="product_catalog.html?category=cardio"
+                  href="product_catalog.html?category=natural-supps"
                   class="text-primary-200 hover:text-white transition-micro"
-                  >🏃 Cardio</a
+                  ><svg
+                    class="w-4 h-4 inline-block align-middle mr-1 shrink-0"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"
+                    />
+                    <path
+                      d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"
+                    />
+                  </svg>
+                  Sup. Naturales</a
                 >
               </li>
               <li>
                 <a
-                  href="product_catalog.html?category=accessories"
+                  href="product_catalog.html?category=clothing"
                   class="text-primary-200 hover:text-white transition-micro"
-                  >🎯 Accesorios</a
+                  ><svg
+                    class="w-4 h-4 inline-block align-middle mr-1 shrink-0"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.57a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.57a2 2 0 0 0-1.34-2.23z"
+                    />
+                  </svg>
+                  Ropa Deportiva</a
+                >
+              </li>
+              <li>
+                <a
+                  href="product_catalog.html?category=sport-supps"
+                  class="text-primary-200 hover:text-white transition-micro"
+                  ><svg
+                    class="w-4 h-4 inline-block align-middle mr-1 shrink-0"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M9 2h6v7l2 3v10H7V12l2-3V2z" />
+                    <line x1="7" y1="16" x2="17" y2="16" />
+                  </svg>
+                  Sup. Deportivos</a
+                >
+              </li>
+              <li>
+                <a
+                  href="product_catalog.html?category=home-gym"
+                  class="text-primary-200 hover:text-white transition-micro"
+                  ><svg
+                    class="w-4 h-4 inline-block align-middle mr-1 shrink-0"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                    <polyline points="9,22 9,12 15,12 15,22" />
+                  </svg>
+                  Home Gym</a
                 >
               </li>
             </ul>
@@ -592,19 +1144,70 @@
             <h3 class="font-heading font-semibold mb-4">Contacto</h3>
             <ul class="space-y-2 text-primary-200">
               <li class="flex items-center space-x-2">
-                <span>📧</span>
-                <span>greenhousefitnesss@gmail.com</span>
+                <svg
+                  class="w-4 h-4 shrink-0"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                  />
+                  <polyline points="22,6 12,13 2,6" />
+                </svg>
+                <span>gymark.co@gmail.com</span>
               </li>
               <li class="flex items-center space-x-2">
-                <span>📞</span>
-                <span>+57 312 853 5465</span>
+                <svg
+                  class="w-4 h-4 shrink-0"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.18 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 5.45 5.45l.97-.97a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"
+                  />
+                </svg>
+                <span>+57 321 273 9433</span>
               </li>
               <li class="flex items-center space-x-2">
-                <span>📍</span>
-                <span>Sopó, Cundinamarca, Colombia</span>
+                <svg
+                  class="w-4 h-4 shrink-0"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                <span>Chía, Cundinamarca, Colombia</span>
               </li>
               <li class="flex items-center space-x-2">
-                <span>🕒</span>
+                <svg
+                  class="w-4 h-4 shrink-0"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <polyline points="12,6 12,12 16,14" />
+                </svg>
                 <span>Lun-Vie: 9:00-18:00</span>
               </li>
             </ul>
@@ -613,28 +1216,12 @@
 
         <div class="border-t border-primary-700 mt-8 pt-8 text-center">
           <p class="text-primary-200">
-            © 2025 Greenhouse Fitness. Todos los derechos reservados.
+            © <span id="copyright-year"></span> GYMARK.co. Todos los derechos
+            reservados.
           </p>
         </div>
       </div>
     </footer>
-
-    <!-- Success Notification -->
-    <div
-      id="success-notification"
-      class="fixed top-4 right-4 bg-success text-white px-6 py-3 rounded-lg shadow-lg transform translate-x-full transition-transform duration-300 z-50"
-    >
-      <div class="flex items-center space-x-2">
-        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-          <path
-            fill-rule="evenodd"
-            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-            clip-rule="evenodd"
-          ></path>
-        </svg>
-        <span id="notification-text">Producto añadido al carrito</span>
-      </div>
-    </div>
 
     <!-- Scripts necesarios EN ORDEN CORRECTO -->
     <script src="../js/api.js"></script>
@@ -652,9 +1239,9 @@
           mobileMenu?.classList.toggle("hidden");
         });
     </script>
-    <script
-      id="dhws-dataInjector"
-      src="../public/dhws-data-injector.js"
-    ></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+    <script>
+      document.getElementById("copyright-year").textContent = dayjs().year();
+    </script>
   </body>
 </html>

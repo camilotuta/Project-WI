@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (productId) {
     await loadProductDetails(productId);
     await loadRelatedProducts(productId);
+    initReviews(productId);
   } else {
     console.error("❌ No product ID provided");
   }
@@ -100,22 +101,22 @@ async function loadProductDetails(id) {
 
         priceContainer.innerHTML = `
           <span id="product-price" class="text-3xl font-bold text-primary">${window.API.formatPrice(
-            precioConDescuento
+            precioConDescuento,
           )}</span>
           <span class="text-xl text-text-tertiary line-through">${window.API.formatPrice(
-            precioOriginal
+            precioOriginal,
           )}</span>
           <span class="bg-accent text-white px-3 py-1 rounded-full text-sm font-medium">-${
             producto.oferta
           }%</span>
           <span class="text-sm text-success font-medium">Ahorras ${window.API.formatPrice(
-            ahorro
+            ahorro,
           )}</span>
         `;
       } else {
         priceContainer.innerHTML = `
           <span id="product-price" class="text-3xl font-bold text-primary">${window.API.formatPrice(
-            producto.precio || 0
+            producto.precio || 0,
           )}</span>
         `;
       }
@@ -162,7 +163,7 @@ async function loadProductDetails(id) {
           .join("");
 
         const offerBadge = badgeContainer.querySelector(
-          ".bg-accent.text-white"
+          ".bg-accent.text-white",
         );
         badgeContainer.innerHTML = badgesHTML;
         if (producto.oferta && producto.oferta > 0 && offerBadge) {
@@ -182,7 +183,7 @@ async function loadProductDetails(id) {
         if (!userId) {
           window.API.Carrito.showNotification(
             "⚠️ Debes iniciar sesión",
-            "warning"
+            "warning",
           );
           setTimeout(() => {
             window.location.href = "../pages/user_login.html";
@@ -228,18 +229,11 @@ async function loadProductDetails(id) {
         : "-";
     }
 
-    // Calificaciones (por ahora estáticas, preparadas para BD)
+    // Calificaciones — se rellenan dinámicamente por initReviews()
     const ratingElement = document.getElementById("product-rating");
     const reviewsCount = document.getElementById("product-reviews-count");
-    if (ratingElement && reviewsCount) {
-      // Valores por defecto hasta implementar sistema de reseñas
-      const rating = 5.0;
-      const reviews = 0;
-
-      ratingElement.innerHTML = "★★★★★";
-      reviewsCount.textContent =
-        reviews > 0 ? `(${reviews} reseñas)` : "(Sin reseñas)";
-    }
+    if (ratingElement) ratingElement.innerHTML = "☆☆☆☆☆";
+    if (reviewsCount) reviewsCount.textContent = "(Sin reseñas)";
 
     // Info de categoría
     const categoryInfo = document.getElementById("product-category");
@@ -293,7 +287,7 @@ function createRelatedProductCard(product) {
 
   // Calcular precio con descuento
   let priceHTML = `<p class="text-lg font-bold text-primary mb-3">${window.API.formatPrice(
-    product.precio || 0
+    product.precio || 0,
   )}</p>`;
   if (product.oferta && product.oferta > 0) {
     const precioOriginal = parseFloat(product.precio);
@@ -301,10 +295,10 @@ function createRelatedProductCard(product) {
     priceHTML = `
       <div class="mb-3">
         <p class="text-lg font-bold text-primary">${window.API.formatPrice(
-          precioConDescuento
+          precioConDescuento,
         )}</p>
         <p class="text-sm text-text-tertiary line-through">${window.API.formatPrice(
-          precioOriginal
+          precioOriginal,
         )}</p>
       </div>
     `;
@@ -388,7 +382,7 @@ async function setupFavoritoButton(productId) {
       if (!userId) {
         window.API.Favoritos.showNotification(
           "⚠️ Debes iniciar sesión para agregar favoritos",
-          "warning"
+          "warning",
         );
         setTimeout(() => {
           window.location.href = "user_login.html";
@@ -411,7 +405,7 @@ async function setupFavoritoButton(productId) {
         console.error("Error al toggle favorito:", error);
         window.API.Favoritos.showNotification(
           "Error al procesar favorito",
-          "error"
+          "error",
         );
       } finally {
         favoritoBtn.disabled = false;
@@ -441,4 +435,347 @@ function updateFavoritoButtonState(button, isFavorito) {
       icon.setAttribute("fill", "none");
     }
   }
+}
+
+// ==========================================================
+// SISTEMA DE RESEÑAS Y VALORACIONES
+// ==========================================================
+
+const STAR_LABELS = [
+  "",
+  "Pésimo",
+  "Regular",
+  "Bueno",
+  "Muy bueno",
+  "Excelente",
+];
+
+/**
+ * Genera HTML de estrellas rellenas/semirellenas/vacías
+ * @param {number} rating - valor entre 0 y 5
+ * @param {number} size   - tamaño en rem (por defecto 1)
+ */
+function renderStars(rating, size = 1) {
+  let html = "";
+  for (let i = 1; i <= 5; i++) {
+    if (rating >= i) {
+      html += `<span style="color:#f59e0b;font-size:${size}rem;">★</span>`;
+    } else if (rating >= i - 0.5) {
+      // semiestrella usando clip
+      html += `<span style="color:#f59e0b;font-size:${size}rem;">★</span>`;
+    } else {
+      html += `<span style="color:#d1d5db;font-size:${size}rem;">★</span>`;
+    }
+  }
+  return html;
+}
+
+/**
+ * Inicia el módulo de reseñas para el producto dado
+ */
+function initReviews(productId) {
+  // --- Star picker interactivo ---
+  const starPicker = document.getElementById("star-picker");
+  const ratingInput = document.getElementById("review-rating");
+  const starLabel = document.getElementById("star-label");
+  const stars = starPicker ? starPicker.querySelectorAll(".star-pick") : [];
+
+  function paintPicker(val) {
+    stars.forEach((s) => {
+      s.style.color = parseInt(s.dataset.val) <= val ? "#f59e0b" : "#d1d5db";
+      s.style.transform =
+        parseInt(s.dataset.val) <= val ? "scale(1.2)" : "scale(1)";
+    });
+  }
+
+  stars.forEach((star) => {
+    star.addEventListener("mouseenter", () =>
+      paintPicker(parseInt(star.dataset.val)),
+    );
+    star.addEventListener("click", () => {
+      const val = parseInt(star.dataset.val);
+      ratingInput.value = val;
+      if (starLabel) starLabel.textContent = STAR_LABELS[val];
+    });
+  });
+
+  if (starPicker) {
+    starPicker.addEventListener("mouseleave", () =>
+      paintPicker(parseInt(ratingInput?.value || 0)),
+    );
+  }
+
+  // --- Envío del formulario ---
+  const form = document.getElementById("review-form");
+  if (form) {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      await submitReview(productId);
+    });
+  }
+
+  // --- Determinar qué estado mostrar para el área del formulario ---
+  setupReviewFormState(productId);
+
+  // --- Cargar reseñas existentes ---
+  loadResenas(productId);
+}
+
+/**
+ * Muestra el estado correcto del formulario de reseñas:
+ *  - No logueado → botón de login
+ *  - Logueado + no compró → mensaje de compra requerida
+ *  - Logueado + ya reseñó → mensaje de reseña existente
+ *  - Logueado + compró + no reseñó → formulario activo
+ */
+async function setupReviewFormState(productId) {
+  const stateNoLogin = document.getElementById("review-state-no-login");
+  const stateNoPurchase = document.getElementById("review-state-no-purchase");
+  const stateAlreadyReviewed = document.getElementById(
+    "review-state-already-reviewed",
+  );
+  const form = document.getElementById("review-form");
+  const authorDisplay = document.getElementById("review-author-display");
+
+  // Ocultar todo primero
+  [stateNoLogin, stateNoPurchase, stateAlreadyReviewed, form].forEach((el) => {
+    if (el) el.classList.add("hidden");
+  });
+
+  const user = window.API?.Usuarios?.getUser?.();
+
+  if (!user) {
+    if (stateNoLogin) stateNoLogin.classList.remove("hidden");
+    return;
+  }
+
+  try {
+    const res = await fetch(
+      `http://localhost:3000/api/productos/${productId}/puede-resenar?id_usuario=${user.id_usuario}`,
+    );
+    const json = await res.json();
+    const { compro, yaReseno } = json.data || {};
+
+    if (!compro) {
+      if (stateNoPurchase) stateNoPurchase.classList.remove("hidden");
+    } else if (yaReseno) {
+      if (stateAlreadyReviewed) stateAlreadyReviewed.classList.remove("hidden");
+    } else {
+      // Puede reseñar → mostrar formulario con nombre del usuario
+      if (form) form.classList.remove("hidden");
+      if (authorDisplay) authorDisplay.textContent = user.nombre || user.email;
+    }
+  } catch (err) {
+    console.error("❌ setupReviewFormState:", err);
+    // En caso de error de red, al menos no mostrar nada incorrecto
+    if (stateNoPurchase) stateNoPurchase.classList.remove("hidden");
+  }
+}
+
+async function loadResenas(productId) {
+  try {
+    const res = await fetch(
+      `http://localhost:3000/api/productos/${productId}/resenas`,
+    );
+    const json = await res.json();
+    if (!json.success) throw new Error(json.message);
+
+    renderRatingSummary(json.data.stats);
+    renderReviewsList(json.data.resenas);
+    updateHeaderRating(json.data.stats);
+  } catch (err) {
+    console.error("❌ loadResenas:", err);
+  }
+}
+
+function updateHeaderRating(stats) {
+  const ratingEl = document.getElementById("product-rating");
+  const countEl = document.getElementById("product-reviews-count");
+  if (!ratingEl || !countEl) return;
+
+  if (stats.total === 0) {
+    ratingEl.innerHTML = "<span style='color:#d1d5db;'>★★★★★</span>";
+    countEl.textContent = "(Sin reseñas)";
+  } else {
+    ratingEl.innerHTML = renderStars(stats.promedio, 1.1);
+    countEl.textContent = `(${stats.total} reseña${stats.total !== 1 ? "s" : ""}, ${stats.promedio}/5)`;
+  }
+}
+
+function renderRatingSummary(stats) {
+  const avgNum = document.getElementById("rating-avg-number");
+  const avgStars = document.getElementById("rating-avg-stars");
+  const totalLabel = document.getElementById("rating-total-label");
+  const barsContainer = document.getElementById("rating-bars");
+
+  if (!avgNum) return;
+
+  if (stats.total === 0) {
+    avgNum.textContent = "—";
+    avgStars.innerHTML =
+      "<span style='color:#d1d5db;font-size:1.5rem;'>★★★★★</span>";
+    totalLabel.textContent = "Sin reseñas aún";
+    if (barsContainer) barsContainer.innerHTML = "";
+    return;
+  }
+
+  avgNum.textContent = stats.promedio.toFixed(1);
+  avgStars.innerHTML = renderStars(stats.promedio, 1.4);
+  totalLabel.textContent = `${stats.total} reseña${stats.total !== 1 ? "s" : ""}`;
+
+  if (!barsContainer) return;
+  barsContainer.innerHTML = "";
+
+  for (let i = 5; i >= 1; i--) {
+    const count = stats.distribucion[i] || 0;
+    const pct = stats.total > 0 ? Math.round((count / stats.total) * 100) : 0;
+    const bar = document.createElement("div");
+    bar.className = "flex items-center gap-2";
+    bar.innerHTML = `
+      <span class="text-xs font-medium text-text-secondary w-6 text-right">${i}</span>
+      <span style="color:#f59e0b;font-size:0.85rem;">★</span>
+      <div class="flex-1 bg-surface-200 rounded-full h-2 overflow-hidden">
+        <div class="h-2 rounded-full transition-all" style="width:${pct}%;background:#f59e0b;"></div>
+      </div>
+      <span class="text-xs text-text-secondary w-8">${count}</span>
+    `;
+    barsContainer.appendChild(bar);
+  }
+}
+
+function renderReviewsList(resenas) {
+  const list = document.getElementById("reviews-list");
+  const empty = document.getElementById("reviews-empty");
+  if (!list) return;
+
+  list.innerHTML = "";
+
+  if (!resenas || resenas.length === 0) {
+    if (empty) empty.classList.remove("hidden");
+    return;
+  }
+
+  if (empty) empty.classList.add("hidden");
+
+  resenas.forEach((r) => {
+    const card = document.createElement("div");
+    card.className = "bg-surface-50 rounded-xl p-5 border border-border";
+
+    const fecha = new Date(r.fecha_creacion).toLocaleDateString("es-CO", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+
+    const verificadoBadge = r.verificado
+      ? `<span class="inline-flex items-center gap-1 text-xs font-medium text-success bg-success-50 px-2 py-0.5 rounded-full">
+           <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+           Compra verificada
+         </span>`
+      : "";
+
+    card.innerHTML = `
+      <div class="flex items-start justify-between gap-3 mb-2">
+        <div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="font-semibold text-text-primary">${escapeHtml(r.nombre_autor)}</span>
+            ${verificadoBadge}
+          </div>
+          <div class="flex items-center gap-2 mt-1">
+            <span>${renderStars(r.calificacion, 0.9)}</span>
+            ${r.titulo ? `<span class="text-sm font-medium text-text-primary">${escapeHtml(r.titulo)}</span>` : ""}
+          </div>
+        </div>
+        <span class="text-xs text-text-tertiary shrink-0">${fecha}</span>
+      </div>
+      ${r.comentario ? `<p class="text-sm text-text-secondary leading-relaxed mt-2">${escapeHtml(r.comentario)}</p>` : ""}
+    `;
+    list.appendChild(card);
+  });
+}
+
+async function submitReview(productId) {
+  const btn = document.getElementById("review-submit-btn");
+  const msg = document.getElementById("review-form-msg");
+
+  const rating = parseInt(document.getElementById("review-rating")?.value || 0);
+  const titulo = document.getElementById("review-title")?.value.trim();
+  const comentario = document.getElementById("review-comment")?.value.trim();
+
+  // Validar calificación
+  if (!rating || rating < 1)
+    return showFormMsg("Selecciona una calificación", "error");
+
+  // Obtener usuario logueado
+  const user = window.API?.Usuarios?.getUser?.();
+  if (!user) {
+    return showFormMsg(
+      "Debes iniciar sesión para publicar una reseña",
+      "error",
+    );
+  }
+
+  btn.disabled = true;
+  btn.textContent = "Enviando...";
+
+  try {
+    const res = await fetch(
+      `http://localhost:3000/api/productos/${productId}/resenas`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id_usuario: user.id_usuario,
+          calificacion: rating,
+          titulo,
+          comentario,
+        }),
+      },
+    );
+    const json = await res.json();
+
+    if (!json.success) {
+      showFormMsg(json.message || "Error al publicar", "error");
+    } else {
+      showFormMsg("¡Reseña publicada!", "success");
+      // Ocultar formulario y mostrar estado "ya reseñó"
+      setTimeout(() => {
+        const form = document.getElementById("review-form");
+        const stateAlreadyReviewed = document.getElementById(
+          "review-state-already-reviewed",
+        );
+        if (form) form.classList.add("hidden");
+        if (stateAlreadyReviewed)
+          stateAlreadyReviewed.classList.remove("hidden");
+      }, 1500);
+      await loadResenas(productId);
+    }
+  } catch (err) {
+    showFormMsg("Error de conexión con el servidor", "error");
+    console.error(err);
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg> Publicar reseña`;
+  }
+}
+
+function showFormMsg(text, type) {
+  const msg = document.getElementById("review-form-msg");
+  if (!msg) return;
+  msg.textContent = text;
+  msg.className = `text-sm ${
+    type === "success" ? "text-success" : "text-error"
+  }`;
+  msg.classList.remove("hidden");
+  setTimeout(() => msg.classList.add("hidden"), 4000);
+}
+
+function escapeHtml(str) {
+  if (!str) return "";
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }

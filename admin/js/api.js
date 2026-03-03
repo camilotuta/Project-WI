@@ -5,6 +5,31 @@ const API_URL =
     ? "http://localhost:3000/api"
     : "https://tu-api.com/api";
 
+// Decodificador de mojibake (UTF-8 bytes interpretados como Latin-1)
+// Soluciona: EstÃ¡tica → Estática, MagnÃ©tica → Magnética, etc.
+function fixEncoding(str) {
+  if (typeof str !== "string") return str;
+  try {
+    const bytes = new Uint8Array([...str].map((c) => c.charCodeAt(0)));
+    return new TextDecoder("utf-8").decode(bytes);
+  } catch (e) {
+    return str;
+  }
+}
+
+function fixObjectEncoding(obj) {
+  if (typeof obj === "string") return fixEncoding(obj);
+  if (Array.isArray(obj)) return obj.map(fixObjectEncoding);
+  if (obj && typeof obj === "object") {
+    const fixed = {};
+    for (const key in obj) {
+      fixed[key] = fixObjectEncoding(obj[key]);
+    }
+    return fixed;
+  }
+  return obj;
+}
+
 // Utility function for API calls
 async function apiCall(endpoint, options = {}) {
   try {
@@ -22,7 +47,7 @@ async function apiCall(endpoint, options = {}) {
       throw new Error(data.message || "Error en la petición");
     }
 
-    return data;
+    return fixObjectEncoding(data);
   } catch (error) {
     console.error("API Error:", error);
     throw error;

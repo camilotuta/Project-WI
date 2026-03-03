@@ -1,17 +1,45 @@
 import db from "../config/database.js";
 
+// Mapeo slug frontend → nombre exacto en BD
+const SLUG_MAP = {
+  "gym-acc": "accesorios de gimnasio",
+  "pilates-yoga": "pilates y yoga",
+  "natural-supps": "suplementos naturales",
+  "sport-supps": "suplementos deportivos",
+  clothing: "ropa deportiva",
+  "home-gym": "home gym",
+};
+
 const ProductosModel = {
-  async getAll() {
+  async getAll(categoriaSlug = null) {
     try {
-      const query = `
-        SELECT 
-          p.*,
-          c.nombre as categoria_nombre
-        FROM productos p
-        LEFT JOIN categorias c ON p.id_categoria = c.id_categoria
-        ORDER BY p.id_producto
-      `;
-      const result = await db.query(query);
+      let query, params;
+
+      if (categoriaSlug && categoriaSlug !== "all") {
+        const categoriaNombre = SLUG_MAP[categoriaSlug] || categoriaSlug;
+        query = `
+          SELECT
+            p.*,
+            c.nombre AS categoria_nombre
+          FROM productos p
+          LEFT JOIN categorias c ON p.id_categoria = c.id_categoria
+          WHERE LOWER(c.nombre) = LOWER($1)
+          ORDER BY p.id_producto
+        `;
+        params = [categoriaNombre];
+      } else {
+        query = `
+          SELECT
+            p.*,
+            c.nombre AS categoria_nombre
+          FROM productos p
+          LEFT JOIN categorias c ON p.id_categoria = c.id_categoria
+          ORDER BY p.id_producto
+        `;
+        params = [];
+      }
+
+      const result = await db.query(query, params);
       return result.rows;
     } catch (error) {
       console.error("Error en getAll:", error);
@@ -123,8 +151,10 @@ const ProductosModel = {
   async getRandom(limit = 4) {
     try {
       const query = `
-        SELECT * FROM productos 
-        ORDER BY RANDOM() 
+        SELECT p.*, c.nombre AS categoria_nombre
+        FROM productos p
+        LEFT JOIN categorias c ON p.id_categoria = c.id_categoria
+        ORDER BY RANDOM()
         LIMIT $1
       `;
       const result = await db.query(query, [limit]);
@@ -138,9 +168,11 @@ const ProductosModel = {
   async getFeatured(limit = 8) {
     try {
       const query = `
-        SELECT * FROM productos 
-        WHERE destacado = TRUE 
-        ORDER BY RANDOM() 
+        SELECT p.*, c.nombre AS categoria_nombre
+        FROM productos p
+        LEFT JOIN categorias c ON p.id_categoria = c.id_categoria
+        WHERE p.destacado = TRUE
+        ORDER BY RANDOM()
         LIMIT $1
       `;
       const result = await db.query(query, [limit]);
@@ -154,9 +186,11 @@ const ProductosModel = {
   async getOffers(limit = 12) {
     try {
       const query = `
-        SELECT * FROM productos 
-        WHERE oferta IS NOT NULL AND oferta > 0
-        ORDER BY oferta DESC 
+        SELECT p.*, c.nombre AS categoria_nombre
+        FROM productos p
+        LEFT JOIN categorias c ON p.id_categoria = c.id_categoria
+        WHERE p.oferta IS NOT NULL AND p.oferta > 0
+        ORDER BY p.oferta DESC
         LIMIT $1
       `;
       const result = await db.query(query, [limit]);
@@ -170,8 +204,10 @@ const ProductosModel = {
   async getNew(limit = 12) {
     try {
       const query = `
-        SELECT * FROM productos 
-        ORDER BY id_producto DESC 
+        SELECT p.*, c.nombre AS categoria_nombre
+        FROM productos p
+        LEFT JOIN categorias c ON p.id_categoria = c.id_categoria
+        ORDER BY p.id_producto DESC
         LIMIT $1
       `;
       const result = await db.query(query, [limit]);

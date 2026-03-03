@@ -17,6 +17,9 @@ import descuentosRoutes from "./routes/descuentos.routes.js";
 import favoritosRoutes from "./routes/favoritos.routes.js";
 import emailRoutes from "./routes/email.routes.js";
 import uploadRoutes from "./routes/upload.routes.js";
+import productoImagenesRoutes from "./routes/producto_imagenes.routes.js";
+import resenasRoutes from "./routes/resenas.routes.js";
+import pedidosRoutes from "./routes/pedidos.routes.js";
 
 dotenv.config();
 
@@ -39,11 +42,21 @@ app.use(
       "http://localhost:5500",
     ],
     credentials: true,
-  })
+  }),
 );
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Forzar UTF-8 en todas las respuestas JSON para evitar caracteres corruptos con tildes
+app.use((req, res, next) => {
+  const originalJson = res.json.bind(res);
+  res.json = (data) => {
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
+    return originalJson(data);
+  };
+  next();
+});
 
 // Servir archivos estáticos desde la carpeta frontend
 app.use("/assets", express.static(join(__dirname, "../frontend/assets")));
@@ -79,6 +92,9 @@ app.use("/api/descuentos", descuentosRoutes);
 app.use("/api/favoritos", favoritosRoutes);
 app.use("/api/email", emailRoutes);
 app.use("/api/upload", uploadRoutes);
+app.use("/api", productoImagenesRoutes);
+app.use("/api", resenasRoutes);
+app.use("/api", pedidosRoutes);
 
 // ==============================================
 // MANEJO DE ERRORES

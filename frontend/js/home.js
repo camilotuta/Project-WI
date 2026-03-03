@@ -38,12 +38,25 @@ async function loadFeaturedProductsCarousel() {
     const productos = response.data;
     console.log(`✅ ${productos.length} productos destacados obtenidos`);
 
+    // Obtener stats de reseñas en paralelo (una sola llamada)
+    let ratingsMap = {};
+    try {
+      const rRes = await fetch("http://localhost:3000/api/resenas/stats");
+      const rJson = await rRes.json();
+      if (rJson.success) ratingsMap = rJson.data;
+    } catch (_) {
+      // Si falla, simplemente no mostramos estrellas
+    }
+
     // Limpiar carrusel
     carouselTrack.innerHTML = "";
 
     // Agregar productos al carrusel
     productos.forEach((producto) => {
-      const slide = createCarouselSlide(producto);
+      const slide = createCarouselSlide(
+        producto,
+        ratingsMap[producto.id_producto],
+      );
       carouselTrack.appendChild(slide);
     });
 
@@ -59,16 +72,34 @@ async function loadFeaturedProductsCarousel() {
 /**
  * Crear slide del carrusel
  */
-function createCarouselSlide(producto) {
+function createCarouselSlide(producto, ratingStats) {
   const slide = document.createElement("div");
-  slide.className = "flex-shrink-0 w-1/2 lg:w-1/3 xl:w-1/4";
+  slide.className = "flex-shrink-0 px-3";
+  slide.style.height = "380px"; // altura fija igual para todas las cards
+  // el ancho exacto lo asigna resizeSlides() en initializeCarousel
+
+  // Estrellas de calificación
+  const promedio = ratingStats?.promedio || 0;
+  const total = ratingStats?.total || 0;
+  let starsHTML = "";
+  if (total > 0) {
+    const filled = Math.round(promedio);
+    const starsStr = "★".repeat(filled) + "☆".repeat(5 - filled);
+    starsHTML = `
+      <div class="flex items-center gap-1 mt-1">
+        <span style="color:#f59e0b;font-size:0.8rem;letter-spacing:1px;">${starsStr}</span>
+        <span style="font-size:0.72rem;color:#6b7280;">(${total})</span>
+      </div>`;
+  } else {
+    starsHTML = `<div style="height:1.4rem;"></div>`; // placeholder para mantener layout
+  }
 
   const imageSrc = window.getImageUrl(producto.imagen_url || producto.imagen);
   const priceFormatted =
     window.API?.formatPrice?.(producto.precio) ||
     `$${parseFloat(producto.precio || 0).toFixed(2)}`;
 
-  let priceHTML = `<span class="text-xl font-bold text-primary">${priceFormatted}</span>`;
+  let priceHTML = `<span class="font-bold text-primary" style="font-size:1.05rem;">${priceFormatted}</span>`;
   if (producto.oferta && producto.oferta > 0) {
     const precioOriginal = parseFloat(producto.precio);
     const precioConDescuento = precioOriginal * (1 - producto.oferta / 100);
@@ -76,51 +107,61 @@ function createCarouselSlide(producto) {
       window.API?.formatPrice?.(precioConDescuento) ||
       `$${precioConDescuento.toFixed(2)}`;
     priceHTML = `
-      <span class="text-xl font-bold text-primary">${precioDescuentoFormatted}</span>
-      <span class="text-sm text-text-tertiary line-through ml-2">${priceFormatted}</span>
+      <span class="font-bold text-primary" style="font-size:1.05rem;">${precioDescuentoFormatted}</span>
+      <span class="text-xs text-text-tertiary line-through">${priceFormatted}</span>
     `;
   }
 
+  const nombre = producto.nombre || "Sin nombre";
+  const descripcion = producto.descripcion || "";
+  const nombreEscaped = nombre.replace(/'/g, "\\'");
+
   slide.innerHTML = `
-    <div class="card group hover:shadow-organic-hover transition-state h-full">
-      <div class="relative overflow-hidden rounded-t-lg">
+    <div class="card group hover:shadow-organic-hover transition-state flex flex-col h-full overflow-hidden">
+      <!-- Imagen -->
+      <div class="relative overflow-hidden rounded-t-lg flex-shrink-0">
         <img
           src="${imageSrc}"
-          alt="${producto.nombre || "Producto"}"
-          class="w-full h-48 object-cover group-hover:scale-105 transition-state"
+          alt="${nombre}"
+          class="w-full object-cover group-hover:scale-105 transition-state"
+          style="height:180px;"
           loading="lazy"
         />
-        ${
-          producto.oferta
-            ? `<div class="absolute top-2 right-2"><span class="bg-accent text-white px-2 py-1 rounded text-xs font-medium">-${producto.oferta}%</span></div>`
-            : ""
-        }
+        ${producto.oferta ? `<div class="absolute top-2 right-2"><span class="bg-accent text-white px-2 py-1 rounded text-xs font-semibold">-${producto.oferta}%</span></div>` : ""}
       </div>
-      <div class="p-5">
-        <h3 class="text-lg font-heading font-bold text-text-primary mb-2 line-clamp-1">${
-          producto.nombre || "Sin nombre"
-        }</h3>
-        <p class="text-sm text-text-secondary mb-4 line-clamp-2">${(
-          producto.descripcion || ""
-        ).substring(0, 60)}...</p>
-        <div class="flex items-center justify-between mb-4">
-          ${priceHTML}
-        </div>
-        <div class="flex gap-2">
-          <button 
-            class="flex-1 btn btn-primary text-sm py-2"
-            onclick="addProductToCart(${
-              producto.id_producto
-            }, '${producto.nombre.replace(/'/g, "\\'")}', '${priceFormatted}')"
-          >
-            + Carrito
-          </button>
-          <a 
-            href="./product_details.html?id=${producto.id_producto}"
-            class="flex-1 btn btn-outline text-sm py-2 text-center"
-          >
-            Ver
-          </a>
+
+      <!-- Contenido -->
+      <div class="flex flex-col flex-1 p-4 gap-2">
+        <!-- Nombre -->
+        <h3 class="font-heading font-bold text-text-primary leading-snug" style="font-size:0.95rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${nombre}</h3>
+
+        <!-- Estrellas -->
+        ${starsHTML}
+
+        <!-- Descripción -->
+        <p class="text-text-secondary" style="font-size:0.8rem;line-height:1.4;max-height:2.24rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${descripcion}</p>
+
+        <!-- Precio + Botones anclados al fondo -->
+        <div class="mt-auto flex flex-col gap-2 pt-1">
+          <div class="flex items-baseline gap-2">
+            ${priceHTML}
+          </div>
+          <div class="flex gap-2">
+            <button
+              class="flex-1 btn btn-primary text-sm"
+              style="padding:6px 8px;"
+              onclick="addProductToCart(${producto.id_producto}, '${nombreEscaped}', '${priceFormatted}')"
+            >
+              + Carrito
+            </button>
+            <a
+              href="./product_details.html?id=${producto.id_producto}"
+              class="flex-1 btn btn-outline text-sm text-center"
+              style="padding:6px 8px;"
+            >
+              Ver
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -156,6 +197,18 @@ function initializeCarousel(totalProducts) {
   let slidesPerView = getSlidesPerView();
   const maxIndex = totalProducts - 1; // Índice máximo para scroll infinito
 
+  // Ajustar el ancho de cada slide al ancho exacto del contenedor / visibles
+  function resizeSlides() {
+    slidesPerView = getSlidesPerView();
+    const container = track.parentElement; // el div overflow-hidden
+    const containerWidth = container.offsetWidth;
+    const slideWidth = Math.floor((containerWidth / slidesPerView) * 1.7);
+    Array.from(track.children).forEach((slide) => {
+      slide.style.width = slideWidth + "px";
+    });
+    updateCarousel(); // reposicionar tras resize
+  }
+
   // Crear indicadores
   function createIndicators() {
     if (!indicatorsContainer) return;
@@ -180,8 +233,7 @@ function initializeCarousel(totalProducts) {
 
   function updateCarousel() {
     const slideWidth = track.children[0]?.offsetWidth || 0;
-    const gap = 24; // 6 * 4px (gap-6 = 1.5rem = 24px)
-    const offset = currentIndex * (slideWidth + gap);
+    const offset = currentIndex * slideWidth; // spacing is now padding inside each slide
 
     track.style.transform = `translateX(-${offset}px)`;
 
@@ -229,7 +281,13 @@ function initializeCarousel(totalProducts) {
 
   // Inicializar
   createIndicators();
-  updateCarousel();
+  resizeSlides(); // asigna anchos exactos y llama updateCarousel()
+
+  // Recalcular anchos si cambia el tamaño de ventana
+  window.addEventListener("resize", () => {
+    createIndicators();
+    resizeSlides();
+  });
 
   // Auto-play con scroll infinito
   let autoplayInterval = setInterval(() => {
@@ -271,7 +329,7 @@ function initializeCarousel(totalProducts) {
   });
 
   console.log(
-    `✅ Carrusel configurado: ${totalProducts} productos, mostrando ${slidesPerView} a la vez (infinito)`
+    `✅ Carrusel configurado: ${totalProducts} productos, mostrando ${slidesPerView} a la vez (infinito)`,
   );
 }
 
@@ -342,7 +400,7 @@ async function loadFeaturedProducts() {
     }
     if (!productsGrid) {
       console.warn(
-        "⚠️  No se encontró el grid de productos, intentando con querySelectorAll"
+        "⚠️  No se encontró el grid de productos, intentando con querySelectorAll",
       );
       const grids = document.querySelectorAll('[class*="grid-cols-"]');
       if (grids.length > 0) {
@@ -490,7 +548,7 @@ function addProductToCart(productId, productName, price) {
     ) {
       window.API.Carrito.showNotification(
         `✅ ${productName} agregado al carrito`,
-        "success"
+        "success",
       );
     }
 
@@ -507,7 +565,7 @@ function addProductToCart(productId, productName, price) {
 function updateCartBadge() {
   const cart = JSON.parse(localStorage.getItem("cart") || "[]");
   const cartCountElements = document.querySelectorAll(
-    '.cart-count, [class*="cart-badge"]'
+    '.cart-count, [class*="cart-badge"]',
   );
 
   cartCountElements.forEach((el) => {

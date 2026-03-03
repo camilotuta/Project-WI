@@ -108,8 +108,8 @@ function renderCartItems(items) {
                   <button
                     class="p-2 hover:bg-surface-100 transition-micro"
                     onclick="updateCartQuantity(${item.id_carrito}, ${
-      item.cantidad - 1
-    })"
+                      item.cantidad - 1
+                    })"
                   >
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
@@ -128,8 +128,8 @@ function renderCartItems(items) {
                   <button
                     class="p-2 hover:bg-surface-100 transition-micro"
                     onclick="updateCartQuantity(${item.id_carrito}, ${
-      item.cantidad + 1
-    })"
+                      item.cantidad + 1
+                    })"
                   >
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
@@ -143,7 +143,7 @@ function renderCartItems(items) {
                 <div class="text-right">
                   <div class="text-sm text-text-tertiary">Subtotal</div>
                   <div class="text-lg font-bold text-primary">$${subtotal.toLocaleString(
-                    "es-CO"
+                    "es-CO",
                   )} COP</div>
                 </div>
                 <button
@@ -249,14 +249,14 @@ function renderCartTotals(items) {
 
   // Actualizar texto del subtotal con cantidad de productos
   const subtotalLabelElements = document.querySelectorAll(
-    ".flex.justify-between"
+    ".flex.justify-between",
   );
   subtotalLabelElements.forEach((el) => {
     const label = el.querySelector(".text-text-secondary");
     if (label && label.textContent.includes("Subtotal")) {
       const totalItems = items.reduce(
         (sum, item) => sum + parseInt(item.cantidad),
-        0
+        0,
       );
       label.textContent = `Subtotal (${totalItems} ${
         totalItems === 1 ? "producto" : "productos"
@@ -316,7 +316,7 @@ async function updateCartQuantity(id_carrito, newQuantity) {
     console.error("❌ Error actualizando cantidad:", error);
     window.API.Carrito.showNotification(
       "Error al actualizar cantidad",
-      "error"
+      "error",
     );
   }
 }
@@ -330,7 +330,7 @@ async function removeFromCart(cartId) {
     // Mostrar notificación de éxito
     window.API.Carrito.showNotification(
       "✅ Producto eliminado del carrito",
-      "success"
+      "success",
     );
 
     await loadCart(); // Recargar carrito completo
@@ -338,7 +338,7 @@ async function removeFromCart(cartId) {
     console.error("❌ Error eliminando del carrito:", error);
     window.API.Carrito.showNotification(
       "❌ Error al eliminar producto",
-      "error"
+      "error",
     );
   }
 }
@@ -355,7 +355,7 @@ async function clearCart() {
     // Mostrar notificación de éxito
     window.API.Carrito.showNotification(
       "✅ Carrito vaciado correctamente",
-      "success"
+      "success",
     );
 
     await loadCart();
@@ -363,15 +363,73 @@ async function clearCart() {
     console.error("❌ Error vaciando carrito:", error);
     window.API.Carrito.showNotification(
       "❌ Error al vaciar el carrito",
-      "error"
+      "error",
     );
   }
 }
 
 // ========== PROCEDER AL CHECKOUT ==========
-function proceedToCheckout() {
-  window.API.Carrito.showNotification("Checkout en desarrollo...", "info");
-  // TODO: Implementar checkout
+async function proceedToCheckout() {
+  const user = window.API.Usuarios.getUser();
+
+  if (!user) {
+    window.API.Carrito.showNotification(
+      "⚠️ Debes iniciar sesión para finalizar tu compra",
+      "warning",
+    );
+    setTimeout(() => {
+      window.location.href = "user_login.html";
+    }, 1500);
+    return;
+  }
+
+  const btn = document.querySelector("[onclick='proceedToCheckout()']");
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = "Procesando...";
+  }
+
+  try {
+    const response = await fetch("http://localhost:3000/api/pedidos", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id_usuario: user.id_usuario }),
+    });
+
+    const json = await response.json();
+
+    if (json.success) {
+      window.API.Carrito.showNotification(
+        "✅ ¡Pedido confirmado! Gracias por tu compra.",
+        "success",
+      );
+      // Actualizar contador del carrito en el navbar
+      if (window.updateCartCount) window.updateCartCount();
+      // Redirigir al perfil del usuario tras 2 segundos
+      setTimeout(() => {
+        window.location.href = "user_profile.html";
+      }, 2000);
+    } else {
+      window.API.Carrito.showNotification(
+        `❌ ${json.message || "Error al procesar el pedido"}`,
+        "error",
+      );
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = "Finalizar Compra";
+      }
+    }
+  } catch (error) {
+    console.error("❌ Error en checkout:", error);
+    window.API.Carrito.showNotification(
+      "❌ Error de conexión con el servidor",
+      "error",
+    );
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = "Finalizar Compra";
+    }
+  }
 }
 
 // ========== APLICAR CUPÓN DE DESCUENTO ==========
@@ -382,7 +440,7 @@ async function aplicarCupon() {
   if (!codigo) {
     window.API.Carrito.showNotification(
       "❌ Por favor ingresa un código de descuento",
-      "error"
+      "error",
     );
     return;
   }
@@ -400,7 +458,7 @@ async function aplicarCupon() {
     // Validar cupón
     const resultado = await window.API.Descuentos.validarCodigo(
       codigo,
-      subtotal
+      subtotal,
     );
 
     if (resultado.success) {
@@ -439,12 +497,12 @@ async function aplicarCupon() {
 
       window.API.Carrito.showNotification(
         "✅ Cupón aplicado correctamente",
-        "success"
+        "success",
       );
     } else {
       window.API.Carrito.showNotification(
         resultado.mensaje || "❌ Cupón no válido",
-        "error"
+        "error",
       );
 
       // Limpiar mensaje si existía
@@ -457,7 +515,7 @@ async function aplicarCupon() {
     console.error("❌ Error aplicando cupón:", error);
     window.API.Carrito.showNotification(
       "❌ Error al validar el cupón",
-      "error"
+      "error",
     );
   }
 }
@@ -500,7 +558,7 @@ window.removerCupon = removerCupon;
 async function loadRecommendedProducts() {
   try {
     const response = await fetch(
-      "http://localhost:3000/api/productos/random?limit=4"
+      "http://localhost:3000/api/productos/random?limit=4",
     );
     const data = await response.json();
 
@@ -585,7 +643,7 @@ function renderRecommendedProducts(products) {
           <div class="flex items-center justify-between mb-3">
             <div class="flex items-center space-x-2">
               <span class="text-lg font-bold text-primary">$${precio.toLocaleString(
-                "es-CO"
+                "es-CO",
               )} COP</span>
             </div>
           </div>
@@ -620,7 +678,7 @@ async function addRecommendedToCart(productId) {
     if (!user || !user.id_usuario) {
       window.API.Carrito.showNotification(
         "⚠️ Debes iniciar sesión para agregar productos",
-        "warning"
+        "warning",
       );
       setTimeout(() => {
         window.location.href = "user_login.html";
@@ -630,7 +688,7 @@ async function addRecommendedToCart(productId) {
 
     // Obtener producto
     const response = await fetch(
-      `http://localhost:3000/api/productos/${productId}`
+      `http://localhost:3000/api/productos/${productId}`,
     );
     const data = await response.json();
 
@@ -648,14 +706,14 @@ async function addRecommendedToCart(productId) {
 
       window.API.Carrito.showNotification(
         `✅ ${data.data.nombre} agregado al carrito`,
-        "success"
+        "success",
       );
     }
   } catch (error) {
     console.error("❌ Error agregando producto recomendado:", error);
     window.API.Carrito.showNotification(
       "❌ Error al agregar producto",
-      "error"
+      "error",
     );
   }
 }

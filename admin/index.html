@@ -1,73 +1,126 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Panel - Greenhouse Fitness</title>
+    <title>GYMARK Admin</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="../frontend/assets/images/icons/gmk.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      href="../frontend/assets/images/icons/gmk.png"
+    />
     <meta http-equiv="refresh" content="0; url=pages/dashboard.html" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
     <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
       body {
         display: flex;
         justify-content: center;
         align-items: center;
         height: 100vh;
-        margin: 0;
-        font-family: system-ui, -apple-system, sans-serif;
-        background: linear-gradient(135deg, #2d6a4f 0%, #40916c 100%);
-        color: white;
+        font-family:
+          "Barlow",
+          system-ui,
+          -apple-system,
+          sans-serif;
+        background: linear-gradient(135deg, #070709 0%, #2c2c2e 100%);
+        color: #fefefe;
       }
       .container {
         text-align: center;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 1.5rem;
+        padding: 3rem 4rem;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
       }
       .logo {
-        font-size: 4rem;
-        margin-bottom: 1rem;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 3.5rem;
+        letter-spacing: 0.12em;
+        color: #fefefe;
+        margin-bottom: 0.25rem;
+        line-height: 1;
       }
-      h1 {
-        font-size: 2rem;
-        margin-bottom: 0.5rem;
+      .logo span {
+        font-family: "Barlow", sans-serif;
+        font-size: 0.85rem;
+        font-weight: 600;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.45);
+        display: block;
+        margin-top: 0.3rem;
       }
-      p {
-        opacity: 0.9;
-        margin-bottom: 2rem;
+      .divider {
+        width: 40px;
+        height: 2px;
+        background: rgba(255, 255, 255, 0.2);
+        margin: 1.25rem auto;
+        border-radius: 9999px;
       }
       .loading {
         display: inline-block;
-        width: 40px;
-        height: 40px;
-        border: 4px solid rgba(255, 255, 255, 0.3);
+        width: 36px;
+        height: 36px;
+        border: 3px solid rgba(255, 255, 255, 0.15);
         border-radius: 50%;
-        border-top-color: white;
-        animation: spin 1s linear infinite;
+        border-top: 3px solid #fefefe;
+        animation: spin 0.9s linear infinite;
+        margin-bottom: 1rem;
       }
       @keyframes spin {
         to {
           transform: rotate(360deg);
         }
       }
+      .status {
+        font-size: 0.8rem;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        color: rgba(255, 255, 255, 0.5);
+        text-transform: uppercase;
+        margin-bottom: 1.5rem;
+      }
       a {
-        color: white;
+        color: rgba(255, 255, 255, 0.7);
         text-decoration: none;
-        padding: 1rem 2rem;
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 8px;
+        font-size: 0.78rem;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        padding: 0.5rem 1.2rem;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 9999px;
         display: inline-block;
-        margin-top: 1rem;
-        transition: background 0.3s;
+        transition: all 0.2s ease;
       }
       a:hover {
-        background: rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.1);
+        color: #fefefe;
+        border-color: rgba(255, 255, 255, 0.3);
       }
     </style>
   </head>
   <body>
     <div class="container">
-      <div class="logo">🌿</div>
-      <h1>Admin Panel</h1>
-      <p>Greenhouse Fitness</p>
+      <div class="logo">GYMARK<span>Panel de Administración</span></div>
+      <div class="divider"></div>
       <div class="loading"></div>
-      <p style="margin-top: 1rem">Redirigiendo al dashboard...</p>
-      <a href="pages/dashboard.html">Click aquí si no eres redirigido</a>
+      <p class="status">Cargando...</p>
+      <a href="pages/dashboard.html">Ir al dashboard</a>
     </div>
   </body>
 </html>

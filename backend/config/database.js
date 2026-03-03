@@ -8,8 +8,10 @@ const pool = new Pool({
   host: process.env.DB_HOST || "localhost",
   port: process.env.DB_PORT || 5432,
   user: process.env.DB_USER || "postgres",
-  password: process.env.DB_PASSWORD || "postgres",
+  password: process.env.DB_PASSWORD || "root",
   database: process.env.DB_NAME || "tienda_fitness",
+  // Forzar UTF-8 en todas las conexiones para evitar caracteres corruptos
+  options: "-c client_encoding=UTF8",
 });
 
 // Probar conexión

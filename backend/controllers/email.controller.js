@@ -2,15 +2,19 @@
 import crypto from "crypto";
 import sgMail from "@sendgrid/mail";
 import dotenv from "dotenv";
+import UsuariosModel from "../models/usuarios.model.js";
 
 dotenv.config();
 
 // Almacenamiento temporal de códigos de verificación (en producción usar Redis o DB)
 const verificationCodes = new Map();
 
+// Almacenamiento temporal de tokens de recuperación de contraseña
+const passwordResetTokens = new Map();
+
 // Configuración de SendGrid
 const SENDGRID_API_KEY = process.env.SENDGRID_API_KEY || "TU_API_KEY_AQUI";
-const FROM_EMAIL = process.env.FROM_EMAIL || "greenhousefitnesss@gmail.com";
+const FROM_EMAIL = process.env.FROM_EMAIL || "gymark.co@gmail.com";
 
 /**
  * Enviar código de verificación al email
@@ -37,7 +41,7 @@ export const sendVerificationCode = async (req, res) => {
 
     // Generar código de 6 dígitos
     const verificationCode = Math.floor(
-      100000 + Math.random() * 900000
+      100000 + Math.random() * 900000,
     ).toString();
 
     // Guardar código con timestamp (expira en 10 minutos)
@@ -53,52 +57,48 @@ export const sendVerificationCode = async (req, res) => {
     const msg = {
       to: email,
       from: FROM_EMAIL, // Email verificado en SendGrid
-      subject: "🌿 Código de Verificación - Greenhouse Fitness",
+      subject: "🔐 Código de Verificación - GYMARK.co",
       text: `Tu código de verificación es: ${verificationCode}. Este código expira en 10 minutos.`,
       html: `
         <!DOCTYPE html>
         <html>
         <head>
+          <meta charset="UTF-8"/>
           <style>
-            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-            .header { background: linear-gradient(135deg, #2d5016 0%, #4a7c59 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
-            .content { background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; }
-            .code-box { background: white; border: 2px dashed #2d5016; padding: 20px; text-align: center; margin: 20px 0; border-radius: 8px; }
-            .code { font-size: 32px; font-weight: bold; color: #2d5016; letter-spacing: 5px; }
-            .footer { text-align: center; margin-top: 20px; color: #666; font-size: 12px; }
-            .emoji { font-size: 48px; }
+            body { font-family: Arial, sans-serif; background: #f4f4f4; margin: 0; padding: 0; }
+            .wrapper { max-width: 600px; margin: 40px auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px rgba(7,7,9,0.12); }
+            .header { background: linear-gradient(135deg, #070709 0%, #2C2C2E 100%); color: #fefefe; padding: 40px 30px; text-align: center; }
+            .header h1 { margin: 12px 0 4px; font-size: 26px; letter-spacing: 0.06em; }
+            .header p { margin: 0; color: rgba(254,254,254,0.7); font-size: 14px; }
+            .content { padding: 36px 30px; color: #333; }
+            .code-box { background: #f8f8f8; border: 2px dashed #070709; padding: 24px; text-align: center; margin: 24px 0; border-radius: 10px; }
+            .code { font-size: 38px; font-weight: bold; color: #070709; letter-spacing: 10px; font-family: monospace; }
+            .warning { background: #fff8e1; border-left: 4px solid #f59e0b; padding: 14px 16px; border-radius: 6px; margin-top: 20px; font-size: 13px; color: #555; }
+            .footer { text-align: center; padding: 20px 30px; background: #f8f8f8; color: #999; font-size: 12px; border-top: 1px solid #eee; }
           </style>
         </head>
         <body>
-          <div class="container">
+          <div class="wrapper">
             <div class="header">
-              <div class="emoji">🌿</div>
-              <h1 style="margin: 10px 0;">Greenhouse Fitness</h1>
-              <p style="margin: 0;">Verificación de Email</p>
+              <h1>GYMARK.co</h1>
+              <p>Verificación de Email</p>
             </div>
             <div class="content">
-              <h2 style="color: #2d5016;">¡Bienvenido!</h2>
-              <p>Gracias por registrarte en Greenhouse Fitness. Para completar tu registro, por favor ingresa el siguiente código de verificación:</p>
-              
+              <h2 style="color:#070709;">¡Bienvenido!</h2>
+              <p>Gracias por registrarte en GYMARK.co. Para completar tu registro, ingresa el siguiente código de verificación:</p>
               <div class="code-box">
-                <p style="margin: 0; font-size: 14px; color: #666;">Tu código de verificación es:</p>
+                <p style="margin:0 0 8px; font-size:13px; color:#666;">Tu código de verificación</p>
                 <div class="code">${verificationCode}</div>
               </div>
-              
               <p><strong>Este código expirará en 10 minutos.</strong></p>
-              
-              <p>Si no solicitaste este código, por favor ignora este email.</p>
-              
-              <div style="background: #e8f5e9; padding: 15px; border-radius: 8px; margin-top: 20px;">
-                <p style="margin: 0; font-size: 14px;">
-                  <strong>💡 Tip:</strong> Nunca compartas este código con nadie. Nuestro equipo nunca te pedirá este código por teléfono o email.
-                </p>
+              <p>Si no solicitaste este código, ignora este email.</p>
+              <div class="warning">
+                🔒 <strong>Seguridad:</strong> Nunca compartas este código con nadie. GYMARK.co jamás te lo pedirá por teléfono o chat.
               </div>
             </div>
             <div class="footer">
-              <p>© 2025 Greenhouse Fitness - Sopó, Cundinamarca, Colombia</p>
-              <p>greenhousefitnesss@gmail.com | +57 312 853 5465</p>
+              <p>© 2026 GYMARK.co — Chía, Cundinamarca, Colombia</p>
+              <p>gymark.co@gmail.com | +57 321 273 9433</p>
             </div>
           </div>
         </body>
@@ -110,7 +110,7 @@ export const sendVerificationCode = async (req, res) => {
     await sgMail.send(msg);
 
     console.log(
-      `Código de verificación enviado a ${email}: ${verificationCode}`
+      `Código de verificación enviado a ${email}: ${verificationCode}`,
     );
 
     res.status(200).json({
@@ -210,14 +210,239 @@ export const verifyCode = async (req, res) => {
 /**
  * Limpiar códigos expirados (ejecutar periódicamente)
  */
-setInterval(() => {
-  const expirationTime = 10 * 60 * 1000;
-  const now = Date.now();
+setInterval(
+  () => {
+    const expirationTime = 10 * 60 * 1000;
+    const now = Date.now();
 
-  for (const [email, data] of verificationCodes.entries()) {
-    if (now - data.timestamp > expirationTime) {
-      verificationCodes.delete(email);
-      console.log(`Código expirado eliminado para: ${email}`);
+    for (const [email, data] of verificationCodes.entries()) {
+      if (now - data.timestamp > expirationTime) {
+        verificationCodes.delete(email);
+        console.log(`Código expirado eliminado para: ${email}`);
+      }
     }
+
+    for (const [token, data] of passwordResetTokens.entries()) {
+      if (now - data.timestamp > expirationTime) {
+        passwordResetTokens.delete(token);
+      }
+    }
+  },
+  5 * 60 * 1000,
+); // Limpiar cada 5 minutos
+
+/**
+ * Enviar código de recuperación de contraseña
+ */
+export const forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res
+        .status(400)
+        .json({ success: false, message: "El email es requerido" });
+    }
+
+    // Verificar que el usuario existe
+    const usuario = await UsuariosModel.findByEmail(email);
+    if (!usuario) {
+      // Por seguridad responder igual aunque no exista
+      return res.status(200).json({
+        success: true,
+        message:
+          "Si el email está registrado, recibirás un código de recuperación.",
+      });
+    }
+
+    // Generar código de 6 dígitos
+    const resetCode = Math.floor(100000 + Math.random() * 900000).toString();
+
+    // Guardar token con email y timestamp (expira en 10 minutos)
+    const token = crypto.randomBytes(20).toString("hex");
+    passwordResetTokens.set(token, {
+      email,
+      code: resetCode,
+      timestamp: Date.now(),
+      attempts: 0,
+    });
+
+    // Configurar SendGrid
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY || "TU_API_KEY_AQUI");
+
+    const nombreUsuario = usuario.apellido
+      ? `${usuario.nombre} ${usuario.apellido}`
+      : usuario.nombre;
+
+    const msg = {
+      to: email,
+      from: process.env.FROM_EMAIL || "gymark.co@gmail.com",
+      subject: "🔐 Recuperación de Contraseña - GYMARK.co",
+      text: `Tu código de recuperación es: ${resetCode}. Expira en 10 minutos.`,
+      html: `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <meta charset="UTF-8"/>
+          <style>
+            body { font-family: 'Arial', sans-serif; background: #f4f4f4; margin: 0; padding: 0; }
+            .wrapper { max-width: 600px; margin: 40px auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 24px rgba(7,7,9,0.12); }
+            .header { background: linear-gradient(135deg, #070709 0%, #2C2C2E 100%); color: #fefefe; padding: 40px 30px; text-align: center; }
+            .header h1 { margin: 12px 0 4px; font-size: 26px; letter-spacing: 0.06em; }
+            .header p { margin: 0; color: rgba(254,254,254,0.7); font-size: 14px; }
+            .content { padding: 36px 30px; color: #333; }
+            .code-box { background: #f8f8f8; border: 2px dashed #070709; padding: 24px; text-align: center; margin: 24px 0; border-radius: 10px; }
+            .code { font-size: 38px; font-weight: bold; color: #070709; letter-spacing: 10px; font-family: monospace; }
+            .warning { background: #fff8e1; border-left: 4px solid #f59e0b; padding: 14px 16px; border-radius: 6px; margin-top: 20px; font-size: 13px; color: #555; }
+            .footer { text-align: center; padding: 20px 30px; background: #f8f8f8; color: #999; font-size: 12px; border-top: 1px solid #eee; }
+          </style>
+        </head>
+        <body>
+          <div class="wrapper">
+            <div class="header">
+              <h1>GYMARK.co</h1>
+              <p>Recuperación de Contraseña</p>
+            </div>
+            <div class="content">
+              <p>Hola, <strong>${nombreUsuario}</strong>.</p>
+              <p>Recibimos una solicitud para restablecer la contraseña de tu cuenta. Ingresa el siguiente código en la página de recuperación:</p>
+              <div class="code-box">
+                <p style="margin:0 0 8px; font-size:13px; color:#666;">Tu código de verificación</p>
+                <div class="code">${resetCode}</div>
+              </div>
+              <p><strong>Este código expirará en 10 minutos.</strong></p>
+              <p>Si no solicitaste restablecer tu contraseña, ignora este correo. Tu cuenta permanece segura.</p>
+              <div class="warning">
+                🔒 <strong>Seguridad:</strong> Nunca compartamos este código con nadie. GYMARK.co jamás te lo pedirá por teléfono o chat.
+              </div>
+            </div>
+            <div class="footer">
+              <p>© 2026 GYMARK.co — Chía, Cundinamarca, Colombia</p>
+              <p>gymark.co@gmail.com | +57 321 273 9433</p>
+            </div>
+          </div>
+        </body>
+        </html>
+      `,
+    };
+
+    await sgMail.send(msg);
+
+    console.log(
+      `[ForgotPassword] Código enviado a ${email}: ${resetCode} | token: ${token}`,
+    );
+
+    res.status(200).json({
+      success: true,
+      message:
+        "Si el email está registrado, recibirás un código de recuperación.",
+      token,
+      ...(process.env.NODE_ENV === "development" && { code: resetCode }),
+    });
+  } catch (error) {
+    console.error("Error en forgotPassword:", error);
+    res
+      .status(500)
+      .json({
+        success: false,
+        message: "Error al enviar el correo de recuperación.",
+      });
   }
-}, 5 * 60 * 1000); // Limpiar cada 5 minutos
+};
+
+/**
+ * Restablecer contraseña con código
+ */
+export const resetPassword = async (req, res) => {
+  try {
+    const { token, code, newPassword } = req.body;
+
+    if (!token || !code || !newPassword) {
+      return res
+        .status(400)
+        .json({
+          success: false,
+          message: "Token, código y nueva contraseña son requeridos.",
+        });
+    }
+
+    if (newPassword.length < 6) {
+      return res
+        .status(400)
+        .json({
+          success: false,
+          message: "La contraseña debe tener al menos 6 caracteres.",
+        });
+    }
+
+    const storedData = passwordResetTokens.get(token);
+
+    if (!storedData) {
+      return res
+        .status(400)
+        .json({
+          success: false,
+          message: "Token inválido o expirado. Solicita un nuevo código.",
+        });
+    }
+
+    // Verificar expiración (10 minutos)
+    if (Date.now() - storedData.timestamp > 10 * 60 * 1000) {
+      passwordResetTokens.delete(token);
+      return res
+        .status(400)
+        .json({
+          success: false,
+          message: "El código ha expirado. Solicita uno nuevo.",
+        });
+    }
+
+    // Verificar intentos
+    if (storedData.attempts >= 3) {
+      passwordResetTokens.delete(token);
+      return res
+        .status(400)
+        .json({
+          success: false,
+          message: "Demasiados intentos fallidos. Solicita un nuevo código.",
+        });
+    }
+
+    // Verificar código
+    if (storedData.code !== code.toString().trim()) {
+      storedData.attempts++;
+      passwordResetTokens.set(token, storedData);
+      return res.status(400).json({
+        success: false,
+        message: `Código incorrecto. Te quedan ${3 - storedData.attempts} intentos.`,
+      });
+    }
+
+    // Código válido — actualizar contraseña
+    const usuario = await UsuariosModel.findByEmail(storedData.email);
+    if (!usuario) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Usuario no encontrado." });
+    }
+
+    await UsuariosModel.update(usuario.id_usuario, {
+      password: newPassword,
+      password_hash: newPassword,
+    });
+
+    passwordResetTokens.delete(token);
+
+    res
+      .status(200)
+      .json({
+        success: true,
+        message: "Contraseña restablecida correctamente.",
+      });
+  } catch (error) {
+    console.error("Error en resetPassword:", error);
+    res
+      .status(500)
+      .json({ success: false, message: "Error al restablecer la contraseña." });
+  }
+};

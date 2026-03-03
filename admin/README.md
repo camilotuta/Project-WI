@@ -16,7 +16,7 @@ Panel de administración completo para gestionar la tienda online de Greenhouse 
 - Upload automático de imágenes de productos
 - Las imágenes se guardan en `frontend/assets/images/products/`
 - Previsualización en tiempo real
-- Soporte para: JPEG, JPG, PNG, GIF, WEBP
+- Soporte para: png, JPG, PNG, GIF, WEBP
 - Límite de tamaño: 5MB por imagen
 
 ### 📊 Dashboard
@@ -146,7 +146,7 @@ router.post(
   authMiddleware,
   adminOnly,
   upload.single("image"),
-  uploadImage
+  uploadImage,
 );
 ```
 

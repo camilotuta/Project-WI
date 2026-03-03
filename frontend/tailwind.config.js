@@ -8,53 +8,53 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // Primary Colors - Deep forest green palette
+        // Primary Colors - GYMARK Brand #070709
         primary: {
-          DEFAULT: "#2D5A3D", // Deep forest green
-          50: "#F0F7F2", // Very light forest green
-          100: "#D4E8DA", // Light forest green
-          200: "#A9D1B5", // Medium light forest green
-          300: "#7EBA90", // Medium forest green
-          400: "#53A36B", // Medium dark forest green
-          500: "#2D5A3D", // Deep forest green - base
-          600: "#244B32", // Darker forest green
-          700: "#1B3C27", // Very dark forest green
-          800: "#122D1C", // Ultra dark forest green
-          900: "#091E11", // Deepest forest green
+          DEFAULT: "#070709", // GYMARK near-black
+          50: "#FEFEFE", // GYMARK white
+          100: "#EAEAEA", // Very light gray
+          200: "#D1D1D1", // Light gray
+          300: "#A8A8A8", // Medium gray
+          400: "#707070", // Medium dark gray
+          500: "#070709", // GYMARK near-black - base
+          600: "#050507", // Darker
+          700: "#030304", // Very dark
+          800: "#020202", // Ultra dark
+          900: "#000000", // Pure black
         },
 
-        // Secondary Colors - Fresh sage green palette
+        // Secondary Colors - Dark charcoal scale
         secondary: {
-          DEFAULT: "#7BA05B", // Fresh sage green
-          50: "#F4F7F0", // Very light sage
-          100: "#E6EFD9", // Light sage
-          200: "#CDDEB3", // Medium light sage
-          300: "#B4CE8D", // Medium sage
-          400: "#9BB767", // Medium dark sage
-          500: "#7BA05B", // Fresh sage green - base
-          600: "#6A8A4F", // Darker sage
-          700: "#597443", // Very dark sage
-          800: "#485E37", // Ultra dark sage
-          900: "#37482B", // Deepest sage
+          DEFAULT: "#2C2C2E", // Dark charcoal
+          50: "#F5F5F5", // Very light
+          100: "#E8E8E8", // Light
+          200: "#CFCFD0", // Medium light
+          300: "#AEAEB2", // Medium
+          400: "#6C6C70", // Medium dark
+          500: "#2C2C2E", // Dark charcoal - base
+          600: "#1E1E20", // Darker
+          700: "#141416", // Very dark
+          800: "#0D0D0F", // Ultra dark
+          900: "#070709", // Deepest
         },
 
-        // Accent Colors - Warm amber palette
+        // Accent Colors - Mid gray
         accent: {
-          DEFAULT: "#F4A261", // Warm amber
-          50: "#FEF7F0", // Very light amber
-          100: "#FDEBD3", // Light amber
-          200: "#FBD7A7", // Medium light amber
-          300: "#F9C37B", // Medium amber
-          400: "#F7AD4F", // Medium dark amber
-          500: "#F4A261", // Warm amber - base
-          600: "#E08B3A", // Darker amber
-          700: "#CC7413", // Very dark amber
-          800: "#A65E0F", // Ultra dark amber
-          900: "#80470B", // Deepest amber
+          DEFAULT: "#636366", // Mid gray
+          50: "#F5F5F5", // Very light
+          100: "#E8E8E8", // Light
+          200: "#D0D0D0", // Medium light
+          300: "#AEAEB2", // Medium
+          400: "#8E8E93", // Medium dark
+          500: "#636366", // Mid gray - base
+          600: "#48484A", // Darker
+          700: "#3A3A3C", // Very dark
+          800: "#2C2C2E", // Ultra dark
+          900: "#1C1C1E", // Deepest
         },
 
         // Background Colors
-        background: "#FEFEFE", // Pure white
+        background: "#FEFEFE", // GYMARK white principal
         surface: {
           DEFAULT: "#F8F9FA", // Subtle warm gray
           50: "#FFFFFF", // Pure white
@@ -67,10 +67,10 @@ module.exports = {
 
         // Text Colors
         text: {
-          primary: "#1A1A1A", // Near-black
-          secondary: "#6B7280", // Medium gray
-          tertiary: "#9CA3AF", // Light gray
-          inverse: "#FFFFFF", // White text
+          primary: "#070709", // GYMARK near-black
+          secondary: "#636366", // Medium gray
+          tertiary: "#AEAEB2", // Light gray
+          inverse: "#FEFEFE", // GYMARK white text
         },
 
         // Status Colors
@@ -133,15 +133,15 @@ module.exports = {
       },
 
       fontFamily: {
-        // Headings - Inter
-        heading: ["Inter", "sans-serif"],
-        sans: ["Inter", "sans-serif"],
+        // Headings - Bebas Neue (bold, condensed like the GYMARK logo)
+        heading: ["Bebas Neue", "Barlow Condensed", "sans-serif"],
+        sans: ["Barlow", "sans-serif"],
 
-        // Body - Source Sans Pro
-        body: ["Source Sans Pro", "sans-serif"],
+        // Body - Barlow (clean, athletic)
+        body: ["Barlow", "sans-serif"],
 
-        // Captions - Nunito Sans
-        caption: ["Nunito Sans", "sans-serif"],
+        // Captions - Barlow Condensed
+        caption: ["Barlow Condensed", "sans-serif"],
 
         // Data/Mono - JetBrains Mono
         mono: ["JetBrains Mono", "monospace"],
@@ -162,11 +162,11 @@ module.exports = {
       },
 
       boxShadow: {
-        organic: "0 4px 12px rgba(45, 90, 61, 0.08)",
-        "organic-hover": "0 8px 24px rgba(45, 90, 61, 0.12)",
+        organic: "0 4px 12px rgba(0, 0, 0, 0.10)",
+        "organic-hover": "0 8px 24px rgba(0, 0, 0, 0.18)",
         soft: "0 2px 8px rgba(0, 0, 0, 0.05)",
         medium: "0 4px 16px rgba(0, 0, 0, 0.08)",
-        large: "0 8px 32px rgba(0, 0, 0, 0.12)",
+        large: "0 8px 32px rgba(0, 0, 0, 0.14)",
       },
 
       borderRadius: {
@@ -181,6 +181,15 @@ module.exports = {
       transitionDuration: {
         micro: "200ms",
         state: "300ms",
+      },
+
+      letterSpacing: {
+        tightest: "-0.02em",
+        tight: "0em",
+        normal: "0.015em",
+        wide: "0.04em",
+        wider: "0.08em", // headings (Bebas Neue)
+        widest: "0.12em", // uppercase labels
       },
 
       transitionTimingFunction: {

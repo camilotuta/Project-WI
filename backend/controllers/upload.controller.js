@@ -12,7 +12,7 @@ const storage = multer.diskStorage({
     // Ruta absoluta a la carpeta de imágenes del frontend
     const uploadPath = path.join(
       __dirname,
-      "../../frontend/assets/images/products"
+      "../../frontend/assets/images/products",
     );
 
     // Crear directorio si no existe
@@ -33,16 +33,16 @@ const storage = multer.diskStorage({
 
 // Filtrar solo imágenes
 const fileFilter = (req, file, cb) => {
-  const allowedTypes = /jpeg|jpg|png|gif|webp/;
+  const allowedTypes = /png|jpg|png|gif|webp/;
   const extname = allowedTypes.test(
-    path.extname(file.originalname).toLowerCase()
+    path.extname(file.originalname).toLowerCase(),
   );
   const mimetype = allowedTypes.test(file.mimetype);
 
   if (mimetype && extname) {
     return cb(null, true);
   } else {
-    cb(new Error("Solo se permiten imágenes (jpeg, jpg, png, gif, webp)"));
+    cb(new Error("Solo se permiten imágenes (png, jpg, png, gif, webp)"));
   }
 };
 
@@ -101,7 +101,7 @@ export const deleteImage = async (req, res) => {
     const imagePath = path.join(
       __dirname,
       "../../frontend/assets/images/products",
-      filename
+      filename,
     );
 
     // Verificar si el archivo existe

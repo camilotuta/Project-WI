@@ -39,6 +39,83 @@ function getImageUrl(imagePath) {
 // Exportar globalmente
 window.getImageUrl = getImageUrl;
 
+// ==============================================
+// CORRECTOR DE MOJIBAKE — UTF-8 interpretado como Windows-1252
+// Cubre tildes, eñes, comillas tipográficas, guiones, grados, etc.
+// Ej: "farmacÃ©utico" → "farmacéutico"
+//     "0Â°â€"90Â°"  → "0°–90°"
+// ==============================================
+const _CP1252_TO_UNICODE = {
+  0x80: 0x20ac,
+  0x82: 0x201a,
+  0x83: 0x0192,
+  0x84: 0x201e,
+  0x85: 0x2026,
+  0x86: 0x2020,
+  0x87: 0x2021,
+  0x88: 0x02c6,
+  0x89: 0x2030,
+  0x8a: 0x0160,
+  0x8b: 0x2039,
+  0x8c: 0x0152,
+  0x8e: 0x017d,
+  0x91: 0x2018,
+  0x92: 0x2019,
+  0x93: 0x201c,
+  0x94: 0x201d,
+  0x95: 0x2022,
+  0x96: 0x2013,
+  0x97: 0x2014,
+  0x98: 0x02dc,
+  0x99: 0x2122,
+  0x9a: 0x0161,
+  0x9b: 0x203a,
+  0x9c: 0x0153,
+  0x9e: 0x017e,
+  0x9f: 0x0178,
+};
+// Mapa inverso: codepoint Unicode → byte Windows-1252
+const _UNICODE_TO_CP1252 = Object.fromEntries(
+  Object.entries(_CP1252_TO_UNICODE).map(([b, u]) => [u, Number(b)]),
+);
+
+function fixMojibake(str) {
+  if (typeof str !== "string") return str;
+  // Si no hay caracteres altos (>= 0xC0) no hay mojibake posible
+  if (!/[\xC0-\xFF]/.test(str)) return str;
+  try {
+    const bytes = new Uint8Array(str.length);
+    for (let i = 0; i < str.length; i++) {
+      const code = str.charCodeAt(i);
+      if (code < 0x100) {
+        bytes[i] = code;
+      } else if (_UNICODE_TO_CP1252[code] !== undefined) {
+        bytes[i] = _UNICODE_TO_CP1252[code];
+      } else {
+        // Carácter no reversible → el string ya está correcto
+        return str;
+      }
+    }
+    const decoded = new TextDecoder("utf-8").decode(bytes);
+    // Si la decodificación produjo caracteres de reemplazo, el string ya era correcto
+    if (decoded.includes("\uFFFD")) return str;
+    return decoded;
+  } catch (e) {
+    return str;
+  }
+}
+
+function fixObjectEncoding(obj) {
+  if (typeof obj === "string") return fixMojibake(obj);
+  if (Array.isArray(obj)) return obj.map(fixObjectEncoding);
+  if (obj && typeof obj === "object") {
+    const fixed = {};
+    for (const key in obj) fixed[key] = fixObjectEncoding(obj[key]);
+    return fixed;
+  }
+  return obj;
+}
+
 // API HTTP helper
 const http = {
   async get(endpoint) {
@@ -50,7 +127,7 @@ const http = {
       }
 
       const data = await response.json();
-      return data;
+      return fixObjectEncoding(data);
     } catch (error) {
       console.error(`Error en GET ${endpoint}:`, error);
       throw error;
@@ -71,11 +148,11 @@ const http = {
 
       if (!response.ok) {
         throw new Error(
-          data.message || `HTTP ${response.status}: ${response.statusText}`
+          data.message || `HTTP ${response.status}: ${response.statusText}`,
         );
       }
 
-      return data;
+      return fixObjectEncoding(data);
     } catch (error) {
       console.error(`Error en POST ${endpoint}:`, error);
       throw error;
@@ -97,7 +174,7 @@ const http = {
       }
 
       const data = await response.json();
-      return data;
+      return fixObjectEncoding(data);
     } catch (error) {
       console.error(`Error en PUT ${endpoint}:`, error);
       throw error;
@@ -115,7 +192,7 @@ const http = {
       }
 
       const data = await response.json();
-      return data;
+      return fixObjectEncoding(data);
     } catch (error) {
       console.error(`Error en DELETE ${endpoint}:`, error);
       throw error;
@@ -125,13 +202,17 @@ const http = {
 
 // API de Productos
 const ProductosAPI = {
-  async getAll() {
+  async getAll(categoriaSlug = null) {
     try {
-      console.log("📦 GET /api/productos");
-      const response = await http.get(`/productos`);
+      const endpoint =
+        categoriaSlug && categoriaSlug !== "all"
+          ? `/productos?categoria=${encodeURIComponent(categoriaSlug)}`
+          : `/productos`;
+      console.log(`📦 GET /api${endpoint}`);
+      const response = await http.get(endpoint);
 
       if (response.success) {
-        console.log("✅ Productos obtenidos:", response.data);
+        console.log("✅ Productos obtenidos:", response.data?.length);
         return response;
       }
 
@@ -257,7 +338,7 @@ const UsuariosAPI = {
     direccion,
     ciudad,
     codigo_postal,
-    fecha_nacimiento
+    fecha_nacimiento,
   ) {
     try {
       console.log(`📝 Registrando usuario: ${nombre}`);
@@ -348,7 +429,7 @@ const CarritoAPI = {
   async add(id_usuario, id_producto, cantidad = 1) {
     try {
       console.log(
-        `🛒 POST /api/carrito - Usuario: ${id_usuario}, Producto: ${id_producto}, Cantidad: ${cantidad}`
+        `🛒 POST /api/carrito - Usuario: ${id_usuario}, Producto: ${id_producto}, Cantidad: ${cantidad}`,
       );
 
       const response = await http.post(`/carrito`, {
@@ -362,7 +443,7 @@ const CarritoAPI = {
       if (response.success) {
         this.showNotification(
           `✅ ${response.message || "Producto agregado al carrito"}`,
-          "success"
+          "success",
         );
         // Actualizar contador del carrito
         if (window.updateCartCount) {
@@ -376,7 +457,7 @@ const CarritoAPI = {
       console.error("❌ Error adding to cart:", error);
       this.showNotification(
         `❌ ${error.message || "Error al agregar al carrito"}`,
-        "error"
+        "error",
       );
       return null;
     }
@@ -392,7 +473,7 @@ const CarritoAPI = {
       console.log("📤 response.data:", response.data);
       console.log(
         "📤 Array.isArray(response.data):",
-        Array.isArray(response.data)
+        Array.isArray(response.data),
       );
 
       if (response.success && response.data) {
@@ -411,14 +492,14 @@ const CarritoAPI = {
   async updateQuantity(id_carrito, cantidad) {
     try {
       console.log(
-        `📝 PUT /api/carrito/${id_carrito} - Nueva cantidad: ${cantidad}`
+        `📝 PUT /api/carrito/${id_carrito} - Nueva cantidad: ${cantidad}`,
       );
       const response = await http.put(`/carrito/${id_carrito}`, { cantidad });
 
       if (response.success) {
         this.showNotification(
           `✅ ${response.message || "Cantidad actualizada"}`,
-          "success"
+          "success",
         );
         // Actualizar contador del carrito
         if (window.updateCartCount) {
@@ -443,7 +524,7 @@ const CarritoAPI = {
       if (response.success) {
         this.showNotification(
           `✅ ${response.message || "Producto eliminado del carrito"}`,
-          "success"
+          "success",
         );
         // Actualizar contador del carrito
         if (window.updateCartCount) {
@@ -468,7 +549,7 @@ const CarritoAPI = {
       if (response.success) {
         this.showNotification(
           `✅ ${response.message || "Carrito vaciado"}`,
-          "success"
+          "success",
         );
         // Actualizar contador del carrito
         if (window.updateCartCount) {
@@ -504,7 +585,7 @@ const CarritoAPI = {
     if (!userId) {
       this.showNotification(
         "⚠️ Debes iniciar sesión para agregar productos",
-        "warning"
+        "warning",
       );
       setTimeout(() => {
         window.location.href = "../pages/user_login.html";
@@ -519,7 +600,7 @@ const CarritoAPI = {
     }
 
     console.log(
-      `🛒 Agregando ${product.nombre} (ID: ${product.id_producto}) x${quantity}`
+      `🛒 Agregando ${product.nombre} (ID: ${product.id_producto}) x${quantity}`,
     );
     this.add(userId, product.id_producto, quantity);
   },
@@ -555,11 +636,11 @@ const CarritoAPI = {
 
     const totalItems = cart.reduce(
       (sum, item) => sum + (item.cantidad || 1),
-      0
+      0,
     );
     const total = cart.reduce(
       (sum, item) => sum + (item.precio || 0) * (item.cantidad || 1),
-      0
+      0,
     );
 
     if (cartCount) {
@@ -572,7 +653,7 @@ const CarritoAPI = {
     }
 
     console.log(
-      `🛒 Carrito actualizado: ${totalItems} productos, Total: $${total}`
+      `🛒 Carrito actualizado: ${totalItems} productos, Total: $${total}`,
     );
   },
 
@@ -597,7 +678,7 @@ const CarritoAPI = {
       "bg-success",
       "bg-error",
       "bg-warning",
-      "bg-primary"
+      "bg-primary",
     );
 
     // Agregar color según tipo
@@ -716,7 +797,7 @@ const FavoritosAPI = {
       if (!userId) return false;
 
       const response = await http.get(
-        `/favoritos/${userId}/check/${productId}`
+        `/favoritos/${userId}/check/${productId}`,
       );
       return response.isFavorito;
     } catch (error) {
@@ -763,6 +844,52 @@ const FavoritosAPI = {
   },
 };
 
+// ==============================================
+// PEDIDOS API
+// ==============================================
+const PedidosAPI = {
+  /**
+   * Confirmar compra: convierte el carrito en un pedido completado
+   */
+  async checkout(id_usuario) {
+    try {
+      const response = await http.post("/pedidos", { id_usuario });
+      return response;
+    } catch (error) {
+      console.error("❌ Error en checkout:", error);
+      throw error;
+    }
+  },
+
+  /**
+   * Obtener historial de pedidos del usuario
+   */
+  async getAll({ id_usuario } = {}) {
+    try {
+      const response = await http.get(`/pedidos/usuario/${id_usuario}`);
+      return response;
+    } catch (error) {
+      console.error("❌ Error obteniendo pedidos:", error);
+      throw error;
+    }
+  },
+
+  /**
+   * Verificar si el usuario compró un producto específico
+   */
+  async verificarCompra(id_usuario, id_producto) {
+    try {
+      const response = await http.get(
+        `/pedidos/verificar-compra?id_usuario=${id_usuario}&id_producto=${id_producto}`,
+      );
+      return response.data?.compro === true;
+    } catch (error) {
+      console.error("❌ Error verificando compra:", error);
+      return false;
+    }
+  },
+};
+
 // Exportar APIs globalmente
 window.API = {
   Usuarios: UsuariosAPI,
@@ -770,6 +897,7 @@ window.API = {
   Productos: ProductosAPI,
   Descuentos: DescuentosAPI,
   Favoritos: FavoritosAPI,
+  Pedidos: PedidosAPI,
   formatPrice: (price) => {
     const num = parseFloat(price);
     return `$${num.toLocaleString("es-CO")} COP`;
